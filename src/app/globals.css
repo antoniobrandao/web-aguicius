@@ -1,26 +1,134 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+/*
+  Aguicius design tokens.
+  Extracted from https://aguicius.com — Montserrat, magenta primary (#850064),
+  dark charcoal surfaces, flat / square material language.
+*/
 
 :root {
+  --radius: 0px;
+
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2d2e33;
+
+  --card: #ffffff;
+  --card-foreground: #2d2e33;
+
+  --popover: #ffffff;
+  --popover-foreground: #2d2e33;
+
+  --primary: #850064;
+  --primary-foreground: #ffffff;
+
+  --secondary: #303033;
+  --secondary-foreground: #ffffff;
+
+  --muted: #f4f4f5;
+  --muted-foreground: #6c6d74;
+
+  --accent: #f4f4f5;
+  --accent-foreground: #2d2e33;
+
+  --destructive: #b00020;
+
+  --border: #e5e5e7;
+  --input: #e5e5e7;
+  --ring: #850064;
+
+  /* Brand surfaces */
+  --brand: #850064;
+  --brand-foreground: #ffffff;
+  --surface-dark: #2d2e33;
+  --surface-darker: #242427;
+  --surface-charcoal: #303033;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-surface-dark: var(--surface-dark);
+  --color-surface-darker: var(--surface-darker);
+  --color-surface-charcoal: var(--surface-charcoal);
+
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius));
+  --radius-md: calc(var(--radius));
+  --radius-lg: calc(var(--radius));
+  --radius-xl: calc(var(--radius));
+
+  --container-page: 1600px;
+
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/40;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "liga" 1, "calt" 1;
+  }
+
+  ::selection {
+    background-color: var(--brand);
+    color: var(--brand-foreground);
+  }
+}
+
+@layer components {
+  /* Oversized display headings used across the site hero / dividers. */
+  .display-heading {
+    @apply font-extrabold uppercase leading-[0.95] tracking-tight;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.25em] text-primary;
+  }
 }
