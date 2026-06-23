@@ -169,36 +169,48 @@
 }
 
 .backoffice-theme.dark {
-  --background: #18181b;
+  /* Brand charcoals (#242427 / #2d2e33 / #303033 / #414141) for a coherent,
+     comfortable dark mode instead of the off-brand zinc palette. */
+  --background: #1f1f22;
   --foreground: #f4f4f5;
 
-  --card: #202024;
+  --card: #27272b;
   --card-foreground: #f4f4f5;
 
-  --popover: #202024;
+  --popover: #27272b;
   --popover-foreground: #f4f4f5;
 
   --primary: #c0268f;
   --primary-foreground: #ffffff;
 
   --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
+  --secondary-foreground: #1f1f22;
 
-  --muted: #27272a;
-  --muted-foreground: #a1a1aa;
+  --muted: #303033;
+  --muted-foreground: #b4b5ba;
 
-  --accent: #2f2f35;
+  --accent: #303033;
   --accent-foreground: #f4f4f5;
 
-  --destructive: #f87171;
+  --destructive: #f4796f;
 
-  --border: #3f3f46;
-  --input: #3f3f46;
+  --border: #3a3a3f;
+  --input: #3a3a3f;
   --ring: #c0268f;
 
-  --surface-dark: #18181b;
-  --surface-darker: #101014;
-  --surface-charcoal: #202024;
+  --surface-dark: #1f1f22;
+  --surface-darker: #18181b;
+  --surface-charcoal: #303033;
+
+  /* Sidebar aligned to the dark brand charcoals. */
+  --sidebar: #1b1b1e;
+  --sidebar-foreground: #d8d8da;
+  --sidebar-primary: #c0268f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2c2c30;
+  --sidebar-accent-foreground: #f4f4f5;
+  --sidebar-border: #2c2c30;
+  --sidebar-ring: #c0268f;
 }
 
 /*
@@ -210,7 +222,22 @@
 */
 
 .backoffice-theme {
-  --radius: 0.625rem;
+  /* Flat, square material to match the brand design tokens. */
+  --radius: 0px;
+
+  /* Comfortable light tokens (token-derived, slightly higher contrast than the
+     extract default so dense admin forms stay readable). */
+  --accent: #eeeef0;
+
+  /* Sidebar aligned to brand neutrals (scoped: backoffice-only). */
+  --sidebar: #fafafa;
+  --sidebar-foreground: #2d2e33;
+  --sidebar-primary: #850064;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f1f3;
+  --sidebar-accent-foreground: #2d2e33;
+  --sidebar-border: #e5e5e7;
+  --sidebar-ring: #850064;
 }
 
 .backoffice-theme [data-slot="button"],
@@ -223,7 +250,17 @@
 
 .backoffice-theme [data-slot="button"] {
   font-weight: 600;
-  border-radius: var(--radius);
+}
+
+/* Flat material: square badges/switches and no control shadows. */
+.backoffice-theme [data-slot="badge"],
+.backoffice-theme [data-slot="switch"],
+.backoffice-theme [data-slot="switch-thumb"] {
+  border-radius: 0;
+}
+
+.backoffice-theme [data-slot="switch"] {
+  box-shadow: none;
 }
 
 /* Compact the oversized default button (h-12 px-7) for dense admin use. */

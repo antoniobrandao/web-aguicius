@@ -21,7 +21,7 @@ export default function BackofficeLoginPage() {
       <div className="absolute right-4 top-4">
         <BackofficeThemeToggle />
       </div>
-      <Card className="w-full max-w-sm rounded-xl shadow-sm">
+      <Card className="w-full max-w-sm">
         <CardHeader className="gap-3">
           <span className="text-xs font-semibold tracking-[0.22em] text-primary">
             AGUICIUS

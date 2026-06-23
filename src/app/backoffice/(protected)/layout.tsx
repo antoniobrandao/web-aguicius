@@ -7,6 +7,10 @@ import { BackofficeThemeProvider } from "@/components/backoffice/theme-provider"
 import { BackofficeThemeToggle } from "@/components/backoffice/theme-toggle";
 import { BackofficeToaster } from "@/components/backoffice/backoffice-toaster";
 import {
+  BackofficeSaveControls,
+  BackofficeSaveProvider,
+} from "@/components/backoffice/save-context";
+import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
@@ -24,27 +28,30 @@ export default async function ProtectedBackofficeLayout({
 
   return (
     <BackofficeThemeProvider>
-      <SidebarProvider
-        style={
-          {
-            "--sidebar-width": "19rem",
-          } as React.CSSProperties
-        }
-      >
-        <BackofficeSidebar />
-        <SidebarInset>
-          <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-sm">
-            <SidebarTrigger />
-            <Separator orientation="vertical" className="h-5" />
-            <div className="min-w-0 flex-1">
-              <BackofficeBreadcrumb />
-            </div>
-            <BackofficeThemeToggle />
-          </header>
-          <main className="flex-1 bg-muted/40 p-4 md:p-6">{children}</main>
-          <BackofficeToaster />
-        </SidebarInset>
-      </SidebarProvider>
+      <BackofficeSaveProvider>
+        <SidebarProvider
+          style={
+            {
+              "--sidebar-width": "19rem",
+            } as React.CSSProperties
+          }
+        >
+          <BackofficeSidebar />
+          <SidebarInset>
+            <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-3 border-b bg-background px-4">
+              <SidebarTrigger />
+              <Separator orientation="vertical" className="h-5" />
+              <div className="min-w-0 flex-1">
+                <BackofficeBreadcrumb />
+              </div>
+              <BackofficeSaveControls />
+              <BackofficeThemeToggle />
+            </header>
+            <main className="flex-1 bg-muted/40 p-4 md:p-6">{children}</main>
+            <BackofficeToaster />
+          </SidebarInset>
+        </SidebarProvider>
+      </BackofficeSaveProvider>
     </BackofficeThemeProvider>
   );
 }

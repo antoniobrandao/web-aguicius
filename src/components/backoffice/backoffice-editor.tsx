@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { createElement, useMemo, useState, useTransition } from "react";
+import {
+  createElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import {
   Check,
   ChevronsUpDown,
@@ -9,7 +16,6 @@ import {
   Layers,
   MapPin,
   Plus,
-  Save,
   Settings,
   Sparkles,
   Trash2,
@@ -20,6 +26,7 @@ import {
   saveBackofficeContent,
   uploadServiceImage,
 } from "@/app/backoffice/actions";
+import { useBackofficeSave } from "@/components/backoffice/save-context";
 import { RichTextField } from "@/components/backoffice/rich-text-field";
 import {
   Accordion,
@@ -124,8 +131,10 @@ export function BackofficeEditor({
   section?: BackofficeSection;
 }) {
   const [content, setContent] = useState(initialContent);
+  const [savedContent, setSavedContent] = useState(initialContent);
   const [isDirty, setIsDirty] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const { setSaveState } = useBackofficeSave();
 
   const meta = sectionMeta[section];
 
@@ -174,7 +183,7 @@ export function BackofficeEditor({
     setContent((current) => ({ ...current, values }));
   }
 
-  function save() {
+  const save = useCallback(() => {
     startTransition(async () => {
       const result = await saveBackofficeContent(content);
       if (!result.ok) {
@@ -184,10 +193,30 @@ export function BackofficeEditor({
         return;
       }
       setContent(result.data);
+      setSavedContent(result.data);
       setIsDirty(false);
       toast.success("Conteúdo gravado com sucesso.");
     });
-  }
+  }, [content]);
+
+  const revert = useCallback(() => {
+    setContent(savedContent);
+    setIsDirty(false);
+    toast.message("Alterações revertidas.");
+  }, [savedContent]);
+
+  useEffect(() => {
+    setSaveState({ isDirty, isPending, onSave: save, onRevert: revert });
+
+    return () => {
+      setSaveState({
+        isDirty: false,
+        isPending: false,
+        onSave: null,
+        onRevert: null,
+      });
+    };
+  }, [isDirty, isPending, revert, save, setSaveState]);
 
   function addService() {
     const slug = `novo-servico-${content.services.length + 1}`;
@@ -218,7 +247,7 @@ export function BackofficeEditor({
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-5 pb-24">
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-5">
       <div className="flex flex-col gap-1">
         <h1 className="text-xl font-semibold tracking-tight">{meta.title}</h1>
         <p className="text-sm text-muted-foreground">{meta.description}</p>
@@ -251,36 +280,6 @@ export function BackofficeEditor({
         />
       ) : null}
 
-      <SaveBar isDirty={isDirty} isPending={isPending} onSave={save} />
-    </div>
-  );
-}
-
-function SaveBar({
-  isDirty,
-  isPending,
-  onSave,
-}: {
-  isDirty: boolean;
-  isPending: boolean;
-  onSave: () => void;
-}) {
-  return (
-    <div className="sticky bottom-4 z-10 mt-2 flex items-center justify-between gap-4 rounded-xl border bg-background/85 px-4 py-3 shadow-sm backdrop-blur supports-backdrop-filter:bg-background/70">
-      <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <span
-          className={cn(
-            "size-2 rounded-full transition-colors",
-            isDirty ? "bg-primary" : "bg-muted-foreground/30",
-          )}
-          aria-hidden
-        />
-        {isDirty ? "Alterações por gravar" : "Tudo gravado"}
-      </div>
-      <Button onClick={onSave} disabled={isPending || !isDirty}>
-        <Save data-icon="inline-start" />
-        {isPending ? "A gravar..." : "Gravar"}
-      </Button>
     </div>
   );
 }
@@ -328,10 +327,10 @@ function DashboardSection({
             <Link
               key={card.title}
               href={card.href}
-              className="group rounded-xl border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-accent/40"
+              className="group border bg-card p-4 transition-colors hover:border-primary"
             >
               <div className="flex items-center justify-between">
-                <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                <span className="flex size-9 items-center justify-center bg-muted text-muted-foreground transition-colors group-hover:text-primary">
                   <Icon className="size-4" />
                 </span>
                 <span className="text-2xl font-semibold tabular-nums">
