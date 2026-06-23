@@ -4,12 +4,18 @@ import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { site } from "@/lib/site";
+import type { NavItem, SiteSettings } from "@/lib/site";
 import { Logo } from "@/components/layout/logo";
 import { NavLinks } from "@/components/layout/nav-links";
 import { MobileNav } from "@/components/layout/mobile-nav";
 
-export function SiteHeader() {
+export function SiteHeader({
+  site,
+  navItems,
+}: {
+  site: SiteSettings;
+  navItems: NavItem[];
+}) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -30,7 +36,7 @@ export function SiteHeader() {
         <Logo responsive />
 
         <div className="flex items-center gap-6">
-          <NavLinks className="hidden lg:flex" />
+          <NavLinks className="hidden lg:flex" items={navItems} />
           <a
             href={site.phoneHref}
             className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary xl:inline-flex"
@@ -38,7 +44,7 @@ export function SiteHeader() {
             <Phone className="size-4 text-primary" />
             {site.phone}
           </a>
-          <MobileNav />
+          <MobileNav items={navItems} site={site} />
         </div>
       </div>
     </header>

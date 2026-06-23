@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
-import { allServices } from "@/lib/site";
+import { getServiceGroups } from "@/lib/content/adapters";
+import { getWebsiteContent } from "@/lib/content/website-content";
 
 type QuotePayload = {
   name?: string;
@@ -44,6 +45,8 @@ export async function POST(request: Request) {
     );
   }
 
+  const { content } = await getWebsiteContent();
+  const { allServices } = getServiceGroups(content);
   const serviceTitle =
     allServices.find((service) => service.slug === body.service)?.title ??
     body.service ??

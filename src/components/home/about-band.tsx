@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import type { WebsiteContent } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 
-export function AboutBand() {
+export function AboutBand({
+  content,
+}: {
+  content: WebsiteContent["pages"]["home"]["aboutBand"];
+}) {
   return (
     <section className="relative overflow-hidden bg-surface-dark py-20 text-white lg:py-28">
       <div
@@ -14,27 +19,23 @@ export function AboutBand() {
       <Container className="relative grid gap-12 lg:grid-cols-12 lg:items-center">
         <div className="lg:col-span-5">
           <p className="display-heading text-6xl sm:text-7xl lg:text-8xl">
-            100%
+            {content.statValue}
           </p>
           <p className="mt-2 text-2xl font-bold uppercase tracking-[0.2em] text-primary">
-            Para si!
+            {content.statLabel}
           </p>
         </div>
 
         <div className="flex flex-col gap-6 lg:col-span-7">
           <p className="text-xl font-semibold leading-snug text-white">
-            A Aguicius proporciona aos seus clientes os melhores serviços. Com
-            muita qualidade e rigor.
+            {content.lead}
           </p>
           <p className="text-base leading-relaxed text-white/70">
-            Promovemos o desenvolvimento sustentado através do respeito por todos
-            os intervenientes, da qualificação contínua dos colaboradores, do
-            cumprimento de todos os requisitos de segurança e com práticas amigas
-            do ambiente, sempre com uma visão de médio e longo prazo.
+            {content.body}
           </p>
           <Button asChild variant="primary" className="mt-2 self-start">
-            <Link href="/sobre-nos">
-              Mais sobre nós
+            <Link href={content.cta.href}>
+              {content.cta.label}
               <ArrowRight className="size-4" />
             </Link>
           </Button>

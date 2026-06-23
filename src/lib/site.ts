@@ -10,6 +10,28 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+export type SiteSettings = {
+  name: string;
+  tagline: string;
+  description: string;
+  phone: string;
+  phoneHref: string;
+  email: string;
+  whatsapp: string;
+  address: {
+    street: string;
+    zip: string;
+    city: string;
+  };
+  schedule: { days: string; hours: string }[];
+  social: {
+    facebook: string;
+    instagram: string;
+    youtube: string;
+  };
+  app: string;
+};
+
 export const site = {
   name: "Aguicius",
   tagline: "Soluções Smart de transporte e serviços",
@@ -54,6 +76,10 @@ export type Service = {
   slug: string;
   title: string;
   icon: LucideIcon;
+  image?: {
+    pathname?: string;
+    alt: string;
+  };
   short: string;
   description: string;
   bullets?: string[];

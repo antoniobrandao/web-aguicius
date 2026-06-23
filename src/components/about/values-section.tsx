@@ -1,14 +1,20 @@
-import { values } from "@/lib/site";
+import type { WebsiteContent, WebsiteValue } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 
-export function ValuesSection() {
+export function ValuesSection({
+  values,
+  intro,
+}: {
+  values: WebsiteValue[];
+  intro: WebsiteContent["pages"]["about"]["valuesIntro"];
+}) {
   return (
     <section className="bg-background py-20 lg:py-28">
       <Container>
         <SectionHeading
-          eyebrow="O que nos move"
-          title="Os nossos valores"
+          eyebrow={intro.eyebrow}
+          title={intro.title}
         />
 
         <div className="mt-14 grid gap-8 lg:grid-cols-3">

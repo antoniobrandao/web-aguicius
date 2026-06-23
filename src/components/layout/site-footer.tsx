@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 
-import { site, allServices } from "@/lib/site";
+import type { NavItem, Service, SiteSettings } from "@/lib/site";
 import { Logo } from "@/components/layout/logo";
 import {
   FacebookIcon,
@@ -9,14 +9,15 @@ import {
   YoutubeIcon,
 } from "@/components/icons/social";
 
-const companyLinks = [
-  { label: "Quem somos", href: "/sobre-nos" },
-  { label: "Contactos", href: "/contactos" },
-  { label: "Termos e condições", href: "/termos" },
-  { label: "Política de privacidade", href: "/privacidade" },
-];
-
-export function SiteFooter() {
+export function SiteFooter({
+  site,
+  services,
+  companyLinks,
+}: {
+  site: SiteSettings;
+  services: Service[];
+  companyLinks: NavItem[];
+}) {
   return (
     <footer className="bg-surface-darker text-white/70">
       <div className="mx-auto max-w-(--container-page) px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
@@ -40,7 +41,7 @@ export function SiteFooter() {
           </div>
 
           <FooterColumn title="Serviços">
-            {allServices.slice(0, 6).map((service) => (
+            {services.slice(0, 6).map((service) => (
               <FooterLink key={service.slug} href="/servicos">
                 {service.title}
               </FooterLink>

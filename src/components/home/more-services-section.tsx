@@ -1,20 +1,27 @@
-import { secondaryServices } from "@/lib/site";
+import type { Service } from "@/lib/site";
+import type { WebsiteContent } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ServiceCard } from "@/components/shared/service-card";
 
-export function MoreServicesSection() {
+export function MoreServicesSection({
+  services,
+  intro,
+}: {
+  services: Service[];
+  intro: WebsiteContent["pages"]["home"]["moreServicesIntro"];
+}) {
   return (
     <section className="bg-background py-20 lg:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Mais soluções"
-          title="Tudo o que precisa, num só lugar"
-          description="Do armazenamento às entregas express, cobrimos todas as etapas da sua logística."
+          eyebrow={intro.eyebrow}
+          title={intro.title}
+          description={intro.description}
         />
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {secondaryServices.map((service) => (
+          {services.map((service) => (
             <ServiceCard
               key={service.slug}
               service={service}

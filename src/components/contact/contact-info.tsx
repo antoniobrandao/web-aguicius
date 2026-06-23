@@ -1,8 +1,8 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
-import { site } from "@/lib/site";
+import type { SiteSettings } from "@/lib/site";
 
-export function ContactInfo() {
+export function ContactInfo({ site }: { site: SiteSettings }) {
   return (
     <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
       <InfoCard icon={<MapPin className="size-5" />} label="Morada">

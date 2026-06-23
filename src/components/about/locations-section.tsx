@@ -1,17 +1,23 @@
 import { MapPin } from "lucide-react";
 
-import { locations } from "@/lib/site";
+import type { WebsiteContent, WebsiteLocation } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 
-export function LocationsSection() {
+export function LocationsSection({
+  locations,
+  intro,
+}: {
+  locations: WebsiteLocation[];
+  intro: WebsiteContent["pages"]["about"]["locationsIntro"];
+}) {
   return (
     <section className="bg-muted py-20 lg:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Cobertura nacional"
-          title="Onde atuamos"
-          description="Presença estratégica de norte a sul do país para servir os nossos clientes com rapidez."
+          eyebrow={intro.eyebrow}
+          title={intro.title}
+          description={intro.description}
         />
 
         <div className="mt-14 grid gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">

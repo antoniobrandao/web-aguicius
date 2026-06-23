@@ -4,15 +4,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { navItems } from "@/lib/site";
+import type { NavItem } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
-export function NavLinks({ className }: { className?: string }) {
+export function NavLinks({
+  className,
+  items,
+}: {
+  className?: string;
+  items: NavItem[];
+}) {
   const pathname = usePathname();
 
   return (
     <nav className={cn("flex items-center gap-8", className)}>
-      {navItems.map((item) => {
+      {items.map((item) => {
         if (item.cta) {
           return (
             <Button key={item.href} asChild variant="primary" size="sm">

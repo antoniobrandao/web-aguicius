@@ -1,20 +1,27 @@
-import { primaryServices } from "@/lib/site";
+import type { Service } from "@/lib/site";
+import type { WebsiteContent } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ServiceCard } from "@/components/shared/service-card";
 
-export function ServicesSection() {
+export function ServicesSection({
+  services,
+  intro,
+}: {
+  services: Service[];
+  intro: WebsiteContent["pages"]["home"]["servicesIntro"];
+}) {
   return (
     <section className="bg-background py-20 lg:py-28">
       <Container>
         <SectionHeading
-          eyebrow="O que fazemos"
-          title="Os nossos serviços"
-          description="Soluções à medida para empresas e particulares, com a garantia de qualidade AGUICIUS."
+          eyebrow={intro.eyebrow}
+          title={intro.title}
+          description={intro.description}
         />
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {primaryServices.map((service) => (
+          {services.map((service) => (
             <ServiceCard key={service.slug} service={service} />
           ))}
         </div>

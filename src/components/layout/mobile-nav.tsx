@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Phone } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { navItems, site } from "@/lib/site";
+import type { NavItem, SiteSettings } from "@/lib/site";
 import {
   Sheet,
   SheetClose,
@@ -16,7 +16,13 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
-export function MobileNav() {
+export function MobileNav({
+  items,
+  site,
+}: {
+  items: NavItem[];
+  site: SiteSettings;
+}) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
@@ -33,7 +39,7 @@ export function MobileNav() {
       <SheetContent side="right" className="p-8">
         <SheetTitle className="text-white">Menu</SheetTitle>
         <nav className="mt-4 flex flex-col">
-          {navItems.map((item) => {
+          {items.map((item) => {
             const active =
               item.href === "/"
                 ? pathname === "/"

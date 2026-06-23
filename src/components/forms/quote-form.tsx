@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
 
-import { allServices } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,7 +10,13 @@ import { Label } from "@/components/ui/label";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-export function QuoteForm({ compact = false }: { compact?: boolean }) {
+export function QuoteForm({
+  compact = false,
+  services,
+}: {
+  compact?: boolean;
+  services: { slug: string; title: string }[];
+}) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -96,7 +101,7 @@ export function QuoteForm({ compact = false }: { compact?: boolean }) {
             <option value="" disabled>
               Selecione um serviço
             </option>
-            {allServices.map((service) => (
+            {services.map((service) => (
               <option key={service.slug} value={service.slug}>
                 {service.title}
               </option>

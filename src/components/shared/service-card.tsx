@@ -25,9 +25,20 @@ export function ServiceCard({
         className
       )}
     >
-      <span className="inline-flex size-14 items-center justify-center bg-secondary text-white transition-colors duration-200 group-hover:bg-primary">
-        <Icon className="size-6" />
-      </span>
+      {service.image?.pathname ? (
+        <div className="-mx-8 -mt-8 aspect-video overflow-hidden bg-muted">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/api/blob/${service.image.pathname}`}
+            alt={service.image.alt}
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+          />
+        </div>
+      ) : (
+        <span className="inline-flex size-14 items-center justify-center bg-secondary text-white transition-colors duration-200 group-hover:bg-primary">
+          <Icon className="size-6" />
+        </span>
+      )}
 
       <h3 className="text-lg font-bold uppercase tracking-wide text-secondary">
         {service.title}
