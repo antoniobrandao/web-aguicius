@@ -1,13 +1,33 @@
 "use client";
 
+import Link from "next/link";
 import { createElement, useMemo, useState, useTransition } from "react";
-import { Check, ChevronsUpDown, Plus, Save, Trash2 } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  FileText,
+  Layers,
+  MapPin,
+  Plus,
+  Save,
+  Settings,
+  Sparkles,
+  Trash2,
+} from "lucide-react";
+import { toast } from "sonner";
 
 import {
   saveBackofficeContent,
   uploadServiceImage,
 } from "@/app/backoffice/actions";
 import { RichTextField } from "@/components/backoffice/rich-text-field";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -39,6 +59,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import {
   contentIconOptions,
@@ -70,6 +92,28 @@ const tierLabels = {
   secondary: "Complementar",
 } as const;
 
+const sectionMeta: Record<
+  BackofficeSection,
+  { title: string; description: string }
+> = {
+  painel: {
+    title: "Painel",
+    description: "Visão geral dos conteúdos do website.",
+  },
+  servicos: {
+    title: "Serviços",
+    description: "Conteúdos repetíveis com ícone, categoria, imagem e descrição.",
+  },
+  paginas: {
+    title: "Páginas",
+    description: "Textos, heros e secções de cada página do website.",
+  },
+  definicoes: {
+    title: "Definições",
+    description: "Marca, contactos, navegação, localizações e valores.",
+  },
+};
+
 export function BackofficeEditor({
   initialContent,
   source,
@@ -80,9 +124,10 @@ export function BackofficeEditor({
   section?: BackofficeSection;
 }) {
   const [content, setContent] = useState(initialContent);
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [isDirty, setIsDirty] = useState(false);
   const [isPending, startTransition] = useTransition();
+
+  const meta = sectionMeta[section];
 
   const counts = useMemo(
     () => ({
@@ -95,6 +140,7 @@ export function BackofficeEditor({
   );
 
   function updateService(slug: string, next: Partial<WebsiteService>) {
+    setIsDirty(true);
     setContent((current) => ({
       ...current,
       services: current.services.map((service) =>
@@ -104,41 +150,48 @@ export function BackofficeEditor({
   }
 
   function updateSite(site: SiteSettings) {
+    setIsDirty(true);
     setContent((current) => ({ ...current, site }));
   }
 
   function updateNavigation(navigation: Navigation) {
+    setIsDirty(true);
     setContent((current) => ({ ...current, navigation }));
   }
 
   function updatePages(pages: Pages) {
+    setIsDirty(true);
     setContent((current) => ({ ...current, pages }));
   }
 
   function updateLocations(locations: WebsiteLocation[]) {
+    setIsDirty(true);
     setContent((current) => ({ ...current, locations }));
   }
 
   function updateValues(values: WebsiteValue[]) {
+    setIsDirty(true);
     setContent((current) => ({ ...current, values }));
   }
 
   function save() {
-    setError(null);
-    setMessage(null);
     startTransition(async () => {
       const result = await saveBackofficeContent(content);
       if (!result.ok) {
-        setError(result.error);
+        toast.error("Não foi possível gravar", {
+          description: result.error,
+        });
         return;
       }
       setContent(result.data);
-      setMessage("Conteúdo gravado com sucesso.");
+      setIsDirty(false);
+      toast.success("Conteúdo gravado com sucesso.");
     });
   }
 
   function addService() {
     const slug = `novo-servico-${content.services.length + 1}`;
+    setIsDirty(true);
     setContent((current) => ({
       ...current,
       services: [
@@ -157,6 +210,7 @@ export function BackofficeEditor({
   }
 
   function removeService(slug: string) {
+    setIsDirty(true);
     setContent((current) => ({
       ...current,
       services: current.services.filter((service) => service.slug !== slug),
@@ -164,64 +218,23 @@ export function BackofficeEditor({
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight">
-            Gestão de conteúdos
-          </h1>
-          <p className="text-sm text-muted-foreground">
-            Edite os conteúdos estruturados do website Aguicius.
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <p className="mr-2 text-xs opacity-5">
-            Origem: {source === "blob" ? "Vercel Blob" : "fallback local"}
-          </p>
-          <Button onClick={save} disabled={isPending}>
-            <Save data-icon="inline-start" />
-            {isPending ? "A gravar..." : "Gravar"}
-          </Button>
-        </div>
+    <div className="mx-auto flex w-full max-w-5xl flex-col gap-5 pb-24">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-xl font-semibold tracking-tight">{meta.title}</h1>
+        <p className="text-sm text-muted-foreground">{meta.description}</p>
       </div>
 
-      {message ? <p className="text-sm text-primary">{message}</p> : null}
-      {error ? <p className="text-sm text-destructive">{error}</p> : null}
-
       {section === "painel" ? (
-        <div className="grid gap-4 md:grid-cols-4">
-          <Metric title="Serviços" value={counts.services} />
-          <Metric title="Páginas" value={counts.pages} />
-          <Metric title="Localizações" value={counts.locations} />
-          <Metric title="Valores" value={counts.values} />
-        </div>
+        <DashboardSection counts={counts} source={source} />
       ) : null}
 
       {section === "servicos" ? (
-        <Card>
-          <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <CardTitle>Serviços</CardTitle>
-              <CardDescription>
-                Conteúdos repetíveis com ícone, categoria, imagem e descrição.
-              </CardDescription>
-            </div>
-            <Button type="button" variant="outline" onClick={addService}>
-              <Plus data-icon="inline-start" />
-              Adicionar serviço
-            </Button>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-6">
-            {content.services.map((service) => (
-              <ServiceEditor
-                key={service.slug}
-                service={service}
-                onChange={(next) => updateService(service.slug, next)}
-                onRemove={() => removeService(service.slug)}
-              />
-            ))}
-          </CardContent>
-        </Card>
+        <ServicesSection
+          services={content.services}
+          onAdd={addService}
+          onChange={updateService}
+          onRemove={removeService}
+        />
       ) : null}
 
       {section === "paginas" ? (
@@ -229,31 +242,238 @@ export function BackofficeEditor({
       ) : null}
 
       {section === "definicoes" ? (
-        <div className="flex flex-col gap-6">
-          <SiteSettingsFields site={content.site} onChange={updateSite} />
-          <NavigationFields
-            navigation={content.navigation}
-            onChange={updateNavigation}
-          />
-          <LocationsFields
-            locations={content.locations}
-            onChange={updateLocations}
-          />
-          <ValuesFields values={content.values} onChange={updateValues} />
-        </div>
+        <DefinicoesSection
+          content={content}
+          onSite={updateSite}
+          onNavigation={updateNavigation}
+          onLocations={updateLocations}
+          onValues={updateValues}
+        />
       ) : null}
+
+      <SaveBar isDirty={isDirty} isPending={isPending} onSave={save} />
     </div>
   );
 }
 
-function Metric({ title, value }: { title: string; value: number }) {
+function SaveBar({
+  isDirty,
+  isPending,
+  onSave,
+}: {
+  isDirty: boolean;
+  isPending: boolean;
+  onSave: () => void;
+}) {
+  return (
+    <div className="sticky bottom-4 z-10 mt-2 flex items-center justify-between gap-4 rounded-xl border bg-background/85 px-4 py-3 shadow-sm backdrop-blur supports-backdrop-filter:bg-background/70">
+      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <span
+          className={cn(
+            "size-2 rounded-full transition-colors",
+            isDirty ? "bg-primary" : "bg-muted-foreground/30",
+          )}
+          aria-hidden
+        />
+        {isDirty ? "Alterações por gravar" : "Tudo gravado"}
+      </div>
+      <Button onClick={onSave} disabled={isPending || !isDirty}>
+        <Save data-icon="inline-start" />
+        {isPending ? "A gravar..." : "Gravar"}
+      </Button>
+    </div>
+  );
+}
+
+const dashboardCards = [
+  {
+    key: "services" as const,
+    title: "Serviços",
+    href: "/backoffice/servicos",
+    icon: Layers,
+  },
+  {
+    key: "pages" as const,
+    title: "Páginas",
+    href: "/backoffice/paginas",
+    icon: FileText,
+  },
+  {
+    key: "locations" as const,
+    title: "Localizações",
+    href: "/backoffice/definicoes",
+    icon: MapPin,
+  },
+  {
+    key: "values" as const,
+    title: "Valores",
+    href: "/backoffice/definicoes",
+    icon: Sparkles,
+  },
+];
+
+function DashboardSection({
+  counts,
+  source,
+}: {
+  counts: { services: number; pages: number; locations: number; values: number };
+  source: ContentSource;
+}) {
+  return (
+    <div className="flex flex-col gap-5">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {dashboardCards.map((card) => {
+          const Icon = card.icon;
+          return (
+            <Link
+              key={card.title}
+              href={card.href}
+              className="group rounded-xl border bg-card p-4 transition-colors hover:border-primary/40 hover:bg-accent/40"
+            >
+              <div className="flex items-center justify-between">
+                <span className="flex size-9 items-center justify-center rounded-lg bg-muted text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                  <Icon className="size-4" />
+                </span>
+                <span className="text-2xl font-semibold tabular-nums">
+                  {counts[card.key]}
+                </span>
+              </div>
+              <p className="mt-3 text-sm font-medium">{card.title}</p>
+            </Link>
+          );
+        })}
+      </div>
+      <div className="flex items-center gap-2 text-xs text-muted-foreground">
+        <span>Origem dos conteúdos:</span>
+        <Badge variant="outline" className="font-normal">
+          {source === "blob" ? "Vercel Blob" : "Local"}
+        </Badge>
+      </div>
+    </div>
+  );
+}
+
+function ServicesSection({
+  services,
+  onAdd,
+  onChange,
+  onRemove,
+}: {
+  services: WebsiteService[];
+  onAdd: () => void;
+  onChange: (slug: string, next: Partial<WebsiteService>) => void;
+  onRemove: (slug: string) => void;
+}) {
   return (
     <Card>
-      <CardHeader>
-        <CardDescription>{title}</CardDescription>
-        <CardTitle className="tabular-nums">{value}</CardTitle>
+      <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <CardTitle>Serviços</CardTitle>
+          <CardDescription>
+            {services.length} {services.length === 1 ? "serviço" : "serviços"} — expanda para editar.
+          </CardDescription>
+        </div>
+        <Button type="button" variant="outline" onClick={onAdd}>
+          <Plus data-icon="inline-start" />
+          Adicionar serviço
+        </Button>
       </CardHeader>
+      <CardContent>
+        <Accordion type="single" collapsible className="flex flex-col">
+          {services.map((service) => (
+            <AccordionItem
+              key={service.slug}
+              value={service.slug}
+              className="last:border-b-0"
+            >
+              <AccordionTrigger className="gap-3">
+                <span className="flex min-w-0 items-center gap-3">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    {createElement(getContentIcon(service.icon), {
+                      className: "size-4",
+                    })}
+                  </span>
+                  <span className="flex min-w-0 flex-col">
+                    <span className="truncate">{service.title}</span>
+                    <span className="truncate text-xs font-normal text-muted-foreground">
+                      {service.slug}
+                    </span>
+                  </span>
+                </span>
+                <Badge
+                  variant="outline"
+                  className="ml-auto mr-1 font-normal text-muted-foreground"
+                >
+                  {tierLabels[service.tier]}
+                </Badge>
+              </AccordionTrigger>
+              <AccordionContent className="text-foreground">
+                <ServiceEditor
+                  service={service}
+                  onChange={(next) => onChange(service.slug, next)}
+                  onRemove={() => onRemove(service.slug)}
+                />
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </CardContent>
     </Card>
+  );
+}
+
+function DefinicoesSection({
+  content,
+  onSite,
+  onNavigation,
+  onLocations,
+  onValues,
+}: {
+  content: WebsiteContent;
+  onSite: (site: SiteSettings) => void;
+  onNavigation: (navigation: Navigation) => void;
+  onLocations: (locations: WebsiteLocation[]) => void;
+  onValues: (values: WebsiteValue[]) => void;
+}) {
+  return (
+    <Tabs defaultValue="geral" className="gap-5">
+      <TabsList variant="line" className="flex-wrap">
+        <TabsTrigger value="geral">
+          <Settings />
+          Geral
+        </TabsTrigger>
+        <TabsTrigger value="navegacao">
+          <FileText />
+          Navegação
+        </TabsTrigger>
+        <TabsTrigger value="localizacoes">
+          <MapPin />
+          Localizações
+        </TabsTrigger>
+        <TabsTrigger value="valores">
+          <Sparkles />
+          Valores
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="geral">
+        <SiteSettingsFields site={content.site} onChange={onSite} />
+      </TabsContent>
+      <TabsContent value="navegacao">
+        <NavigationFields
+          navigation={content.navigation}
+          onChange={onNavigation}
+        />
+      </TabsContent>
+      <TabsContent value="localizacoes">
+        <LocationsFields
+          locations={content.locations}
+          onChange={onLocations}
+        />
+      </TabsContent>
+      <TabsContent value="valores">
+        <ValuesFields values={content.values} onChange={onValues} />
+      </TabsContent>
+    </Tabs>
   );
 }
 
@@ -269,38 +489,61 @@ function PagesFields({
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <HomePageFields
-        page={pages.home}
-        onChange={(home) => update("home", home)}
-      />
-      <AboutPageFields
-        page={pages.about}
-        onChange={(about) => update("about", about)}
-      />
-      <ServicesPageFields
-        page={pages.services}
-        onChange={(services) => update("services", services)}
-      />
-      <ContactPageFields
-        page={pages.contact}
-        onChange={(contact) => update("contact", contact)}
-      />
-      <QuotePageFields
-        page={pages.quote}
-        onChange={(quote) => update("quote", quote)}
-      />
-      <LegalPageFields
-        title="Termos e Condições"
-        page={pages.terms}
-        onChange={(terms) => update("terms", terms)}
-      />
-      <LegalPageFields
-        title="Política de Privacidade"
-        page={pages.privacy}
-        onChange={(privacy) => update("privacy", privacy)}
-      />
-    </div>
+    <Tabs defaultValue="home" className="gap-5">
+      <TabsList variant="line" className="flex-wrap">
+        <TabsTrigger value="home">Home</TabsTrigger>
+        <TabsTrigger value="about">Sobre Nós</TabsTrigger>
+        <TabsTrigger value="services">Serviços</TabsTrigger>
+        <TabsTrigger value="contact">Contactos</TabsTrigger>
+        <TabsTrigger value="quote">Orçamento</TabsTrigger>
+        <TabsTrigger value="terms">Termos</TabsTrigger>
+        <TabsTrigger value="privacy">Privacidade</TabsTrigger>
+      </TabsList>
+      <TabsContent value="home">
+        <HomePageFields
+          page={pages.home}
+          onChange={(home) => update("home", home)}
+        />
+      </TabsContent>
+      <TabsContent value="about">
+        <AboutPageFields
+          page={pages.about}
+          onChange={(about) => update("about", about)}
+        />
+      </TabsContent>
+      <TabsContent value="services">
+        <ServicesPageFields
+          page={pages.services}
+          onChange={(services) => update("services", services)}
+        />
+      </TabsContent>
+      <TabsContent value="contact">
+        <ContactPageFields
+          page={pages.contact}
+          onChange={(contact) => update("contact", contact)}
+        />
+      </TabsContent>
+      <TabsContent value="quote">
+        <QuotePageFields
+          page={pages.quote}
+          onChange={(quote) => update("quote", quote)}
+        />
+      </TabsContent>
+      <TabsContent value="terms">
+        <LegalPageFields
+          title="Termos e Condições"
+          page={pages.terms}
+          onChange={(terms) => update("terms", terms)}
+        />
+      </TabsContent>
+      <TabsContent value="privacy">
+        <LegalPageFields
+          title="Política de Privacidade"
+          page={pages.privacy}
+          onChange={(privacy) => update("privacy", privacy)}
+        />
+      </TabsContent>
+    </Tabs>
   );
 }
 
@@ -319,7 +562,7 @@ function HomePageFields({
           Hero, CTAs, estatísticas e blocos da página inicial.
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SectionCard title="Hero">
           <div className="grid gap-4 md:grid-cols-2">
             <TextField
@@ -525,7 +768,7 @@ function AboutPageFields({
         <CardTitle>Sobre Nós</CardTitle>
         <CardDescription>SEO, hero, história, locais e valores.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SeoFields
           seo={page.seo}
           onChange={(seo) => onChange({ ...page, seo })}
@@ -609,7 +852,7 @@ function ServicesPageFields({
         <CardTitle>Página Serviços</CardTitle>
         <CardDescription>SEO, hero, introdução e CTA final.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SeoFields
           seo={page.seo}
           onChange={(seo) => onChange({ ...page, seo })}
@@ -647,7 +890,7 @@ function ContactPageFields({
         <CardTitle>Página Contactos</CardTitle>
         <CardDescription>SEO, hero e texto introdutório do formulário.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SeoFields
           seo={page.seo}
           onChange={(seo) => onChange({ ...page, seo })}
@@ -680,7 +923,7 @@ function QuotePageFields({
         <CardTitle>Página Orçamento</CardTitle>
         <CardDescription>SEO, hero, vantagens e bloco lateral.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SeoFields
           seo={page.seo}
           onChange={(seo) => onChange({ ...page, seo })}
@@ -719,7 +962,7 @@ function LegalPageFields({
         <CardTitle>{title}</CardTitle>
         <CardDescription>SEO, hero e secções legais.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SeoFields
           seo={page.seo}
           onChange={(seo) => onChange({ ...page, seo })}
@@ -751,7 +994,7 @@ function SiteSettingsFields({
         <CardTitle>Definições gerais</CardTitle>
         <CardDescription>Marca, contactos, morada, horários, redes e SEO.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <SectionCard title="Marca">
           <div className="grid gap-4 md:grid-cols-2">
             <TextField
@@ -910,7 +1153,7 @@ function NavigationFields({
         <CardTitle>Navegação</CardTitle>
         <CardDescription>Menu principal e links de rodapé.</CardDescription>
       </CardHeader>
-      <CardContent className="flex flex-col gap-6">
+      <CardContent className="flex flex-col gap-5">
         <LinkListFields
           title="Menu principal"
           links={navigation.header}
@@ -1140,17 +1383,7 @@ function ServiceEditor({
   onRemove: () => void;
 }) {
   return (
-    <div className="flex flex-col gap-4 rounded-lg border bg-background p-4">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <h3 className="font-semibold">{service.title}</h3>
-          <p className="text-xs text-muted-foreground">{service.slug}</p>
-        </div>
-        <Button type="button" variant="outline" size="sm" onClick={onRemove}>
-          <Trash2 data-icon="inline-start" />
-          Remover
-        </Button>
-      </div>
+    <div className="flex flex-col gap-4 pt-1">
       <div className="grid gap-4 md:grid-cols-2">
         <TextField
           label="Título"
@@ -1210,6 +1443,12 @@ function ServiceEditor({
         items={service.bullets ?? []}
         onChange={(bullets) => onChange({ bullets })}
       />
+      <div className="flex justify-end border-t pt-4">
+        <Button type="button" variant="outline" size="sm" onClick={onRemove}>
+          <Trash2 data-icon="inline-start" />
+          Remover serviço
+        </Button>
+      </div>
     </div>
   );
 }
@@ -1221,14 +1460,12 @@ function ServiceImageField({
   service: WebsiteService;
   onChange: (image: WebsiteService["image"]) => void;
 }) {
-  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const image = service.image ?? { alt: service.title };
 
   function upload(file: File | undefined) {
     if (!file) return;
 
-    setError(null);
     startTransition(async () => {
       const formData = new FormData();
       formData.set("slug", service.slug);
@@ -1236,7 +1473,9 @@ function ServiceImageField({
 
       const result = await uploadServiceImage(formData);
       if (!result.ok) {
-        setError(result.error);
+        toast.error("Falha ao carregar imagem", {
+          description: result.error,
+        });
         return;
       }
 
@@ -1244,11 +1483,12 @@ function ServiceImageField({
         ...image,
         pathname: result.data.pathname,
       });
+      toast.success("Imagem carregada.");
     });
   }
 
   return (
-    <div className="grid gap-4 rounded-md border bg-muted/30 p-4 md:grid-cols-[180px_1fr]">
+    <div className="grid gap-4 rounded-lg border bg-muted/30 p-4 md:grid-cols-[180px_1fr]">
       <div className="relative flex aspect-4/3 items-center justify-center overflow-hidden rounded-md border bg-background text-xs text-muted-foreground">
         {image.pathname ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -1268,19 +1508,36 @@ function ServiceImageField({
           onChange={(alt) => onChange({ ...image, alt })}
         />
         <Field label="Imagem do serviço">
-          <Input
-            type="file"
-            accept="image/*"
-            disabled={isPending}
-            onChange={(event) => upload(event.target.files?.[0])}
-          />
+          <div className="flex flex-wrap items-center gap-3">
+            <Button asChild variant="outline" size="sm">
+              <label
+                className={cn(
+                  "cursor-pointer",
+                  isPending && "pointer-events-none opacity-50",
+                )}
+              >
+                <Plus data-icon="inline-start" />
+                {isPending
+                  ? "A carregar..."
+                  : image.pathname
+                    ? "Substituir imagem"
+                    : "Carregar imagem"}
+                <input
+                  type="file"
+                  accept="image/*"
+                  disabled={isPending}
+                  className="sr-only"
+                  onChange={(event) => upload(event.target.files?.[0])}
+                />
+              </label>
+            </Button>
+            {image.pathname ? (
+              <span className="truncate text-xs text-muted-foreground">
+                {image.pathname}
+              </span>
+            ) : null}
+          </div>
         </Field>
-        {image.pathname ? (
-          <p className="text-xs text-muted-foreground">
-            Guardada em: <code>{image.pathname}</code>
-          </p>
-        ) : null}
-        {error ? <p className="text-sm text-destructive">{error}</p> : null}
       </div>
     </div>
   );
@@ -1912,13 +2169,8 @@ function CheckboxField({
   onChange: (checked: boolean) => void;
 }) {
   return (
-    <label className="flex items-center gap-3 text-sm font-medium">
-      <input
-        type="checkbox"
-        checked={checked}
-        onChange={(event) => onChange(event.target.checked)}
-        className="size-4 accent-primary"
-      />
+    <label className="flex items-center gap-3 text-sm font-medium select-none">
+      <Switch checked={checked} onCheckedChange={onChange} />
       {label}
     </label>
   );

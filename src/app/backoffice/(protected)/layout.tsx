@@ -1,9 +1,11 @@
 import { redirect } from "next/navigation";
 
 import { isBackofficeAuthenticated } from "@/lib/backoffice/auth";
+import { BackofficeBreadcrumb } from "@/components/backoffice/backoffice-breadcrumb";
 import { BackofficeSidebar } from "@/components/backoffice/app-sidebar";
 import { BackofficeThemeProvider } from "@/components/backoffice/theme-provider";
 import { BackofficeThemeToggle } from "@/components/backoffice/theme-toggle";
+import { BackofficeToaster } from "@/components/backoffice/backoffice-toaster";
 import {
   SidebarInset,
   SidebarProvider,
@@ -31,18 +33,16 @@ export default async function ProtectedBackofficeLayout({
       >
         <BackofficeSidebar />
         <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-3 border-b bg-background px-4">
+          <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-3 border-b bg-background/80 px-4 backdrop-blur-sm">
             <SidebarTrigger />
             <Separator orientation="vertical" className="h-5" />
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold">Backoffice</p>
-              <p className="text-xs text-muted-foreground">
-                Gestão de conteúdos do website
-              </p>
+              <BackofficeBreadcrumb />
             </div>
             <BackofficeThemeToggle />
           </header>
-          <main className="flex-1 bg-muted/40 p-4 md:p-8">{children}</main>
+          <main className="flex-1 bg-muted/40 p-4 md:p-6">{children}</main>
+          <BackofficeToaster />
         </SidebarInset>
       </SidebarProvider>
     </BackofficeThemeProvider>

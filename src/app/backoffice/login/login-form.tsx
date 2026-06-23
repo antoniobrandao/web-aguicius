@@ -32,7 +32,7 @@ export function LoginForm() {
           <p className="text-sm text-destructive">{state.error}</p>
         ) : null}
       </div>
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" variant="primary" className="w-full" disabled={pending}>
         {pending ? <LoaderCircle className="animate-spin" data-icon="inline-start" /> : null}
         Entrar
       </Button>

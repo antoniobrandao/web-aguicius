@@ -1,0 +1,443 @@
+{
+  "colors": {
+    "all": [
+      {
+        "hex": "#6c6d74",
+        "rgb": {
+          "r": 108,
+          "g": 109,
+          "b": 116,
+          "a": 1
+        },
+        "hsl": {
+          "h": 233,
+          "s": 4,
+          "l": 44
+        },
+        "count": 541,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#ffffff",
+        "rgb": {
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 100
+        },
+        "count": 153,
+        "contexts": [
+          "background",
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#2d2e33",
+        "rgb": {
+          "r": 45,
+          "g": 46,
+          "b": 51,
+          "a": 1
+        },
+        "hsl": {
+          "h": 230,
+          "s": 6,
+          "l": 19
+        },
+        "count": 86,
+        "contexts": [
+          "text",
+          "border",
+          "background"
+        ]
+      },
+      {
+        "hex": "#b4b5ba",
+        "rgb": {
+          "r": 180,
+          "g": 181,
+          "b": 186,
+          "a": 1
+        },
+        "hsl": {
+          "h": 230,
+          "s": 4,
+          "l": 72
+        },
+        "count": 20,
+        "contexts": [
+          "text",
+          "border"
+        ]
+      },
+      {
+        "hex": "#e5e5e7",
+        "rgb": {
+          "r": 229,
+          "g": 229,
+          "b": 231,
+          "a": 1
+        },
+        "hsl": {
+          "h": 240,
+          "s": 4,
+          "l": 90
+        },
+        "count": 5,
+        "contexts": [
+          "border"
+        ]
+      },
+      {
+        "hex": "#242427",
+        "rgb": {
+          "r": 36,
+          "g": 36,
+          "b": 39,
+          "a": 1
+        },
+        "hsl": {
+          "h": 240,
+          "s": 4,
+          "l": 15
+        },
+        "count": 2,
+        "contexts": [
+          "background",
+          "text"
+        ]
+      },
+      {
+        "hex": "#808080",
+        "rgb": {
+          "r": 128,
+          "g": 128,
+          "b": 128,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 50
+        },
+        "count": 2,
+        "contexts": [
+          "text"
+        ]
+      },
+      {
+        "hex": "#414141",
+        "rgb": {
+          "r": 65,
+          "g": 65,
+          "b": 65,
+          "a": 1
+        },
+        "hsl": {
+          "h": 0,
+          "s": 0,
+          "l": 25
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      },
+      {
+        "hex": "#850064",
+        "rgb": {
+          "r": 133,
+          "g": 0,
+          "b": 100,
+          "a": 0.3
+        },
+        "hsl": {
+          "h": 315,
+          "s": 100,
+          "l": 26
+        },
+        "count": 1,
+        "contexts": [
+          "background"
+        ]
+      }
+    ]
+  },
+  "regions": [
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 0,
+        "y": 0,
+        "w": 0,
+        "h": 0
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 1,
+      "className": "uk-navbar"
+    },
+    {
+      "role": "nav",
+      "tag": "nav",
+      "bounds": {
+        "x": 40,
+        "y": 0,
+        "w": 1200,
+        "h": 80
+      },
+      "heading": null,
+      "buttonCount": 0,
+      "cardCount": 13,
+      "className": "uk-navbar"
+    }
+  ],
+  "componentClusters": [
+    {
+      "kind": "button",
+      "structuralHash": "a",
+      "instanceCount": 8,
+      "variants": [
+        {
+          "css": {
+            "background": "rgba(255, 255, 255, 0.1)",
+            "color": "rgba(255, 255, 255, 0.7)",
+            "padding": "0px 20px 0px 20px",
+            "borderRadius": "0px",
+            "border": "1px solid rgba(0, 0, 0, 0)",
+            "fontSize": "11px",
+            "fontWeight": "500"
+          },
+          "instanceCount": 1
+        },
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(45, 46, 51)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "0px",
+            "border": "0px none rgb(45, 46, 51)",
+            "fontSize": "11px",
+            "fontWeight": "500"
+          },
+          "instanceCount": 4
+        },
+        {
+          "css": {
+            "background": "rgb(255, 255, 255)",
+            "color": "rgb(36, 36, 39)",
+            "padding": "10px 25px 10px 25px",
+            "borderRadius": "0px",
+            "border": "1px solid rgba(0, 0, 0, 0)",
+            "fontSize": "32px",
+            "fontWeight": "500"
+          },
+          "instanceCount": 1
+        },
+        {
+          "css": {
+            "background": "rgb(48, 48, 51)",
+            "color": "rgb(255, 255, 255)",
+            "padding": "0px 20px 0px 20px",
+            "borderRadius": "0px",
+            "border": "1px solid rgba(0, 0, 0, 0)",
+            "fontSize": "11px",
+            "fontWeight": "500"
+          },
+          "instanceCount": 2
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "div>h4>div>div",
+      "instanceCount": 3,
+      "variants": [
+        {
+          "css": {
+            "background": "rgb(255, 255, 255)",
+            "color": "rgb(108, 109, 116)",
+            "padding": "40px 40px 40px 40px",
+            "borderRadius": "0px",
+            "border": "1px solid rgb(229, 229, 231)",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 1
+        },
+        {
+          "css": {
+            "background": "rgba(0, 0, 0, 0)",
+            "color": "rgb(108, 109, 116)",
+            "padding": "40px 40px 40px 40px",
+            "borderRadius": "0px",
+            "border": "0px none rgb(108, 109, 116)",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 2
+        }
+      ]
+    },
+    {
+      "kind": "card",
+      "structuralHash": "div>div>div",
+      "instanceCount": 2,
+      "variants": [
+        {
+          "css": {
+            "background": "rgb(255, 255, 255)",
+            "color": "rgb(108, 109, 116)",
+            "padding": "0px 0px 0px 0px",
+            "borderRadius": "0px",
+            "border": "1px solid rgb(229, 229, 231)",
+            "fontSize": "16px",
+            "fontWeight": "400"
+          },
+          "instanceCount": 2
+        }
+      ]
+    }
+  ],
+  "accessibility": {
+    "remediation": []
+  },
+  "cssHealth": {
+    "sheets": [
+      {
+        "url": "https://aguicius.com/",
+        "totalBytes": 283,
+        "usedBytes": 0,
+        "unusedBytes": 283,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://aguicius.com/wp-content/themes/yootheme/css/theme.update.css?ver=2.3.32",
+        "totalBytes": 1880,
+        "usedBytes": 32,
+        "unusedBytes": 1848,
+        "unusedPercent": 98
+      },
+      {
+        "url": "https://aguicius.com/wp-includes/css/dist/block-library/style.min.css?ver=5.8.2",
+        "totalBytes": 81137,
+        "usedBytes": 0,
+        "unusedBytes": 81137,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://aguicius.com/wp-content/themes/yootheme/css/theme.1.css?ver=1637366574",
+        "totalBytes": 319186,
+        "usedBytes": 30194,
+        "unusedBytes": 288992,
+        "unusedPercent": 91
+      },
+      {
+        "url": "https://aguicius.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=5.4.2",
+        "totalBytes": 3209,
+        "usedBytes": 0,
+        "unusedBytes": 3209,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://aguicius.com/",
+        "totalBytes": 646,
+        "usedBytes": 575,
+        "unusedBytes": 71,
+        "unusedPercent": 11
+      },
+      {
+        "url": "https://aguicius.com/",
+        "totalBytes": 617,
+        "usedBytes": 0,
+        "unusedBytes": 617,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://aguicius.com/",
+        "totalBytes": 98,
+        "usedBytes": 96,
+        "unusedBytes": 2,
+        "unusedPercent": 2
+      },
+      {
+        "url": "https://www.youtube.com/embed/ATmARCQquBw?rel=0&loop=1&playlist=ATmARCQquBw&autoplay=1&controls=0&showinfo=0&iv_load_policy=3&modestbranding=1&wmode=transparent&playsinline=1&v=ATmARCQquBw&disablekb=1&enablejsapi=1",
+        "totalBytes": 689,
+        "usedBytes": 229,
+        "unusedBytes": 460,
+        "unusedPercent": 67
+      },
+      {
+        "url": "https://www.youtube.com/embed/ATmARCQquBw?rel=0&loop=1&playlist=ATmARCQquBw&autoplay=1&controls=0&showinfo=0&iv_load_policy=3&modestbranding=1&wmode=transparent&playsinline=1&v=ATmARCQquBw&disablekb=1&enablejsapi=1",
+        "totalBytes": 9474,
+        "usedBytes": 0,
+        "unusedBytes": 9474,
+        "unusedPercent": 100
+      },
+      {
+        "url": "https://www.youtube.com/s/player/ac678d18/www-player.css",
+        "totalBytes": 519162,
+        "usedBytes": 4437,
+        "unusedBytes": 514725,
+        "unusedPercent": 99
+      },
+      {
+        "url": "https://www.youtube.com/s/_/ytembeds/_/ss/k=ytembeds.base.DSDwoGcUoEo.L.W.O/am=AAAAAAI/d=0/br=1/rs=AGKMywG0Kz8QRYZJGgtcsYp7fJyNf_gWmQ",
+        "totalBytes": 457251,
+        "usedBytes": 3622,
+        "unusedBytes": 453629,
+        "unusedPercent": 99
+      }
+    ],
+    "totalBytes": 1393632,
+    "usedBytes": 39185,
+    "unusedBytes": 1354447,
+    "unusedPercent": 97,
+    "importantCount": 258,
+    "duplicates": 23549,
+    "vendorPrefixes": {
+      "webkit": 5286,
+      "moz": 131,
+      "ms": 226,
+      "o": 3
+    },
+    "keyframes": [
+      {
+        "name": "spin",
+        "steps": 2
+      },
+      {
+        "name": "blink",
+        "steps": 3
+      }
+    ],
+    "specificity": {
+      "max": [
+        2,
+        10,
+        6
+      ],
+      "average": [
+        0,
+        2.29,
+        0.19
+      ],
+      "count": 14027
+    },
+    "issues": [
+      "258 !important rules",
+      "23549 duplicate declarations",
+      "97% unused CSS"
+    ]
+  }
+}

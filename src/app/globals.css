@@ -200,3 +200,65 @@
   --surface-darker: #101014;
   --surface-charcoal: #202024;
 }
+
+/*
+  ---break---
+  Backoffice-only softening. Drops the loud marketing identity (uppercase,
+  wide tracking, square corners, oversized controls) for a calm, compact admin
+  feel. Scoped to .backoffice-theme so the public site is untouched. Unlayered
+  rules so they win over Tailwind utility layers.
+*/
+
+.backoffice-theme {
+  --radius: 0.625rem;
+}
+
+.backoffice-theme [data-slot="button"],
+.backoffice-theme [data-slot="card-title"],
+.backoffice-theme [data-slot="label"],
+.backoffice-theme [data-slot="accordion-trigger"] {
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.backoffice-theme [data-slot="button"] {
+  font-weight: 600;
+  border-radius: var(--radius);
+}
+
+/* Compact the oversized default button (h-12 px-7) for dense admin use. */
+.backoffice-theme [data-slot="button"]:not(.h-9):not(.h-11):not(.h-14):not(.h-10):not([class*="size-"]) {
+  height: 2.5rem;
+  padding-inline: 1rem;
+  font-size: 0.8125rem;
+}
+
+.backoffice-theme [data-slot="card-title"] {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.backoffice-theme [data-slot="label"] {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.backoffice-theme [data-slot="accordion-trigger"] {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding-block: 1rem;
+}
+
+/* Compact card padding (p-8 -> 1.5rem) for a denser admin layout. */
+.backoffice-theme [data-slot="card-header"],
+.backoffice-theme [data-slot="card-content"],
+.backoffice-theme [data-slot="card-footer"] {
+  padding: 1.5rem;
+}
+
+.backoffice-theme [data-slot="card-content"],
+.backoffice-theme [data-slot="card-footer"] {
+  padding-top: 0;
+}

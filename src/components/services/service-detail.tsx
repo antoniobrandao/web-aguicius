@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, ImageIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { Service } from "@/lib/site";
@@ -63,15 +63,12 @@ export function ServiceDetail({
         )}
       >
         {service.image?.pathname ? (
-          <>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={`/api/blob/${service.image.pathname}`}
-              alt={service.image.alt}
-              className="h-full w-full object-cover opacity-90"
-            />
-            <div className="absolute inset-0 bg-surface-dark/30" />
-          </>
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`/api/blob/${service.image.pathname}`}
+            alt={service.image.alt}
+            className="h-full w-full object-cover"
+          />
         ) : (
           <>
             <div
@@ -83,12 +80,9 @@ export function ServiceDetail({
                 backgroundSize: "28px 28px",
               }}
             />
-            <Icon className="absolute left-1/2 top-1/2 size-32 -translate-x-1/2 -translate-y-1/2 text-white/10" />
+            <ImageIcon className="absolute left-1/2 top-1/2 size-32 -translate-x-1/2 -translate-y-1/2 text-white/10" />
           </>
         )}
-        <span className="absolute bottom-6 left-6 text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-          Serviço Prime Aguicius
-        </span>
       </div>
     </div>
   );
