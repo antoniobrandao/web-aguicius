@@ -7,6 +7,8 @@ import {
 } from "@/lib/content/adapters";
 import { getWebsiteContent } from "@/lib/content/website-content";
 
+export const dynamic = "force-dynamic";
+
 export default async function SiteLayout({
   children,
 }: Readonly<{

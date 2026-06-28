@@ -82,7 +82,7 @@ import type {
   WebsiteValue,
 } from "@/lib/content/website-schema";
 
-type ContentSource = "blob" | "fallback";
+type ContentSource = "mongo" | "default";
 type BackofficeSection = "painel" | "servicos" | "paginas" | "definicoes";
 type Pages = WebsiteContent["pages"];
 type SiteSettings = WebsiteContent["site"];
@@ -345,7 +345,7 @@ function DashboardSection({
       <div className="flex items-center gap-2 text-xs text-muted-foreground">
         <span>Origem dos conteúdos:</span>
         <Badge variant="outline" className="font-normal">
-          {source === "blob" ? "Vercel Blob" : "Local"}
+          {source === "mongo" ? "MongoDB" : "Default local"}
         </Badge>
       </div>
     </div>
