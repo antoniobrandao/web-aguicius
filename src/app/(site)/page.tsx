@@ -6,6 +6,7 @@ import { MoreServicesSection } from "@/components/home/more-services-section";
 import { AboutBand } from "@/components/home/about-band";
 import { LocationSection } from "@/components/home/location-section";
 import {
+  getPrimaryLocation,
   getServiceGroups,
   toSiteSettings,
 } from "@/lib/content/adapters";
@@ -16,9 +17,7 @@ export default async function HomePage() {
   const site = toSiteSettings(content);
   const { primaryServices, installations, secondaryServices } =
     getServiceGroups(content);
-  const primaryLocation =
-    content.locations.find((location) => location.primary) ??
-    content.locations[0];
+  const primaryLocation = getPrimaryLocation(content);
 
   return (
     <>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, ArrowUpRight } from "lucide-react";
 
-import type { SiteSettings } from "@/lib/site";
+import type { SiteSettings } from "@/lib/content/website-types";
 import type {
   WebsiteContent,
   WebsiteLocation,
@@ -39,8 +39,12 @@ export function LocationSection({
               <p className="flex items-start gap-3 text-sm leading-relaxed">
                 <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
                 <span>
-                  {site.address.street},<br />
-                  {site.address.zip}
+                  {location.lines.map((line, index) => (
+                    <span key={line}>
+                      {line}
+                      {index < location.lines.length - 1 ? <br /> : null}
+                    </span>
+                  ))}
                 </span>
               </p>
               <a

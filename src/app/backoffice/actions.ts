@@ -3,28 +3,19 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import {
-  ensureAuthorized,
-  setAuthorizer,
-  writeFileBlob,
-  type ActionResult,
-} from "@/lib/cms";
+import type { ActionResult } from "@/lib/action-result";
 import {
   assertBackofficeAuthenticated,
   clearBackofficeSession,
   createBackofficeSession,
   isValidBackofficePassword,
 } from "@/lib/backoffice/auth";
+import { writeFileBlob } from "@/lib/blob/storage";
 import { saveWebsiteContent } from "@/lib/content/website-content";
 import {
   websiteContentSchema,
   type WebsiteContent,
 } from "@/lib/content/website-schema";
-
-setAuthorizer(async () => {
-  await assertBackofficeAuthenticated();
-  return { ok: true };
-});
 
 const PUBLIC_PATHS = [
   "/",
@@ -72,7 +63,7 @@ export async function saveBackofficeContent(
   content: WebsiteContent,
 ): Promise<ActionResult<WebsiteContent>> {
   try {
-    await ensureAuthorized();
+    await assertBackofficeAuthenticated();
     const parsed = websiteContentSchema.parse(content);
     const saved = await saveWebsiteContent(parsed);
 
@@ -90,7 +81,7 @@ export async function uploadServiceImage(
   formData: FormData,
 ): Promise<ActionResult<{ pathname: string }>> {
   try {
-    await ensureAuthorized();
+    await assertBackofficeAuthenticated();
 
     const slug = String(formData.get("slug") ?? "");
     const file = formData.get("file");

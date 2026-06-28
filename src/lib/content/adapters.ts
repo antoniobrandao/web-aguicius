@@ -1,7 +1,11 @@
-import type { NavItem, Service, SiteSettings } from "@/lib/site";
+import type { NavItem, Service, SiteSettings } from "@/lib/content/website-types";
 
 import { getContentIcon } from "./icons";
-import type { WebsiteContent, WebsiteService } from "./website-schema";
+import type {
+  WebsiteContent,
+  WebsiteLocation,
+  WebsiteService,
+} from "./website-schema";
 
 export function toService(service: WebsiteService): Service {
   return {
@@ -43,7 +47,6 @@ export function toSiteSettings(content: WebsiteContent): SiteSettings {
     phoneHref: content.site.phoneHref,
     email: content.site.email,
     whatsapp: content.site.whatsapp,
-    address: content.site.address,
     schedule: content.site.schedule,
     social: content.site.social,
     app: content.site.appUrl,
@@ -52,4 +55,11 @@ export function toSiteSettings(content: WebsiteContent): SiteSettings {
 
 export function toNavItems(content: WebsiteContent): NavItem[] {
   return content.navigation.header;
+}
+
+export function getPrimaryLocation(content: WebsiteContent): WebsiteLocation {
+  return (
+    content.locations.find((location) => location.primary) ??
+    content.locations[0]
+  );
 }

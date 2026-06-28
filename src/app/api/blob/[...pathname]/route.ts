@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { readPrivateBlob } from "@/lib/cms";
+import { readPrivateBlob } from "@/lib/blob/storage";
 
 type Params = Promise<{
   pathname: string[];

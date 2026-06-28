@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import type { NavItem, SiteSettings } from "@/lib/site";
+import type { NavItem, SiteSettings } from "@/lib/content/website-types";
 import { Logo } from "@/components/layout/logo";
 import { NavLinks } from "@/components/layout/nav-links";
 import { MobileNav } from "@/components/layout/mobile-nav";

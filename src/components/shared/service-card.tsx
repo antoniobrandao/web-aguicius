@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import type { Service } from "@/lib/site";
+import type { Service } from "@/lib/content/website-types";
 import { Button } from "@/components/ui/button";
 
 export function ServiceCard({

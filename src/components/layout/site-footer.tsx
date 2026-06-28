@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 
-import type { NavItem, Service, SiteSettings } from "@/lib/site";
+import type { NavItem, Service, SiteSettings } from "@/lib/content/website-types";
+import type { WebsiteLocation } from "@/lib/content/website-schema";
 import { Logo } from "@/components/layout/logo";
 import {
   FacebookIcon,
@@ -13,10 +14,12 @@ export function SiteFooter({
   site,
   services,
   companyLinks,
+  location,
 }: {
   site: SiteSettings;
   services: Service[];
   companyLinks: NavItem[];
+  location: WebsiteLocation;
 }) {
   return (
     <footer className="bg-surface-darker text-white/70">
@@ -60,9 +63,12 @@ export function SiteFooter({
             <li className="flex items-start gap-3">
               <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
               <span>
-                {site.address.street}
-                <br />
-                {site.address.zip}
+                {location.lines.map((line, index) => (
+                  <span key={line}>
+                    {line}
+                    {index < location.lines.length - 1 ? <br /> : null}
+                  </span>
+                ))}
               </span>
             </li>
             <li>

@@ -6,7 +6,11 @@ import { SectionHeading } from "@/components/shared/section-heading";
 import { ContactInfo } from "@/components/contact/contact-info";
 import { MapEmbed } from "@/components/contact/map-embed";
 import { QuoteForm } from "@/components/forms/quote-form";
-import { getServiceGroups, toSiteSettings } from "@/lib/content/adapters";
+import {
+  getPrimaryLocation,
+  getServiceGroups,
+  toSiteSettings,
+} from "@/lib/content/adapters";
 import { getWebsiteContent } from "@/lib/content/website-content";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -19,9 +23,7 @@ export default async function ContactosPage() {
   const site = toSiteSettings(content);
   const page = content.pages.contact;
   const { allServices } = getServiceGroups(content);
-  const primaryLocation =
-    content.locations.find((location) => location.primary) ??
-    content.locations[0];
+  const primaryLocation = getPrimaryLocation(content);
 
   return (
     <>
@@ -29,7 +31,7 @@ export default async function ContactosPage() {
 
       <section className="bg-background py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <ContactInfo site={site} />
+          <ContactInfo site={site} location={primaryLocation} />
           <MapEmbed
             className="min-h-80"
             src={primaryLocation.mapEmbedUrl ?? ""}

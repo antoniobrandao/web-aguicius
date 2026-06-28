@@ -1,15 +1,26 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
-import type { SiteSettings } from "@/lib/site";
+import type { SiteSettings } from "@/lib/content/website-types";
+import type { WebsiteLocation } from "@/lib/content/website-schema";
 
-export function ContactInfo({ site }: { site: SiteSettings }) {
+export function ContactInfo({
+  site,
+  location,
+}: {
+  site: SiteSettings;
+  location: WebsiteLocation;
+}) {
   return (
     <div className="grid gap-px border border-border bg-border sm:grid-cols-2">
       <InfoCard icon={<MapPin className="size-5" />} label="Morada">
         <p>
-          {site.address.street}
-          <br />
-          {site.address.zip}, {site.address.city}
+          {location.lines.map((line) => (
+            <span key={line}>
+              {line}
+              <br />
+            </span>
+          ))}
+          {location.city}
         </p>
       </InfoCard>
 

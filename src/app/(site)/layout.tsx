@@ -1,6 +1,7 @@
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import {
+  getPrimaryLocation,
   getServiceGroups,
   toNavItems,
   toSiteSettings,
@@ -18,6 +19,7 @@ export default async function SiteLayout({
   const site = toSiteSettings(content);
   const navItems = toNavItems(content);
   const { allServices } = getServiceGroups(content);
+  const primaryLocation = getPrimaryLocation(content);
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -27,6 +29,7 @@ export default async function SiteLayout({
         site={site}
         services={allServices}
         companyLinks={content.navigation.footerCompany}
+        location={primaryLocation}
       />
     </div>
   );

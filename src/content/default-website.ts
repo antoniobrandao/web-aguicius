@@ -10,11 +10,6 @@ export const defaultWebsiteContent = {
     "email": "geral@aguicius.com",
     "whatsapp": "https://wa.me/00351918451505",
     "appUrl": "https://play.google.com/store/apps/details?id=solutiondevelopers.aguicius",
-    "address": {
-      "street": "Rua do Capitão 88",
-      "zip": "4755-104 Carvalhal",
-      "city": "Barcelos"
-    },
     "schedule": [
       {
         "days": "Seg – Sáb",

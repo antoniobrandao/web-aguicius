@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
-import type { Service } from "@/lib/site";
+import type { Service } from "@/lib/content/website-types";
 import type { WebsiteContent } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";

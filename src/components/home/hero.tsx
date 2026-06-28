@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 
-import type { SiteSettings } from "@/lib/site";
+import type { SiteSettings } from "@/lib/content/website-types";
 import type { WebsiteContent } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";

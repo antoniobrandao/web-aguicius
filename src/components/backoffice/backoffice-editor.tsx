@@ -991,7 +991,7 @@ function SiteSettingsFields({
     <Card>
       <CardHeader>
         <CardTitle>Definições gerais</CardTitle>
-        <CardDescription>Marca, contactos, morada, horários, redes e SEO.</CardDescription>
+        <CardDescription>Marca, contactos, horários, redes e SEO.</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         <SectionCard title="Marca">
@@ -1041,32 +1041,6 @@ function SiteSettingsFields({
               label="App"
               value={site.appUrl}
               onChange={(appUrl) => onChange({ ...site, appUrl })}
-            />
-          </div>
-        </SectionCard>
-
-        <SectionCard title="Morada">
-          <div className="grid gap-4 md:grid-cols-3">
-            <TextField
-              label="Rua"
-              value={site.address.street}
-              onChange={(street) =>
-                onChange({ ...site, address: { ...site.address, street } })
-              }
-            />
-            <TextField
-              label="Código postal"
-              value={site.address.zip}
-              onChange={(zip) =>
-                onChange({ ...site, address: { ...site.address, zip } })
-              }
-            />
-            <TextField
-              label="Cidade"
-              value={site.address.city}
-              onChange={(city) =>
-                onChange({ ...site, address: { ...site.address, city } })
-              }
             />
           </div>
         </SectionCard>
@@ -1194,7 +1168,10 @@ function LocationsFields({
       <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <CardTitle>Localizações</CardTitle>
-          <CardDescription>Moradas, linhas e URLs de mapa.</CardDescription>
+          <CardDescription>
+            Moradas, linhas e URLs de mapa. A localização principal é usada na
+            homepage, rodapé e página de contactos.
+          </CardDescription>
         </div>
         <Button
           type="button"

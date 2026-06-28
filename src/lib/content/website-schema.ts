@@ -44,11 +44,6 @@ export const websiteContentSchema = z.object({
     email: z.string().email(),
     whatsapp: z.string().url(),
     appUrl: z.string().url(),
-    address: z.object({
-      street: z.string().min(1),
-      zip: z.string().min(1),
-      city: z.string().min(1),
-    }),
     schedule: z.array(
       z.object({
         days: z.string().min(1),

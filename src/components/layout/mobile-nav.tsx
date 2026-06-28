@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Phone } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import type { NavItem, SiteSettings } from "@/lib/site";
+import type { NavItem, SiteSettings } from "@/lib/content/website-types";
 import {
   Sheet,
   SheetClose,
