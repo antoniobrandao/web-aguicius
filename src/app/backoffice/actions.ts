@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 import type { ActionResult } from "@/lib/action-result";
@@ -11,21 +11,12 @@ import {
   isValidBackofficePassword,
 } from "@/lib/backoffice/auth";
 import { writeFileBlob } from "@/lib/blob/storage";
+import { WEBSITE_CONTENT_TAG } from "@/lib/content/cache";
 import { saveWebsiteContent } from "@/lib/content/website-content";
 import {
   websiteContentSchema,
   type WebsiteContent,
 } from "@/lib/content/website-schema";
-
-const PUBLIC_PATHS = [
-  "/",
-  "/sobre-nos",
-  "/servicos",
-  "/contactos",
-  "/orcamento",
-  "/termos",
-  "/privacidade",
-];
 
 function toMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
@@ -67,9 +58,7 @@ export async function saveBackofficeContent(
     const parsed = websiteContentSchema.parse(content);
     const saved = await saveWebsiteContent(parsed);
 
-    for (const pathname of PUBLIC_PATHS) {
-      revalidatePath(pathname);
-    }
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
 
     return { ok: true, data: saved };
   } catch (error) {
