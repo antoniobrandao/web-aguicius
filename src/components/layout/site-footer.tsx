@@ -21,6 +21,27 @@ export function SiteFooter({
   companyLinks: NavItem[];
   location: WebsiteLocation;
 }) {
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
+  const hasEmail = Boolean(site.email.trim());
+  const hasApp = Boolean(site.app.trim());
+  const socialLinks = [
+    {
+      href: site.social.facebook,
+      label: "Facebook",
+      icon: <FacebookIcon className="size-4" />,
+    },
+    {
+      href: site.social.instagram,
+      label: "Instagram",
+      icon: <InstagramIcon className="size-4" />,
+    },
+    {
+      href: site.social.youtube,
+      label: "YouTube",
+      icon: <YoutubeIcon className="size-4" />,
+    },
+  ].filter((link) => link.href.trim());
+
   return (
     <footer className="bg-frontend-surface-dark text-white/70">
       <div className="mx-auto max-w-(--container-frontend-page) px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
@@ -30,17 +51,15 @@ export function SiteFooter({
             <p className="frontend-copy max-w-xs text-sm text-white/60">
               {site.description}
             </p>
-            <div className="flex gap-3 pt-1">
-              <SocialLink href={site.social.facebook} label="Facebook">
-                <FacebookIcon className="size-4" />
-              </SocialLink>
-              <SocialLink href={site.social.instagram} label="Instagram">
-                <InstagramIcon className="size-4" />
-              </SocialLink>
-              <SocialLink href={site.social.youtube} label="YouTube">
-                <YoutubeIcon className="size-4" />
-              </SocialLink>
-            </div>
+            {socialLinks.length > 0 ? (
+              <div className="flex gap-3 pt-1">
+                {socialLinks.map((link) => (
+                  <SocialLink key={link.label} href={link.href} label={link.label}>
+                    {link.icon}
+                  </SocialLink>
+                ))}
+              </div>
+            ) : null}
           </div>
 
           <FooterColumn title="Serviços">
@@ -71,37 +90,43 @@ export function SiteFooter({
                 ))}
               </span>
             </li>
-            <li>
-              <a
-                href={site.phoneHref}
-                className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
-              >
-                <Phone className="size-4 shrink-0 text-frontend-brand" />
-                {site.phone}
-              </a>
-            </li>
-            <li>
-              <a
-                href={`mailto:${site.email}`}
-                className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
-              >
-                <Mail className="size-4 shrink-0 text-frontend-brand" />
-                {site.email}
-              </a>
-            </li>
+            {hasPhone ? (
+              <li>
+                <a
+                  href={site.phoneHref}
+                  className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
+                >
+                  <Phone className="size-4 shrink-0 text-frontend-brand" />
+                  {site.phone}
+                </a>
+              </li>
+            ) : null}
+            {hasEmail ? (
+              <li>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
+                >
+                  <Mail className="size-4 shrink-0 text-frontend-brand" />
+                  {site.email}
+                </a>
+              </li>
+            ) : null}
           </FooterColumn>
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row">
           <p>© {new Date().getFullYear()} Aguicius. Todos os direitos reservados.</p>
-          <a
-            href={site.app}
-            target="_blank"
-            rel="noreferrer"
-            className="frontend-small-label transition-colors duration-150 ease-in-out hover:text-white"
-          >
-            Descarregue a nossa APP
-          </a>
+          {hasApp ? (
+            <a
+              href={site.app}
+              target="_blank"
+              rel="noreferrer"
+              className="frontend-small-label transition-colors duration-150 ease-in-out hover:text-white"
+            >
+              Descarregue a nossa APP
+            </a>
+          ) : null}
         </div>
       </div>
     </footer>

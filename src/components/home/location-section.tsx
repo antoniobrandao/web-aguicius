@@ -20,6 +20,7 @@ export function LocationSection({
   intro: WebsiteContent["pages"]["home"]["locationIntro"];
 }) {
   const mapEmbedUrl = location.mapEmbedUrl ?? "about:blank";
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
     <section className="bg-frontend-bg py-20 lg:py-28">
@@ -47,13 +48,15 @@ export function LocationSection({
                   ))}
                 </span>
               </p>
-              <a
-                href={site.phoneHref}
-                className="flex items-center gap-3 text-sm transition-colors duration-150 ease-in-out hover:text-frontend-brand"
-              >
-                <Phone className="size-5 shrink-0 text-frontend-brand" />
-                {site.phone}
-              </a>
+              {hasPhone ? (
+                <a
+                  href={site.phoneHref}
+                  className="flex items-center gap-3 text-sm transition-colors duration-150 ease-in-out hover:text-frontend-brand"
+                >
+                  <Phone className="size-5 shrink-0 text-frontend-brand" />
+                  {site.phone}
+                </a>
+              ) : null}
             </div>
 
             <div className="mt-7 flex flex-wrap gap-4">

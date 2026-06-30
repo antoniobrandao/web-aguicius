@@ -17,6 +17,7 @@ export function SiteHeader({
   navItems: NavItem[];
 }) {
   const [scrolled, setScrolled] = useState(false);
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -37,13 +38,15 @@ export function SiteHeader({
 
         <div className="flex items-center gap-6">
           <NavLinks className="hidden lg:flex" items={navItems} />
-          <a
-            href={site.phoneHref}
-            className="frontend-small-label hidden items-center gap-2 text-frontend-body transition-colors duration-150 ease-in-out hover:text-frontend-brand xl:inline-flex"
-          >
-            <Phone className="size-4 text-frontend-brand" />
-            {site.phone}
-          </a>
+          {hasPhone ? (
+            <a
+              href={site.phoneHref}
+              className="frontend-small-label hidden items-center gap-2 text-frontend-body transition-colors duration-150 ease-in-out hover:text-frontend-brand xl:inline-flex"
+            >
+              <Phone className="size-4 text-frontend-brand" />
+              {site.phone}
+            </a>
+          ) : null}
           <MobileNav items={navItems} site={site} />
         </div>
       </div>

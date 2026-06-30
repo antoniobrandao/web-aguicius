@@ -10,6 +10,9 @@ export function ContactInfo({
   site: SiteSettings;
   location: WebsiteLocation;
 }) {
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
+  const hasEmail = Boolean(site.email.trim());
+
   return (
     <div className="grid gap-px border border-frontend-border bg-frontend-border sm:grid-cols-2">
       <InfoCard icon={<MapPin className="size-5" />} label="Morada">
@@ -24,23 +27,27 @@ export function ContactInfo({
         </p>
       </InfoCard>
 
-      <InfoCard icon={<Phone className="size-5" />} label="Telefone">
-        <a
-          href={site.phoneHref}
-          className="transition-colors hover:text-frontend-brand"
-        >
-          {site.phone}
-        </a>
-      </InfoCard>
+      {hasPhone ? (
+        <InfoCard icon={<Phone className="size-5" />} label="Telefone">
+          <a
+            href={site.phoneHref}
+            className="transition-colors hover:text-frontend-brand"
+          >
+            {site.phone}
+          </a>
+        </InfoCard>
+      ) : null}
 
-      <InfoCard icon={<Mail className="size-5" />} label="Email">
-        <a
-          href={`mailto:${site.email}`}
-          className="break-all transition-colors hover:text-frontend-brand"
-        >
-          {site.email}
-        </a>
-      </InfoCard>
+      {hasEmail ? (
+        <InfoCard icon={<Mail className="size-5" />} label="Email">
+          <a
+            href={`mailto:${site.email}`}
+            className="break-all transition-colors hover:text-frontend-brand"
+          >
+            {site.email}
+          </a>
+        </InfoCard>
+      ) : null}
 
       <InfoCard icon={<Clock className="size-5" />} label="Horário">
         <div className="flex flex-col gap-1">

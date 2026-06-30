@@ -12,6 +12,9 @@ const ctaSchema = z.object({
   href: z.string().min(1),
 });
 
+const emptyableUrlSchema = z.union([z.string().url(), z.literal("")]);
+const emptyableEmailSchema = z.union([z.string().email(), z.literal("")]);
+
 const pageHeroSchema = z.object({
   eyebrow: z.string().min(1),
   title: z.string().min(1),
@@ -30,11 +33,11 @@ export const websiteContentSchema = z.object({
     name: z.string().min(1),
     tagline: z.string().min(1),
     description: z.string().min(1),
-    phone: z.string().min(1),
-    phoneHref: z.string().min(1),
-    email: z.string().email(),
-    whatsapp: z.string().url(),
-    appUrl: z.string().url(),
+    phone: z.string(),
+    phoneHref: z.string(),
+    email: emptyableEmailSchema,
+    whatsapp: emptyableUrlSchema,
+    appUrl: emptyableUrlSchema,
     schedule: z.array(
       z.object({
         days: z.string().min(1),
@@ -42,9 +45,9 @@ export const websiteContentSchema = z.object({
       }),
     ),
     social: z.object({
-      facebook: z.string().url(),
-      instagram: z.string().url(),
-      youtube: z.string().url(),
+      facebook: emptyableUrlSchema,
+      instagram: emptyableUrlSchema,
+      youtube: emptyableUrlSchema,
     }),
     seo: z.object({
       metadataBase: z.string().url(),

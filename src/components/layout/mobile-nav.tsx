@@ -25,6 +25,7 @@ export function MobileNav({
 }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -66,13 +67,15 @@ export function MobileNav({
               Reserve já
             </Link>
           </Button>
-          <a
-            href={site.phoneHref}
-            className="inline-flex items-center gap-2 text-sm text-white/70 transition-colors duration-150 ease-in-out hover:text-white"
-          >
-            <Phone className="size-4" />
-            {site.phone}
-          </a>
+          {hasPhone ? (
+            <a
+              href={site.phoneHref}
+              className="inline-flex items-center gap-2 text-sm text-white/70 transition-colors duration-150 ease-in-out hover:text-white"
+            >
+              <Phone className="size-4" />
+              {site.phone}
+            </a>
+          ) : null}
         </div>
       </SheetContent>
     </Sheet>

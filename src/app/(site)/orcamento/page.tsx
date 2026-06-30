@@ -20,6 +20,9 @@ export default async function OrcamentoPage() {
   const site = toSiteSettings(content);
   const page = content.pages.quote;
   const { allServices } = getServiceGroups(content);
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
+  const hasEmail = Boolean(site.email.trim());
+  const hasContactSidebar = hasPhone || hasEmail;
 
   return (
     <>
@@ -49,18 +52,24 @@ export default async function OrcamentoPage() {
               })}
             </div>
 
-            <div className="frontend-flat-card bg-frontend-muted p-8">
-              <p className="frontend-small-label text-frontend-brand">
-                {page.sidebarHeading}
-              </p>
-              <a
-                href={site.phoneHref}
-                className="mt-3 block text-2xl font-medium text-frontend-heading transition-colors duration-150 ease-in-out hover:text-frontend-brand"
-              >
-                {site.phone}
-              </a>
-              <p className="mt-1 text-sm text-frontend-body">{site.email}</p>
-            </div>
+            {hasContactSidebar ? (
+              <div className="frontend-flat-card bg-frontend-muted p-8">
+                <p className="frontend-small-label text-frontend-brand">
+                  {page.sidebarHeading}
+                </p>
+                {hasPhone ? (
+                  <a
+                    href={site.phoneHref}
+                    className="mt-3 block text-2xl font-medium text-frontend-heading transition-colors duration-150 ease-in-out hover:text-frontend-brand"
+                  >
+                    {site.phone}
+                  </a>
+                ) : null}
+                {hasEmail ? (
+                  <p className="mt-1 text-sm text-frontend-body">{site.email}</p>
+                ) : null}
+              </div>
+            ) : null}
           </div>
 
           <div className="lg:col-span-7">

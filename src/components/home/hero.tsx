@@ -14,6 +14,7 @@ export function Hero({
   hero: WebsiteContent["pages"]["home"]["hero"];
 }) {
   const [beforeHighlight, afterHighlight] = hero.title.split(hero.highlight);
+  const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
     <section className="bg-frontend-surface-dark text-white">
@@ -40,15 +41,17 @@ export function Hero({
             </Button>
           </div>
 
-          <a
-            href={site.phoneHref}
-            className="mt-10 inline-flex items-center gap-3 text-sm text-white/60 transition-colors duration-150 ease-in-out hover:text-white"
-          >
-            <span className="inline-flex size-10 items-center justify-center border border-white/15 text-frontend-brand">
-              <Phone className="size-4" />
-            </span>
-            <span className="font-medium tracking-widest">{site.phone}</span>
-          </a>
+          {hasPhone ? (
+            <a
+              href={site.phoneHref}
+              className="mt-10 inline-flex items-center gap-3 text-sm text-white/60 transition-colors duration-150 ease-in-out hover:text-white"
+            >
+              <span className="inline-flex size-10 items-center justify-center border border-white/15 text-frontend-brand">
+                <Phone className="size-4" />
+              </span>
+              <span className="font-medium tracking-widest">{site.phone}</span>
+            </a>
+          ) : null}
         </div>
 
         <div className="lg:col-span-5">
