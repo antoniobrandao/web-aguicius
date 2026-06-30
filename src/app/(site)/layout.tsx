@@ -20,7 +20,7 @@ export default async function SiteLayout({
   const primaryLocation = getPrimaryLocation(content);
 
   return (
-    <div className="flex min-h-dvh flex-col">
+    <div className="frontend-theme flex min-h-dvh flex-col bg-frontend-bg text-frontend-body">
       <SiteHeader site={site} navItems={navItems} />
       <main className="flex-1">{children}</main>
       <SiteFooter

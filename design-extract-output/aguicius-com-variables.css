@@ -1,0 +1,65 @@
+:root {
+  /* Colors — Primary */
+  --color-primary: #850064;
+
+  /* Colors — Neutrals */
+  --color-neutral-50: #6c6d74;
+  --color-neutral-100: #ffffff;
+  --color-neutral-200: #2d2e33;
+  --color-neutral-300: #b4b5ba;
+  --color-neutral-400: #e5e5e7;
+  --color-neutral-500: #242427;
+  --color-neutral-600: #808080;
+  --color-neutral-700: #414141;
+
+  /* Colors — Backgrounds */
+  --color-bg: #ffffff;
+  --color-bg-1: #303033;
+  --color-bg-2: #414141;
+  --color-bg-3: #850064;
+
+  /* Colors — Text */
+  --color-text: #6c6d74;
+  --color-text-1: #2d2e33;
+  --color-text-2: #ffffff;
+  --color-text-3: #b4b5ba;
+  --color-text-4: #242427;
+
+  /* Typography — Families */
+  --font-sans: 'Montserrat', sans-serif;
+
+  /* Typography — Scale */
+  --font-size-128: 128px;
+  --font-size-48: 48px;
+  --font-size-36: 36px;
+  --font-size-32: 32px;
+  --font-size-28: 28px;
+  --font-size-20: 20px;
+  --font-size-16: 16px;
+  --font-size-11: 11px;
+
+  /* Spacing */
+  --spacing-5: 5px;
+  --spacing-40: 40px;
+  --spacing-70: 70px;
+  --spacing-140: 140px;
+  --spacing-180: 180px;
+  --spacing-200: 200px;
+
+  /* Border Radius */
+  --radius-full: 50px;
+
+  /* Original Site Variables */
+  /* — other — */
+  --uk-breakpoint-s: 640px;
+  --uk-breakpoint-m: 960px;
+  --uk-breakpoint-l: 1200px;
+  --uk-breakpoint-xl: 1600px;
+  --uk-leader-fill-content: .;
+  /* — semantic — */
+  success: [object Object];
+  warning: [object Object];
+  error: [object Object];
+  info: [object Object];
+
+}

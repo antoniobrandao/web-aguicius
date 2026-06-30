@@ -1,0 +1,185 @@
+{
+  "$metadata": {
+    "generator": "designlang",
+    "version": "7.0.0",
+    "spec": "https://design-tokens.github.io/community-group/format/",
+    "source": "https://aguicius.com",
+    "generatedAt": "2026-06-18T16:54:08.048Z"
+  },
+  "primitive": {
+    "color": {
+      "brand": {
+        "primary": {
+          "$value": "#850064",
+          "$type": "color"
+        }
+      },
+      "neutral": {
+        "n100": {
+          "$value": "#6c6d74",
+          "$type": "color"
+        },
+        "n200": {
+          "$value": "#ffffff",
+          "$type": "color"
+        },
+        "n300": {
+          "$value": "#2d2e33",
+          "$type": "color"
+        },
+        "n400": {
+          "$value": "#b4b5ba",
+          "$type": "color"
+        },
+        "n500": {
+          "$value": "#e5e5e7",
+          "$type": "color"
+        },
+        "n600": {
+          "$value": "#242427",
+          "$type": "color"
+        },
+        "n700": {
+          "$value": "#808080",
+          "$type": "color"
+        },
+        "n800": {
+          "$value": "#414141",
+          "$type": "color"
+        }
+      },
+      "background": {
+        "bg0": {
+          "$value": "#ffffff",
+          "$type": "color"
+        },
+        "bg1": {
+          "$value": "#303033",
+          "$type": "color"
+        },
+        "bg2": {
+          "$value": "#414141",
+          "$type": "color"
+        },
+        "bg3": {
+          "$value": "#850064",
+          "$type": "color"
+        }
+      },
+      "text": {
+        "text0": {
+          "$value": "#6c6d74",
+          "$type": "color"
+        },
+        "text1": {
+          "$value": "#2d2e33",
+          "$type": "color"
+        },
+        "text2": {
+          "$value": "#ffffff",
+          "$type": "color"
+        },
+        "text3": {
+          "$value": "#b4b5ba",
+          "$type": "color"
+        },
+        "text4": {
+          "$value": "#242427",
+          "$type": "color"
+        },
+        "text5": {
+          "$value": "#303033",
+          "$type": "color"
+        },
+        "text6": {
+          "$value": "#808080",
+          "$type": "color"
+        }
+      }
+    },
+    "spacing": {
+      "s0": {
+        "$value": "5px",
+        "$type": "dimension"
+      },
+      "s1": {
+        "$value": "40px",
+        "$type": "dimension"
+      },
+      "s2": {
+        "$value": "70px",
+        "$type": "dimension"
+      },
+      "s3": {
+        "$value": "140px",
+        "$type": "dimension"
+      },
+      "s4": {
+        "$value": "180px",
+        "$type": "dimension"
+      },
+      "s5": {
+        "$value": "200px",
+        "$type": "dimension"
+      }
+    },
+    "radius": {
+      "r0": {
+        "$value": "50px",
+        "$type": "dimension"
+      }
+    },
+    "shadow": {},
+    "fontFamily": {
+      "f0": {
+        "$value": "Montserrat",
+        "$type": "fontFamily"
+      }
+    }
+  },
+  "semantic": {
+    "color": {
+      "action": {
+        "primary": {
+          "$value": "{primitive.color.brand.primary}",
+          "$type": "color"
+        }
+      },
+      "surface": {
+        "default": {
+          "$value": "{primitive.color.background.bg0}",
+          "$type": "color"
+        }
+      },
+      "text": {
+        "body": {
+          "$value": "{primitive.color.text.text0}",
+          "$type": "color"
+        }
+      }
+    },
+    "typography": {
+      "body": {
+        "$value": {
+          "fontFamily": "Montserrat",
+          "fontSize": "128px",
+          "fontWeight": "400",
+          "lineHeight": "128px"
+        },
+        "$type": "typography"
+      }
+    },
+    "radius": {
+      "control": {
+        "$value": "{primitive.radius.r0}",
+        "$type": "dimension"
+      }
+    },
+    "shadow": {
+      "elevated": {
+        "$value": "{primitive.shadow.sh0}",
+        "$type": "shadow"
+      }
+    }
+  }
+}

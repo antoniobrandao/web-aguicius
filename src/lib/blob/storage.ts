@@ -21,7 +21,7 @@ export async function writeFileBlob(
   pathname: string,
   body: File | Blob | ArrayBuffer,
   contentType: string,
-): Promise<{ pathname: string }> {
+): Promise<{ pathname: string; url: string }> {
   assertBlobWriteCredentials();
 
   const blob = await put(pathname, body, {
@@ -32,7 +32,7 @@ export async function writeFileBlob(
     cacheControlMaxAge: 60,
   });
 
-  return { pathname: blob.pathname };
+  return { pathname: blob.pathname, url: blob.url };
 }
 
 export async function readPrivateBlob(pathname: string) {

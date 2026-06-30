@@ -10,9 +10,18 @@ import {
   createBackofficeSession,
   isValidBackofficePassword,
 } from "@/lib/backoffice/auth";
-import { writeFileBlob } from "@/lib/blob/storage";
+import { uploadAsset } from "@/lib/assets/upload";
 import { WEBSITE_CONTENT_TAG } from "@/lib/content/cache";
-import { saveWebsiteContent } from "@/lib/content/website-content";
+import { PAGE_KEYS } from "@/lib/content/constants";
+import {
+  deleteLocationDocument,
+  deleteServiceDocument,
+  saveLocationDocument,
+  saveNavigationDocument,
+  savePageDocument,
+  saveServiceDocument,
+  saveWebsiteSettingsDocument,
+} from "@/lib/content/website-repository";
 import {
   websiteContentSchema,
   type WebsiteContent,
@@ -50,17 +59,105 @@ export async function logoutBackoffice(): Promise<void> {
   redirect("/backoffice/login");
 }
 
-export async function saveBackofficeContent(
-  content: WebsiteContent,
-): Promise<ActionResult<WebsiteContent>> {
+export async function saveWebsiteSection(input: {
+  site: WebsiteContent["site"];
+  values: WebsiteContent["values"];
+}) {
   try {
     await assertBackofficeAuthenticated();
-    const parsed = websiteContentSchema.parse(content);
-    const saved = await saveWebsiteContent(parsed);
-
+    const parsed = websiteContentSchema
+      .pick({ site: true, values: true })
+      .parse(input);
+    await saveWebsiteSettingsDocument(parsed);
     revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: parsed };
+  } catch (error) {
+    return { ok: false, error: toMessage(error) };
+  }
+}
 
-    return { ok: true, data: saved };
+export async function saveNavigationSection(
+  navigation: WebsiteContent["navigation"],
+) {
+  try {
+    await assertBackofficeAuthenticated();
+    const parsed = websiteContentSchema.shape.navigation.parse(navigation);
+    await saveNavigationDocument(parsed);
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: parsed };
+  } catch (error) {
+    return { ok: false, error: toMessage(error) };
+  }
+}
+
+export async function savePageAction<K extends (typeof PAGE_KEYS)[number]>(
+  pageKey: K,
+  page: WebsiteContent["pages"][K],
+) {
+  try {
+    await assertBackofficeAuthenticated();
+    const parsed = websiteContentSchema.shape.pages.shape[pageKey].parse(page);
+    await savePageDocument(pageKey, parsed);
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: parsed };
+  } catch (error) {
+    return { ok: false, error: toMessage(error) };
+  }
+}
+
+export async function saveLocationAction(
+  input: {
+    originalSlug?: string;
+    location: WebsiteContent["locations"][number];
+  },
+) {
+  try {
+    await assertBackofficeAuthenticated();
+    const parsed = websiteContentSchema.shape.locations.element.parse(
+      input.location,
+    );
+    await saveLocationDocument({ originalSlug: input.originalSlug, location: parsed });
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: parsed };
+  } catch (error) {
+    return { ok: false, error: toMessage(error) };
+  }
+}
+
+export async function deleteLocationAction(slug: string) {
+  try {
+    await assertBackofficeAuthenticated();
+    await deleteLocationDocument(slug);
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: null };
+  } catch (error) {
+    return { ok: false, error: toMessage(error) };
+  }
+}
+
+export async function saveServiceAction(input: {
+  originalSlug?: string;
+  service: WebsiteContent["services"][number];
+}) {
+  try {
+    await assertBackofficeAuthenticated();
+    const parsed = websiteContentSchema.shape.services.element.parse(
+      input.service,
+    );
+    await saveServiceDocument({ originalSlug: input.originalSlug, service: parsed });
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: parsed };
+  } catch (error) {
+    return { ok: false, error: toMessage(error) };
+  }
+}
+
+export async function deleteServiceAction(slug: string) {
+  try {
+    await assertBackofficeAuthenticated();
+    await deleteServiceDocument(slug);
+    revalidateTag(WEBSITE_CONTENT_TAG, "max");
+    return { ok: true, data: null };
   } catch (error) {
     return { ok: false, error: toMessage(error) };
   }
@@ -68,11 +165,21 @@ export async function saveBackofficeContent(
 
 export async function uploadServiceImage(
   formData: FormData,
-): Promise<ActionResult<{ pathname: string }>> {
+): Promise<
+  ActionResult<{
+    assetId: string;
+    pathname: string;
+    width?: number;
+    height?: number;
+  }>
+> {
   try {
     await assertBackofficeAuthenticated();
 
     const slug = String(formData.get("slug") ?? "");
+    const alt = String(formData.get("alt") ?? "");
+    const widthValue = Number(formData.get("width") ?? 0);
+    const heightValue = Number(formData.get("height") ?? 0);
     const file = formData.get("file");
 
     if (!/^[a-z0-9][a-z0-9-_]*$/.test(slug)) {
@@ -88,8 +195,23 @@ export async function uploadServiceImage(
     }
 
     const pathname = `services/${slug}/image.${fileExtension(file)}`;
-    const result = await writeFileBlob(pathname, file, file.type);
-    return { ok: true, data: result };
+    const asset = await uploadAsset({
+      file,
+      pathname,
+      alt,
+      width: widthValue > 0 ? widthValue : undefined,
+      height: heightValue > 0 ? heightValue : undefined,
+    });
+
+    return {
+      ok: true,
+      data: {
+        assetId: asset.assetId,
+        pathname: asset.pathname,
+        width: asset.width,
+        height: asset.height,
+      },
+    };
   } catch (error) {
     return { ok: false, error: toMessage(error) };
   }

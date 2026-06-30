@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 
 import "./globals.css";
+import "./frontend.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const montserrat = Montserrat({

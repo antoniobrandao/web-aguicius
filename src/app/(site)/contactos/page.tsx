@@ -29,7 +29,7 @@ export default async function ContactosPage() {
     <>
       <PageHero {...page.hero} />
 
-      <section className="bg-background py-20 lg:py-28">
+      <section className="bg-frontend-bg py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <ContactInfo site={site} location={primaryLocation} />
           <MapEmbed
@@ -39,7 +39,7 @@ export default async function ContactosPage() {
         </Container>
       </section>
 
-      <section className="bg-muted py-20 lg:py-28">
+      <section className="bg-frontend-muted py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeading {...page.formIntro} />

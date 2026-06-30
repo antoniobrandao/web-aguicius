@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { LoginForm } from "./login-form";
-import { BackofficeThemeToggle } from "@/components/backoffice/theme-toggle";
+import { BackofficeThemeToggle } from "../_components/theme";
 import {
   Card,
   CardContent,

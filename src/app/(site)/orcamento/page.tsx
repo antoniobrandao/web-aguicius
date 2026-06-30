@@ -25,7 +25,7 @@ export default async function OrcamentoPage() {
     <>
       <PageHero {...page.hero} />
 
-      <section className="bg-background py-20 lg:py-28">
+      <section className="bg-frontend-bg py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-10 lg:col-span-5">
             <div className="flex flex-col gap-6">
@@ -33,14 +33,14 @@ export default async function OrcamentoPage() {
                 const Icon = getContentIcon(perk.icon);
                 return (
                   <div key={perk.title} className="flex gap-4">
-                    <span className="inline-flex size-12 shrink-0 items-center justify-center bg-primary text-white">
+                    <span className="inline-flex size-12 shrink-0 items-center justify-center bg-frontend-brand text-white">
                       <Icon className="size-5" />
                     </span>
                     <div>
-                      <h3 className="text-base font-bold uppercase tracking-wide text-secondary">
+                      <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
                         {perk.title}
                       </h3>
-                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                      <p className="frontend-copy mt-1 text-sm">
                         {perk.description}
                       </p>
                     </div>
@@ -49,17 +49,17 @@ export default async function OrcamentoPage() {
               })}
             </div>
 
-            <div className="border border-border bg-muted p-8">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+            <div className="frontend-flat-card bg-frontend-muted p-8">
+              <p className="frontend-small-label text-frontend-brand">
                 {page.sidebarHeading}
               </p>
               <a
                 href={site.phoneHref}
-                className="mt-3 block text-2xl font-extrabold text-secondary transition-colors hover:text-primary"
+                className="mt-3 block text-2xl font-medium text-frontend-heading transition-colors duration-150 ease-in-out hover:text-frontend-brand"
               >
                 {site.phone}
               </a>
-              <p className="mt-1 text-sm text-muted-foreground">{site.email}</p>
+              <p className="mt-1 text-sm text-frontend-body">{site.email}</p>
             </div>
           </div>
 

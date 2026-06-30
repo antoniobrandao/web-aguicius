@@ -8,7 +8,7 @@ import type {
 } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/site/ui/button";
 
 export function LocationSection({
   site,
@@ -22,7 +22,7 @@ export function LocationSection({
   const mapEmbedUrl = location.mapEmbedUrl ?? "about:blank";
 
   return (
-    <section className="bg-background py-20 lg:py-28">
+    <section className="bg-frontend-bg py-20 lg:py-28">
       <Container className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <div className="flex flex-col justify-center">
           <SectionHeading
@@ -31,13 +31,13 @@ export function LocationSection({
             description={intro.description}
           />
 
-          <div className="mt-10 border border-border bg-card p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+          <div className="frontend-flat-card mt-10 p-8">
+            <p className="frontend-small-label text-frontend-brand">
               {location.city}
             </p>
-            <div className="mt-5 flex flex-col gap-4 text-secondary">
+            <div className="mt-5 flex flex-col gap-4 text-frontend-heading">
               <p className="flex items-start gap-3 text-sm leading-relaxed">
-                <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
+                <MapPin className="mt-0.5 size-5 shrink-0 text-frontend-brand" />
                 <span>
                   {location.lines.map((line, index) => (
                     <span key={line}>
@@ -49,9 +49,9 @@ export function LocationSection({
               </p>
               <a
                 href={site.phoneHref}
-                className="flex items-center gap-3 text-sm transition-colors hover:text-primary"
+                className="flex items-center gap-3 text-sm transition-colors duration-150 ease-in-out hover:text-frontend-brand"
               >
-                <Phone className="size-5 shrink-0 text-primary" />
+                <Phone className="size-5 shrink-0 text-frontend-brand" />
                 {site.phone}
               </a>
             </div>
@@ -74,7 +74,7 @@ export function LocationSection({
           </div>
         </div>
 
-        <div className="min-h-80 overflow-hidden border border-border">
+        <div className="min-h-80 overflow-hidden border border-frontend-border">
           <iframe
             title={`Mapa Aguicius ${location.city}`}
             src={mapEmbedUrl}

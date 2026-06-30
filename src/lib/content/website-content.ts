@@ -1,15 +1,9 @@
 import { defaultWebsiteContent } from "@/content/default-website";
 import { unstable_cache } from "next/cache";
 
-import {
-  getLatestWebsiteContent,
-  saveWebsiteContentSnapshot,
-} from "./website-repository";
+import { getLatestWebsiteContent } from "./website-repository";
 import { WEBSITE_CONTENT_TAG } from "./cache";
-import type {
-  AguiciusWebsiteContent,
-  LoadedWebsiteContent,
-} from "./website-types";
+import type { LoadedWebsiteContent } from "./website-types";
 
 const getCachedWebsiteContent = unstable_cache(
   async (): Promise<LoadedWebsiteContent> => {
@@ -34,9 +28,3 @@ export async function getWebsiteContent(): Promise<LoadedWebsiteContent> {
   return getCachedWebsiteContent();
 }
 
-export async function saveWebsiteContent(
-  content: AguiciusWebsiteContent,
-): Promise<AguiciusWebsiteContent> {
-  const saved = await saveWebsiteContentSnapshot(content);
-  return saved.content;
-}

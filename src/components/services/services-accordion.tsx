@@ -4,7 +4,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/site/ui/accordion";
 
 export function ServicesAccordion({ services }: { services: Service[] }) {
   return (
@@ -15,7 +15,7 @@ export function ServicesAccordion({ services }: { services: Service[] }) {
           <AccordionItem key={service.slug} value={service.slug}>
             <AccordionTrigger>
               <span className="flex items-center gap-4">
-                <Icon className="size-5 text-primary" />
+                <Icon className="size-5 text-frontend-brand" />
                 {service.title}
               </span>
             </AccordionTrigger>

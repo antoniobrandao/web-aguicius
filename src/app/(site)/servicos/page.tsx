@@ -25,7 +25,7 @@ export default async function ServicosPage() {
     <>
       <PageHero {...page.hero} />
 
-      <section className="bg-background py-20 lg:py-28">
+      <section className="bg-frontend-bg py-20 lg:py-28">
         <Container className="flex flex-col gap-20 lg:gap-28">
           {featured.map((service, index) => (
             <ServiceDetail key={service.slug} service={service} index={index} />
@@ -33,7 +33,7 @@ export default async function ServicosPage() {
         </Container>
       </section>
 
-      <section className="bg-muted py-20 lg:py-28">
+      <section className="bg-frontend-muted py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
             <SectionHeading {...page.secondaryIntro} />

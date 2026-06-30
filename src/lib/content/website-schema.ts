@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { CONTENT_ICON_KEYS, SERVICE_TIERS } from "./constants";
+
 const linkSchema = z.object({
   label: z.string().min(1),
   href: z.string().min(1),
@@ -21,18 +23,7 @@ const seoSchema = z.object({
   description: z.string().min(1),
 });
 
-const contentIconSchema = z.enum([
-  "truck",
-  "wrench",
-  "packageCheck",
-  "hammer",
-  "boxes",
-  "warehouse",
-  "arrowDownToLine",
-  "zap",
-  "clock",
-  "shieldCheck",
-]);
+const contentIconSchema = z.enum(CONTENT_ICON_KEYS);
 
 export const websiteContentSchema = z.object({
   site: z.object({
@@ -73,11 +64,14 @@ export const websiteContentSchema = z.object({
       icon: contentIconSchema,
       image: z
         .object({
+          assetId: z.string().optional(),
           pathname: z.string().optional(),
           alt: z.string().min(1),
+          width: z.number().int().positive().optional(),
+          height: z.number().int().positive().optional(),
         })
         .optional(),
-      tier: z.enum(["primary", "featured", "secondary"]),
+      tier: z.enum(SERVICE_TIERS),
       short: z.string().min(1),
       description: z.string().min(1),
       bullets: z.array(z.string().min(1)).optional(),

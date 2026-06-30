@@ -1,4 +1,3 @@
-import type { ObjectId } from "mongodb";
 import type { LucideIcon } from "lucide-react";
 
 import type { WebsiteContent } from "./website-schema";
@@ -19,19 +18,15 @@ export type Service = {
   title: string;
   icon: LucideIcon;
   image?: {
+    assetId?: string;
     pathname?: string;
     alt: string;
+    width?: number;
+    height?: number;
   };
   short: string;
   description: string;
   bullets?: string[];
-};
-
-export type AguiciusWebsiteSnapshot = {
-  _id?: ObjectId;
-  content: AguiciusWebsiteContent;
-  revision: number;
-  createdAt: Date;
 };
 
 export type WebsiteContentSource = "mongo" | "default";
@@ -39,6 +34,4 @@ export type WebsiteContentSource = "mongo" | "default";
 export type LoadedWebsiteContent = {
   content: AguiciusWebsiteContent;
   source: WebsiteContentSource;
-  revision?: number;
-  createdAt?: Date;
 };

@@ -23,13 +23,11 @@ export function SectionHeading({
         className
       )}
     >
-      {eyebrow ? (
-        <span className="eyebrow">{eyebrow}</span>
-      ) : null}
+      {eyebrow ? <span className="frontend-eyebrow">{eyebrow}</span> : null}
       <h2
         className={cn(
-          "display-heading text-3xl sm:text-4xl lg:text-5xl",
-          tone === "light" ? "text-white" : "text-secondary"
+          "frontend-display-heading text-4xl lg:text-5xl",
+          tone === "light" ? "text-white" : "text-frontend-heading"
         )}
       >
         {title}
@@ -37,8 +35,8 @@ export function SectionHeading({
       {description ? (
         <p
           className={cn(
-            "max-w-2xl text-base leading-relaxed",
-            tone === "light" ? "text-white/70" : "text-muted-foreground",
+            "frontend-copy max-w-2xl",
+            tone === "light" ? "text-white/70" : "text-frontend-body",
             align === "center" && "mx-auto"
           )}
         >

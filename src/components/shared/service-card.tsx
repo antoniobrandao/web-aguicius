@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { Service } from "@/lib/content/website-types";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/site/ui/button";
 
 export function ServiceCard({
   service,
@@ -21,37 +22,38 @@ export function ServiceCard({
   return (
     <article
       className={cn(
-        "group relative flex flex-col gap-5 border border-border bg-card p-8 transition-colors duration-200 hover:border-primary",
+        "frontend-flat-card group relative flex flex-col gap-5 p-8 transition-colors duration-150 ease-in-out hover:border-frontend-brand",
         className
       )}
     >
       {service.image?.pathname ? (
-        <div className="-mx-8 -mt-8 aspect-video overflow-hidden bg-muted">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div className="-mx-8 -mt-8 aspect-video overflow-hidden bg-frontend-muted">
+          <Image
             src={`/api/blob/${service.image.pathname}`}
             alt={service.image.alt}
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            width={service.image.width ?? 800}
+            height={service.image.height ?? 450}
+            className="h-full w-full object-cover outline -outline-offset-1 outline-black/10"
           />
         </div>
       ) : (
-        <span className="inline-flex size-14 items-center justify-center bg-secondary text-white transition-colors duration-200 group-hover:bg-primary">
+        <span className="inline-flex size-14 items-center justify-center bg-frontend-surface text-white transition-colors duration-150 ease-in-out group-hover:bg-frontend-brand">
           <Icon className="size-6" />
         </span>
       )}
 
-      <h3 className="text-lg font-bold uppercase tracking-wide text-secondary">
+      <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
         {service.title}
       </h3>
 
-      <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
+      <p className="frontend-copy flex-1 text-sm">
         {service.short}
       </p>
 
       <Button asChild variant="ghost" size="sm" className="self-start px-0">
         <Link href={ctaHref}>
           {cta}
-          <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
+          <ArrowRight className="size-4 transition-transform duration-150 ease-in-out group-hover:translate-x-1" />
         </Link>
       </Button>
     </article>

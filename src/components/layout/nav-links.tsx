@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import type { NavItem } from "@/lib/content/website-types";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/site/ui/button";
 
 export function NavLinks({
   className,
@@ -37,11 +37,11 @@ export function NavLinks({
             key={item.href}
             href={item.href}
             className={cn(
-              "relative text-xs font-semibold uppercase tracking-[0.18em] transition-colors duration-150",
-              "after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:bg-primary after:transition-all after:duration-200",
+              "frontend-small-label relative transition-colors duration-150 ease-in-out",
+              "after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-frontend-brand after:transition-[width] after:duration-150 after:ease-in-out",
               active
-                ? "text-secondary after:w-full"
-                : "text-muted-foreground hover:text-secondary after:w-0 hover:after:w-full"
+                ? "text-frontend-heading after:w-full"
+                : "text-frontend-body hover:text-frontend-heading after:w-0 hover:after:w-full"
             )}
           >
             {item.label}

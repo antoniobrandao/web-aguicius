@@ -12,6 +12,8 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import type { ContentIconKey } from "./constants";
+
 export const contentIcons = {
   truck: Truck,
   wrench: Wrench,
@@ -25,7 +27,7 @@ export const contentIcons = {
   shieldCheck: ShieldCheck,
 } as const satisfies Record<string, LucideIcon>;
 
-export type ContentIconName = keyof typeof contentIcons;
+export type ContentIconName = ContentIconKey;
 
 export const contentIconOptions: { value: ContentIconName; label: string }[] = [
   { value: "truck", label: "Camião" },

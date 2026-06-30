@@ -1,60 +1,75 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-/*
-  ---break---
-*/
+
 @custom-variant dark (&:is(.dark *));
 
-/*
-  Aguicius design tokens.
-  Extracted from https://aguicius.com — Montserrat, magenta primary (#850064),
-  dark charcoal surfaces, flat / square material language.
-*/
-
 :root {
-  --radius: 0px;
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.823);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --primary: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.375);
+  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --muted: oklch(0.967 0.001 286.375);
+  --muted-foreground: oklch(0.552 0.016 285.938);
+  --accent: oklch(0.967 0.001 286.375);
+  --accent-foreground: oklch(0.21 0.006 285.885);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.004 286.32);
+  --input: oklch(0.92 0.004 286.32);
+  --ring: oklch(0.705 0.015 286.067);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.21 0.006 285.885);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.705 0.015 286.067);
+}
 
-  --background: #ffffff;
-  --foreground: #2d2e33;
-
-  --card: #ffffff;
-  --card-foreground: #2d2e33;
-
-  --popover: #ffffff;
-  --popover-foreground: #2d2e33;
-
-  --primary: #850064;
-  --primary-foreground: #ffffff;
-
-  --secondary: #303033;
-  --secondary-foreground: #ffffff;
-
-  --muted: #f4f4f5;
-  --muted-foreground: #6c6d74;
-
-  --accent: #f4f4f5;
-  --accent-foreground: #2d2e33;
-
-  --destructive: #b00020;
-
-  --border: #e5e5e7;
-  --input: #e5e5e7;
-  --ring: #850064;
-
-  /* Brand surfaces */
-  --brand: #850064;
-  --brand-foreground: #ffffff;
-  --surface-dark: #2d2e33;
-  --surface-darker: #242427;
-  --surface-charcoal: #303033;
-  --sidebar: hsl(0 0% 98%);
-  --sidebar-foreground: hsl(240 5.3% 26.1%);
-  --sidebar-primary: hsl(240 5.9% 10%);
-  --sidebar-primary-foreground: hsl(0 0% 98%);
-  --sidebar-accent: hsl(240 4.8% 95.9%);
-  --sidebar-accent-foreground: hsl(240 5.9% 10%);
-  --sidebar-border: hsl(220 13% 91%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
+.dark {
+  --background: oklch(0.141 0.005 285.823);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.21 0.006 285.885);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.21 0.006 285.885);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.92 0.004 286.32);
+  --primary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.274 0.006 286.033);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.274 0.006 286.033);
+  --muted-foreground: oklch(0.705 0.015 286.067);
+  --accent: oklch(0.274 0.006 286.033);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.552 0.016 285.938);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.552 0.016 285.938);
 }
 
 @theme inline {
@@ -76,55 +91,29 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-
-  --color-brand: var(--brand);
-  --color-brand-foreground: var(--brand-foreground);
-  --color-surface-dark: var(--surface-dark);
-  --color-surface-darker: var(--surface-darker);
-  --color-surface-charcoal: var(--surface-charcoal);
-
-  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-
-  --radius-sm: calc(var(--radius));
-  --radius-md: calc(var(--radius));
-  --radius-lg: calc(var(--radius));
-  --radius-xl: calc(var(--radius));
-
-  --container-page: 1600px;
-
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --color-sidebar: var(--sidebar);
-}
-
-@keyframes accordion-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 @layer base {
   * {
-    @apply border-border outline-ring/40;
+    @apply border-border outline-ring/50;
   }
 
   html {
@@ -135,167 +124,4 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "liga" 1, "calt" 1;
   }
-
-  ::selection {
-    background-color: var(--brand);
-    color: var(--brand-foreground);
-  }
-}
-
-@layer components {
-  /* Oversized display headings used across the site hero / dividers. */
-  .display-heading {
-    @apply font-extrabold uppercase leading-[0.95] tracking-tight;
-  }
-
-  .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.25em] text-primary;
-  }
-}
-
-/*
-  ---break---
-*/
-
-.dark {
-  --sidebar: hsl(240 5.9% 10%);
-  --sidebar-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-primary: hsl(224.3 76.3% 48%);
-  --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(240 3.7% 15.9%);
-  --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
-  --sidebar-border: hsl(240 3.7% 15.9%);
-  --sidebar-ring: hsl(217.2 91.2% 59.8%);
-}
-
-.backoffice-theme.dark {
-  /* Brand charcoals (#242427 / #2d2e33 / #303033 / #414141) for a coherent,
-     comfortable dark mode instead of the off-brand zinc palette. */
-  --background: #1f1f22;
-  --foreground: #f4f4f5;
-
-  --card: #27272b;
-  --card-foreground: #f4f4f5;
-
-  --popover: #27272b;
-  --popover-foreground: #f4f4f5;
-
-  --primary: #c0268f;
-  --primary-foreground: #ffffff;
-
-  --secondary: #f4f4f5;
-  --secondary-foreground: #1f1f22;
-
-  --muted: #303033;
-  --muted-foreground: #b4b5ba;
-
-  --accent: #303033;
-  --accent-foreground: #f4f4f5;
-
-  --destructive: #f4796f;
-
-  --border: #3a3a3f;
-  --input: #3a3a3f;
-  --ring: #c0268f;
-
-  --surface-dark: #1f1f22;
-  --surface-darker: #18181b;
-  --surface-charcoal: #303033;
-
-  /* Sidebar aligned to the dark brand charcoals. */
-  --sidebar: #1b1b1e;
-  --sidebar-foreground: #d8d8da;
-  --sidebar-primary: #c0268f;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #2c2c30;
-  --sidebar-accent-foreground: #f4f4f5;
-  --sidebar-border: #2c2c30;
-  --sidebar-ring: #c0268f;
-}
-
-/*
-  ---break---
-  Backoffice-only softening. Drops the loud marketing identity (uppercase,
-  wide tracking, square corners, oversized controls) for a calm, compact admin
-  feel. Scoped to .backoffice-theme so the public site is untouched. Unlayered
-  rules so they win over Tailwind utility layers.
-*/
-
-.backoffice-theme {
-  /* Flat, square material to match the brand design tokens. */
-  --radius: 0px;
-
-  /* Comfortable light tokens (token-derived, slightly higher contrast than the
-     extract default so dense admin forms stay readable). */
-  --accent: #eeeef0;
-
-  /* Sidebar aligned to brand neutrals (scoped: backoffice-only). */
-  --sidebar: #fafafa;
-  --sidebar-foreground: #2d2e33;
-  --sidebar-primary: #850064;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f1f3;
-  --sidebar-accent-foreground: #2d2e33;
-  --sidebar-border: #e5e5e7;
-  --sidebar-ring: #850064;
-}
-
-.backoffice-theme [data-slot="button"],
-.backoffice-theme [data-slot="card-title"],
-.backoffice-theme [data-slot="label"],
-.backoffice-theme [data-slot="accordion-trigger"] {
-  text-transform: none;
-  letter-spacing: normal;
-}
-
-.backoffice-theme [data-slot="button"] {
-  font-weight: 600;
-}
-
-/* Flat material: square badges/switches and no control shadows. */
-.backoffice-theme [data-slot="badge"],
-.backoffice-theme [data-slot="switch"],
-.backoffice-theme [data-slot="switch-thumb"] {
-  border-radius: 0;
-}
-
-.backoffice-theme [data-slot="switch"] {
-  box-shadow: none;
-}
-
-/* Compact the oversized default button (h-12 px-7) for dense admin use. */
-.backoffice-theme [data-slot="button"]:not(.h-9):not(.h-11):not(.h-14):not(.h-10):not([class*="size-"]) {
-  height: 2.5rem;
-  padding-inline: 1rem;
-  font-size: 0.8125rem;
-}
-
-.backoffice-theme [data-slot="card-title"] {
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.backoffice-theme [data-slot="label"] {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--muted-foreground);
-}
-
-.backoffice-theme [data-slot="accordion-trigger"] {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  padding-block: 1rem;
-}
-
-/* Compact card padding (p-8 -> 1.5rem) for a denser admin layout. */
-.backoffice-theme [data-slot="card-header"],
-.backoffice-theme [data-slot="card-content"],
-.backoffice-theme [data-slot="card-footer"] {
-  padding: 1.5rem;
-}
-
-.backoffice-theme [data-slot="card-content"],
-.backoffice-theme [data-slot="card-footer"] {
-  padding-top: 0;
 }

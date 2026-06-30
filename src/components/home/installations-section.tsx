@@ -5,7 +5,7 @@ import type { Service } from "@/lib/content/website-types";
 import type { WebsiteContent } from "@/lib/content/website-schema";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/site/ui/button";
 
 export function InstallationsSection({
   service,
@@ -15,7 +15,7 @@ export function InstallationsSection({
   content: WebsiteContent["pages"]["home"]["installations"];
 }) {
   return (
-    <section className="bg-muted py-20 lg:py-28">
+    <section className="bg-frontend-muted py-20 lg:py-28">
       <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
         <div>
           <SectionHeading
@@ -31,13 +31,13 @@ export function InstallationsSection({
           </Button>
         </div>
 
-        <ul className="grid gap-px border border-border bg-border sm:grid-cols-2">
+        <ul className="grid gap-px border border-frontend-border bg-frontend-border sm:grid-cols-2">
           {content.highlights.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-3 bg-card p-6 text-sm font-medium text-secondary"
+              className="flex items-start gap-3 bg-frontend-card p-6 text-sm font-medium text-frontend-heading"
             >
-              <span className="inline-flex size-6 shrink-0 items-center justify-center bg-primary text-white">
+              <span className="inline-flex size-6 shrink-0 items-center justify-center bg-frontend-brand text-white">
                 <Check className="size-4" />
               </span>
               {item}

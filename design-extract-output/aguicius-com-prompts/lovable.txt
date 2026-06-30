@@ -1,0 +1,13 @@
+Clone the design language of this landing page and build a fresh equivalent.
+Visual feel: flat. Tone: neutral · Headings: unknown · CTA verbs: [object Object], [object Object], [object Object], [object Object], [object Object], [object Object]
+Primary palette: #6c6d74, #ffffff, #2d2e33, #b4b5ba, #e5e5e7.
+Typography: [object Object].
+Corner radius vocabulary: 50.
+Shadow vocabulary: (none).
+Use: Use Bootstrap 5 utility classes. Customize via CSS variables.
+Page structure:
+- hero
+- features
+- social proof
+- cta
+- footer

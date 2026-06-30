@@ -4,19 +4,19 @@ const MOBILE_BREAKPOINT = 768
 const QUERY = `(max-width: ${MOBILE_BREAKPOINT - 1}px)`
 
 export function useIsMobile() {
-  return React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  return React.useSyncExternalStore(subscribe, getClientValue, getServerValue)
 }
 
 function subscribe(callback: () => void) {
-  const mediaQuery = window.matchMedia(QUERY)
-  mediaQuery.addEventListener("change", callback)
-  return () => mediaQuery.removeEventListener("change", callback)
+  const mql = window.matchMedia(QUERY)
+  mql.addEventListener("change", callback)
+  return () => mql.removeEventListener("change", callback)
 }
 
-function getSnapshot() {
+function getClientValue() {
   return window.matchMedia(QUERY).matches
 }
 
-function getServerSnapshot() {
+function getServerValue() {
   return false
 }

@@ -12,7 +12,7 @@ export function ServicesSection({
   intro: WebsiteContent["pages"]["home"]["servicesIntro"];
 }) {
   return (
-    <section className="bg-background py-20 lg:py-28">
+    <section className="bg-frontend-bg py-20 lg:py-28">
       <Container>
         <SectionHeading
           eyebrow={intro.eyebrow}

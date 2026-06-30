@@ -1,0 +1,63 @@
+{
+  "tone": "neutral",
+  "pronoun": "third-person",
+  "headingStyle": "unknown",
+  "headingLengthClass": "tight",
+  "ctaVerbs": [
+    {
+      "value": "reserve",
+      "count": 3
+    },
+    {
+      "value": "ver",
+      "count": 1
+    },
+    {
+      "value": "aqui",
+      "count": 1
+    },
+    {
+      "value": "mais",
+      "count": 1
+    },
+    {
+      "value": "contactos",
+      "count": 1
+    },
+    {
+      "value": "abrir",
+      "count": 1
+    }
+  ],
+  "buttonPatterns": [
+    {
+      "value": "reserve já",
+      "count": 3
+    },
+    {
+      "value": "ver mais",
+      "count": 1
+    },
+    {
+      "value": "aqui",
+      "count": 1
+    },
+    {
+      "value": "mais serviços",
+      "count": 1
+    },
+    {
+      "value": "contactos",
+      "count": 1
+    },
+    {
+      "value": "abrir no mapa",
+      "count": 1
+    }
+  ],
+  "sampleHeadings": [],
+  "stats": {
+    "buttons": 8,
+    "headings": 0
+  }
+}

@@ -8,7 +8,7 @@ export function MapEmbed({
   src: string;
 }) {
   return (
-    <div className={cn("overflow-hidden border border-border", className)}>
+    <div className={cn("overflow-hidden border border-frontend-border", className)}>
       <iframe
         title="Mapa Aguicius"
         src={src}

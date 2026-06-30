@@ -13,8 +13,8 @@ import {
   SheetContent,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+} from "@/components/site/ui/sheet";
+import { Button } from "@/components/site/ui/button";
 
 export function MobileNav({
   items,
@@ -31,7 +31,7 @@ export function MobileNav({
       <SheetTrigger asChild>
         <button
           aria-label="Abrir menu"
-          className="inline-flex size-11 items-center justify-center text-secondary transition-colors hover:text-primary lg:hidden cursor-pointer"
+          className="inline-flex size-11 cursor-pointer items-center justify-center text-frontend-heading transition-colors duration-150 ease-in-out hover:text-frontend-brand lg:hidden"
         >
           <Menu className="size-6" />
         </button>
@@ -50,8 +50,8 @@ export function MobileNav({
                 <Link
                   href={item.href}
                   className={cn(
-                    "border-b border-white/10 py-4 text-sm font-semibold uppercase tracking-[0.18em] transition-colors",
-                    active ? "text-primary" : "text-white/80 hover:text-white"
+                    "frontend-small-label border-b border-white/10 py-4 transition-colors duration-150 ease-in-out",
+                    active ? "text-frontend-brand" : "text-white/80 hover:text-white"
                   )}
                 >
                   {item.label}
@@ -68,7 +68,7 @@ export function MobileNav({
           </Button>
           <a
             href={site.phoneHref}
-            className="inline-flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
+            className="inline-flex items-center gap-2 text-sm text-white/70 transition-colors duration-150 ease-in-out hover:text-white"
           >
             <Phone className="size-4" />
             {site.phone}

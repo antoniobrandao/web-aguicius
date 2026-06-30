@@ -28,20 +28,20 @@ export function SiteHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur transition-shadow duration-200",
-        scrolled ? "border-border shadow-sm" : "border-transparent"
+        "sticky top-0 z-50 w-full border-b bg-frontend-bg/95 transition-colors duration-150 ease-in-out",
+        scrolled ? "border-frontend-border" : "border-transparent"
       )}
     >
-      <div className="mx-auto flex h-20 max-w-(--container-page) items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
+      <div className="mx-auto flex h-20 max-w-(--container-frontend-page) items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
         <Logo responsive />
 
         <div className="flex items-center gap-6">
           <NavLinks className="hidden lg:flex" items={navItems} />
           <a
             href={site.phoneHref}
-            className="hidden items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-primary xl:inline-flex"
+            className="frontend-small-label hidden items-center gap-2 text-frontend-body transition-colors duration-150 ease-in-out hover:text-frontend-brand xl:inline-flex"
           >
-            <Phone className="size-4 text-primary" />
+            <Phone className="size-4 text-frontend-brand" />
             {site.phone}
           </a>
           <MobileNav items={navItems} site={site} />

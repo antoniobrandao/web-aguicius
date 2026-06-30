@@ -22,12 +22,12 @@ export function SiteFooter({
   location: WebsiteLocation;
 }) {
   return (
-    <footer className="bg-surface-darker text-white/70">
-      <div className="mx-auto max-w-(--container-page) px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
+    <footer className="bg-frontend-surface-dark text-white/70">
+      <div className="mx-auto max-w-(--container-frontend-page) px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-5">
             <Logo variant="light" />
-            <p className="max-w-xs text-sm leading-relaxed text-white/60">
+            <p className="frontend-copy max-w-xs text-sm text-white/60">
               {site.description}
             </p>
             <div className="flex gap-3 pt-1">
@@ -61,7 +61,7 @@ export function SiteFooter({
 
           <FooterColumn title="Contactos">
             <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-primary" />
+              <MapPin className="mt-0.5 size-4 shrink-0 text-frontend-brand" />
               <span>
                 {location.lines.map((line, index) => (
                   <span key={line}>
@@ -74,18 +74,18 @@ export function SiteFooter({
             <li>
               <a
                 href={site.phoneHref}
-                className="flex items-center gap-3 transition-colors hover:text-white"
+                className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
               >
-                <Phone className="size-4 shrink-0 text-primary" />
+                <Phone className="size-4 shrink-0 text-frontend-brand" />
                 {site.phone}
               </a>
             </li>
             <li>
               <a
                 href={`mailto:${site.email}`}
-                className="flex items-center gap-3 transition-colors hover:text-white"
+                className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
               >
-                <Mail className="size-4 shrink-0 text-primary" />
+                <Mail className="size-4 shrink-0 text-frontend-brand" />
                 {site.email}
               </a>
             </li>
@@ -98,7 +98,7 @@ export function SiteFooter({
             href={site.app}
             target="_blank"
             rel="noreferrer"
-            className="uppercase tracking-[0.18em] transition-colors hover:text-white"
+            className="frontend-small-label transition-colors duration-150 ease-in-out hover:text-white"
           >
             Descarregue a nossa APP
           </a>
@@ -117,7 +117,7 @@ function FooterColumn({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-xs font-bold uppercase tracking-[0.22em] text-white">
+      <h3 className="frontend-small-label text-white">
         {title}
       </h3>
       <ul className="flex flex-col gap-3 text-sm">{children}</ul>
@@ -136,7 +136,7 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className="transition-colors hover:text-white hover:underline underline-offset-4"
+        className="transition-colors duration-150 ease-in-out hover:text-white hover:underline underline-offset-4"
       >
         {children}
       </Link>
@@ -159,7 +159,7 @@ function SocialLink({
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="inline-flex size-9 items-center justify-center border border-white/15 text-white/70 transition-colors hover:border-primary hover:bg-primary hover:text-white"
+      className="inline-flex size-9 items-center justify-center border border-white/15 text-white/70 transition-colors duration-150 ease-in-out hover:border-frontend-brand hover:bg-frontend-brand hover:text-white"
     >
       {children}
     </a>

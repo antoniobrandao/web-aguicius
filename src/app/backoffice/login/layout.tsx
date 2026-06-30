@@ -1,4 +1,4 @@
-import { BackofficeThemeProvider } from "@/components/backoffice/theme-provider";
+import { BackofficeThemeProvider } from "../_components/theme";
 
 export default function BackofficeLoginLayout({
   children,

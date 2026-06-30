@@ -1,12 +1,8 @@
 import { notFound } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import {
-  getCollectionName,
-  getLatestWebsiteSnapshot,
-} from "@/lib/content/website-repository";
+import { getSiteKey } from "@/lib/content/website-repository";
 
-import { seedDefaultWebsiteContentAction } from "./actions";
+import { SeedForm } from "./seed-form";
 
 export const dynamic = "force-dynamic";
 
@@ -15,8 +11,7 @@ export default async function DataAdminPage() {
     notFound();
   }
 
-  const latest = await getLatestWebsiteSnapshot().catch(() => null);
-  const collection = getCollectionName();
+  const siteKey = getSiteKey();
 
   return (
     <main className="mx-auto flex min-h-dvh max-w-2xl flex-col gap-8 px-6 py-12">
@@ -27,30 +22,24 @@ export default async function DataAdminPage() {
         <h1 className="text-3xl font-bold">Seed inicial do website</h1>
         <p className="text-muted-foreground">
           Esta página só funciona em desenvolvimento e grava o conteúdo default
-          na coleção MongoDB configurada.
+          nas coleções normalizadas.
         </p>
       </div>
 
       <div className="rounded-lg border bg-card p-6 text-sm">
         <dl className="grid gap-3">
           <div className="flex justify-between gap-4">
-            <dt className="text-muted-foreground">Coleção</dt>
-            <dd className="font-mono">{collection}</dd>
+            <dt className="text-muted-foreground">Site key</dt>
+            <dd className="font-mono">{siteKey}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-muted-foreground">Última revisão</dt>
-            <dd>{latest?.revision ?? "Sem documentos"}</dd>
-          </div>
-          <div className="flex justify-between gap-4">
-            <dt className="text-muted-foreground">Criado em</dt>
-            <dd>{latest?.createdAt?.toISOString() ?? "—"}</dd>
+            <dt className="text-muted-foreground">Ligação Mongo</dt>
+            <dd>Só ao gravar</dd>
           </div>
         </dl>
       </div>
 
-      <form action={seedDefaultWebsiteContentAction}>
-        <Button type="submit">Gravar default como nova revisão</Button>
-      </form>
+      <SeedForm />
     </main>
   );
 }
