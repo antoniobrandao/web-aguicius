@@ -9,8 +9,13 @@ const getCachedWebsiteContent = unstable_cache(
   async (): Promise<LoadedWebsiteContent> => {
     try {
       return await getLatestWebsiteContent();
-    } catch {
-      // Keep the public site up if MongoDB is unavailable during local work.
+    } catch (error) {
+      // Keep the public site up if the content API is unavailable, but never
+      // silently: in production this masks a real content problem.
+      console.error(
+        "[website-content] Falling back to default content:",
+        error instanceof Error ? error.message : error,
+      );
       return {
         content: defaultWebsiteContent,
         source: "default",
@@ -20,7 +25,9 @@ const getCachedWebsiteContent = unstable_cache(
   [WEBSITE_CONTENT_TAG],
   {
     tags: [WEBSITE_CONTENT_TAG],
-    revalidate: false,
+    // Refresh periodically so backoffice edits propagate even without a push
+    // to /api/revalidate. The tag still allows immediate invalidation.
+    revalidate: 300,
   },
 );
 

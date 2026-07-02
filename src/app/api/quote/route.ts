@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
-import { getServiceGroups } from "@/lib/content/adapters";
-import { getWebsiteContent } from "@/lib/content/website-content";
+import {
+  getApiBaseUrl,
+  getSiteApiKey,
+} from "@/lib/content/website-repository";
 
 type QuotePayload = {
   name?: string;
@@ -10,20 +12,12 @@ type QuotePayload = {
   service?: string;
   "origin-destination"?: string;
   message?: string;
+  website?: string; // honeypot
 };
 
-const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
-
+// Thin proxy: this site never talks to the database. Leads are created
+// through the casadigital.pt Site API, which also notifies the tenant.
 export async function POST(request: Request) {
-  const accessKey = process.env.WEB3FORMS_API_KEY;
-
-  if (!accessKey) {
-    return NextResponse.json(
-      { success: false, message: "Form service is not configured." },
-      { status: 500 },
-    );
-  }
-
   let body: QuotePayload;
   try {
     body = (await request.json()) as QuotePayload;
@@ -32,6 +26,11 @@ export async function POST(request: Request) {
       { success: false, message: "Invalid request body." },
       { status: 400 },
     );
+  }
+
+  // Honeypot: bots fill every field; humans never see this one.
+  if (body.website?.trim()) {
+    return NextResponse.json({ success: true });
   }
 
   const name = body.name?.trim();
@@ -45,37 +44,32 @@ export async function POST(request: Request) {
     );
   }
 
-  const { content } = await getWebsiteContent();
-  const { allServices } = getServiceGroups(content);
-  const serviceTitle =
-    allServices.find((service) => service.slug === body.service)?.title ??
-    body.service ??
-    "";
+  try {
+    const response = await fetch(`${getApiBaseUrl()}/api/v1/leads`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${getSiteApiKey()}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        message,
+        phone: body.phone?.trim() || undefined,
+        serviceSlug: body.service?.trim() || undefined,
+        originDestination: body["origin-destination"]?.trim() || undefined,
+      }),
+    });
 
-  const web3Response = await fetch(WEB3FORMS_ENDPOINT, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      access_key: accessKey,
-      subject: "Novo pedido de orcamento - Aguicius",
-      from_name: "Aguicius - Website",
-      name,
-      email,
-      phone: body.phone?.trim() ?? "",
-      service: serviceTitle,
-      "Recolha / Entrega": body["origin-destination"]?.trim() ?? "",
-      message,
-    }),
-  });
-
-  const result = (await web3Response.json().catch(() => null)) as
-    | { success?: boolean }
-    | null;
-
-  if (!web3Response.ok || !result?.success) {
+    if (!response.ok) {
+      console.error(`[quote] Leads API responded ${response.status}.`);
+      return NextResponse.json(
+        { success: false, message: "Unable to send your request." },
+        { status: 502 },
+      );
+    }
+  } catch (error) {
+    console.error("[quote] Could not reach the leads API:", error);
     return NextResponse.json(
       { success: false, message: "Unable to send your request." },
       { status: 502 },

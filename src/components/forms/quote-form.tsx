@@ -71,6 +71,15 @@ export function QuoteForm({
       onSubmit={handleSubmit}
       className="frontend-flat-card flex flex-col gap-6 p-8 lg:p-10"
     >
+      {/* Honeypot: hidden from humans, bots tend to fill it. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
       <div className="grid gap-6 sm:grid-cols-2">
         <Field id="name" label="Nome" required>
           <Input id="name" name="name" placeholder="O seu nome" required />

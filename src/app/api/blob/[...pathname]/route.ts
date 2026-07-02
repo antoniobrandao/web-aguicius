@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 
-import { readPrivateBlob } from "@/lib/blob/storage";
+import { getApiBaseUrl } from "@/lib/content/website-repository";
 
 type Params = Promise<{
   pathname: string[];
 }>;
 
+// Thin proxy to the casadigital.pt asset endpoint, so this site needs no blob
+// token and components keep using same-origin /api/blob/<pathname> URLs.
 export async function GET(_request: Request, { params }: { params: Params }) {
   const { pathname } = await params;
   const blobPathname = pathname.join("/");
@@ -14,15 +16,21 @@ export async function GET(_request: Request, { params }: { params: Params }) {
     notFound();
   }
 
-  const result = await readPrivateBlob(blobPathname);
-  if (!result || result.statusCode === 304 || !result.stream) {
+  const response = await fetch(
+    `${getApiBaseUrl()}/api/v1/assets/${blobPathname
+      .split("/")
+      .map(encodeURIComponent)
+      .join("/")}`,
+  );
+
+  if (!response.ok || !response.body) {
     notFound();
   }
 
-  return new Response(result.stream, {
+  return new Response(response.body, {
     headers: {
-      "Content-Type": result.blob.contentType ?? "application/octet-stream",
-      "Cache-Control": "public, max-age=60, s-maxage=60",
+      "Content-Type": response.headers.get("Content-Type") ?? "application/octet-stream",
+      "Cache-Control": "public, max-age=3600, s-maxage=86400",
     },
   });
 }

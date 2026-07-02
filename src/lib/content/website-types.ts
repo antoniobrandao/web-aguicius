@@ -29,7 +29,7 @@ export type Service = {
   bullets?: string[];
 };
 
-export type WebsiteContentSource = "mongo" | "default";
+export type WebsiteContentSource = "api" | "default";
 
 export type LoadedWebsiteContent = {
   content: AguiciusWebsiteContent;
