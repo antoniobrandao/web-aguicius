@@ -4,6 +4,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "./frontend.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { getSettings } from "@/lib/content/content";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -12,15 +13,37 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://aguicius.com"),
-  title: {
-    default: "Aguicius — Peça o seu orçamento",
-    template: "%s — Aguicius",
-  },
-  description:
-    "Soluções Smart de transporte e serviços. Transporte de mercadorias, montagens, instalações, entregas, mudanças e armazenamento em todo o território nacional.",
-};
+// Site-wide metadata is business data: the client maintains it in the casadigital
+// dashboard. Each field is only set when authored, so an empty site simply has no
+// metadata rather than placeholder text.
+export async function generateMetadata(): Promise<Metadata> {
+  const { name, description, seo } = await getSettings();
+  const defaultTitle = seo.defaultTitle || name;
+
+  let metadataBase: URL | undefined;
+  if (seo.metadataBase) {
+    try {
+      metadataBase = new URL(seo.metadataBase);
+    } catch {
+      console.error(`[content] settings.seo.metadataBase is not a valid URL: ${seo.metadataBase}`);
+    }
+  }
+
+  return {
+    ...(metadataBase ? { metadataBase } : {}),
+    ...(defaultTitle
+      ? {
+          title: {
+            default: defaultTitle,
+            template: seo.titleTemplate || `%s — ${defaultTitle}`,
+          },
+        }
+      : {}),
+    ...(seo.defaultDescription || description
+      ? { description: seo.defaultDescription || description }
+      : {}),
+  };
+}
 
 export default function RootLayout({
   children,

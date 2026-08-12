@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { getApiBaseUrl } from "@/lib/content/website-repository";
+import { getApiBaseUrl } from "@/lib/content/api";
 
 type Params = Promise<{
   pathname: string[];

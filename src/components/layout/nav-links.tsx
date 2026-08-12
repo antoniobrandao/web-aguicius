@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import type { NavItem } from "@/lib/content/website-types";
+import type { NavItem } from "@/lib/content/types";
 import { Button } from "@/components/site/ui/button";
 
 export function NavLinks({

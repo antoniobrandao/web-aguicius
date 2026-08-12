@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 
-import type { Service } from "@/lib/content/website-types";
-import type { WebsiteContent } from "@/lib/content/website-schema";
+import type { Cta, Service } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/site/ui/button";
@@ -12,7 +11,7 @@ export function InstallationsSection({
   content,
 }: {
   service: Service;
-  content: WebsiteContent["pages"]["home"]["installations"];
+  content: { eyebrow: string; title: string; button: Cta; highlights: string[] };
 }) {
   return (
     <section className="bg-frontend-muted py-20 lg:py-28">

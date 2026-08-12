@@ -3,14 +3,16 @@ import { cn } from "@/lib/utils";
 export function MapEmbed({
   className,
   src,
+  title = "Mapa",
 }: {
   className?: string;
   src: string;
+  title?: string;
 }) {
   return (
     <div className={cn("overflow-hidden border border-frontend-border", className)}>
       <iframe
-        title="Mapa Aguicius"
+        title={title}
         src={src}
         className="h-full min-h-80 w-full grayscale-[0.3]"
         loading="lazy"

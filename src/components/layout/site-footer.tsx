@@ -1,8 +1,12 @@
 import Link from "next/link";
 import { MapPin, Phone, Mail } from "lucide-react";
 
-import type { NavItem, Service, SiteSettings } from "@/lib/content/website-types";
-import type { WebsiteLocation } from "@/lib/content/website-schema";
+import type {
+  NavItem,
+  Service,
+  SiteLocation,
+  SiteSettings,
+} from "@/lib/content/types";
 import { Logo } from "@/components/layout/logo";
 import {
   FacebookIcon,
@@ -19,7 +23,7 @@ export function SiteFooter({
   site: SiteSettings;
   services: Service[];
   companyLinks: NavItem[];
-  location: WebsiteLocation;
+  location?: SiteLocation;
 }) {
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
   const hasEmail = Boolean(site.email.trim());
@@ -47,7 +51,7 @@ export function SiteFooter({
       <div className="mx-auto max-w-(--container-frontend-page) px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-5">
-            <Logo variant="light" />
+            <Logo variant="light" name={site.name} />
             <p className="frontend-copy max-w-xs text-sm text-white/60">
               {site.description}
             </p>
@@ -79,17 +83,19 @@ export function SiteFooter({
           </FooterColumn>
 
           <FooterColumn title="Contactos">
-            <li className="flex items-start gap-3">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-frontend-brand" />
-              <span>
-                {location.lines.map((line, index) => (
-                  <span key={line}>
-                    {line}
-                    {index < location.lines.length - 1 ? <br /> : null}
-                  </span>
-                ))}
-              </span>
-            </li>
+            {location?.lines.length ? (
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 size-4 shrink-0 text-frontend-brand" />
+                <span>
+                  {location.lines.map((line, index) => (
+                    <span key={line}>
+                      {line}
+                      {index < location.lines.length - 1 ? <br /> : null}
+                    </span>
+                  ))}
+                </span>
+              </li>
+            ) : null}
             {hasPhone ? (
               <li>
                 <a
@@ -116,7 +122,9 @@ export function SiteFooter({
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row">
-          <p>© {new Date().getFullYear()} Aguicius. Todos os direitos reservados.</p>
+          <p>
+            © {new Date().getFullYear()} {site.name}. Todos os direitos reservados.
+          </p>
           {hasApp ? (
             <a
               href={site.app}

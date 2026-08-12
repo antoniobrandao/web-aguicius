@@ -1,6 +1,6 @@
 import { MapPin } from "lucide-react";
 
-import type { WebsiteContent, WebsiteLocation } from "@/lib/content/website-schema";
+import type { SectionIntro, SiteLocation } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -8,8 +8,8 @@ export function LocationsSection({
   locations,
   intro,
 }: {
-  locations: WebsiteLocation[];
-  intro: WebsiteContent["pages"]["about"]["locationsIntro"];
+  locations: SiteLocation[];
+  intro: SectionIntro;
 }) {
   return (
     <section className="bg-frontend-muted py-20 lg:py-28">

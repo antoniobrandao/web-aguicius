@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { MapPin, Phone, ArrowUpRight } from "lucide-react";
 
-import type { SiteSettings } from "@/lib/content/website-types";
-import type {
-  WebsiteContent,
-  WebsiteLocation,
-} from "@/lib/content/website-schema";
+import type { SectionIntro, SiteLocation, SiteSettings } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Button } from "@/components/site/ui/button";
@@ -16,10 +12,9 @@ export function LocationSection({
   intro,
 }: {
   site: SiteSettings;
-  location: WebsiteLocation;
-  intro: WebsiteContent["pages"]["home"]["locationIntro"];
+  location: SiteLocation;
+  intro: SectionIntro;
 }) {
-  const mapEmbedUrl = location.mapEmbedUrl ?? "about:blank";
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
@@ -60,16 +55,14 @@ export function LocationSection({
             </div>
 
             <div className="mt-7 flex flex-wrap gap-4">
-              <Button asChild variant="default" size="sm">
-                <a
-                  href={location.mapsSearchUrl ?? "#"}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Abrir no mapa
-                  <ArrowUpRight className="size-4" />
-                </a>
-              </Button>
+              {location.mapsSearchUrl ? (
+                <Button asChild variant="default" size="sm">
+                  <a href={location.mapsSearchUrl} target="_blank" rel="noreferrer">
+                    Abrir no mapa
+                    <ArrowUpRight className="size-4" />
+                  </a>
+                </Button>
+              ) : null}
               <Button asChild variant="outline" size="sm">
                 <Link href="/contactos">Contactos</Link>
               </Button>
@@ -77,15 +70,17 @@ export function LocationSection({
           </div>
         </div>
 
-        <div className="min-h-80 overflow-hidden border border-frontend-border">
-          <iframe
-            title={`Mapa Aguicius ${location.city}`}
-            src={mapEmbedUrl}
-            className="h-full min-h-80 w-full grayscale-[0.3]"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
+        {location.mapEmbedUrl ? (
+          <div className="min-h-80 overflow-hidden border border-frontend-border">
+            <iframe
+              title={`Mapa ${site.name} ${location.city}`.trim()}
+              src={location.mapEmbedUrl}
+              className="h-full min-h-80 w-full grayscale-[0.3]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        ) : null}
       </Container>
     </section>
   );

@@ -1,4 +1,5 @@
-import type { WebsiteContent, WebsiteValue } from "@/lib/content/website-schema";
+import type { SectionIntro } from "@/lib/content/types";
+import type { ValueContent } from "@/lib/content/resources";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -6,8 +7,8 @@ export function ValuesSection({
   values,
   intro,
 }: {
-  values: WebsiteValue[];
-  intro: WebsiteContent["pages"]["about"]["valuesIntro"];
+  values: ValueContent[];
+  intro: SectionIntro;
 }) {
   return (
     <section className="bg-frontend-bg py-20 lg:py-28">

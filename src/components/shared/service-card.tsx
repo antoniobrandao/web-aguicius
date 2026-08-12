@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import type { Service } from "@/lib/content/website-types";
+import type { Service } from "@/lib/content/types";
 import { Button } from "@/components/site/ui/button";
 
 export function ServiceCard({

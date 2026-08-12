@@ -1,4 +1,4 @@
-import type { Service } from "@/lib/content/website-types";
+import type { Service } from "@/lib/content/types";
 import {
   Accordion,
   AccordionContent,

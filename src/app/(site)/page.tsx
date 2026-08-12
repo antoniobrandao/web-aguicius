@@ -1,46 +1,44 @@
-import { Hero } from "@/components/home/hero";
-import { ServicesSection } from "@/components/home/services-section";
-import { ReserveCta } from "@/components/home/reserve-cta";
-import { InstallationsSection } from "@/components/home/installations-section";
-import { MoreServicesSection } from "@/components/home/more-services-section";
 import { AboutBand } from "@/components/home/about-band";
+import { Hero } from "@/components/home/hero";
+import { InstallationsSection } from "@/components/home/installations-section";
 import { LocationSection } from "@/components/home/location-section";
-import {
-  getPrimaryLocation,
-  getServiceGroups,
-  toSiteSettings,
-} from "@/lib/content/adapters";
-import { getWebsiteContent } from "@/lib/content/website-content";
+import { MoreServicesSection } from "@/components/home/more-services-section";
+import { ReserveCta } from "@/components/home/reserve-cta";
+import { ServicesSection } from "@/components/home/services-section";
+import { designCopy } from "@/content/design-copy";
+import { getPrimaryLocation, getServiceGroups, toSiteSettings } from "@/lib/content/adapters";
+import { getLocations, getPage, getServices, getSettings } from "@/lib/content/content";
 
 export default async function HomePage() {
-  const { content } = await getWebsiteContent();
-  const site = toSiteSettings(content);
-  const { primaryServices, installations, secondaryServices } =
-    getServiceGroups(content);
-  const primaryLocation = getPrimaryLocation(content);
+  const [settings, services, locations, page] = await Promise.all([
+    getSettings(),
+    getServices(),
+    getLocations(),
+    getPage("home"),
+  ]);
+
+  const site = toSiteSettings(settings);
+  const { primaryServices, featuredService, secondaryServices } = getServiceGroups(services);
+  const primaryLocation = getPrimaryLocation(locations);
+  const copy = designCopy.home;
 
   return (
     <>
-      <Hero site={site} hero={content.pages.home.hero} />
-      <ServicesSection
-        services={primaryServices}
-        intro={content.pages.home.servicesIntro}
-      />
-      <ReserveCta content={content.pages.home.reserveCta} />
-      <InstallationsSection
-        service={installations}
-        content={content.pages.home.installations}
-      />
-      <MoreServicesSection
-        services={secondaryServices}
-        intro={content.pages.home.moreServicesIntro}
-      />
-      <AboutBand content={content.pages.home.aboutBand} />
-      <LocationSection
-        site={site}
-        location={primaryLocation}
-        intro={content.pages.home.locationIntro}
-      />
+      <Hero site={site} hero={page.hero} copy={copy} />
+      {primaryServices.length ? (
+        <ServicesSection services={primaryServices} intro={copy.servicesIntro} />
+      ) : null}
+      <ReserveCta content={copy.reserveCta} />
+      {featuredService ? (
+        <InstallationsSection service={featuredService} content={copy.installations} />
+      ) : null}
+      {secondaryServices.length ? (
+        <MoreServicesSection services={secondaryServices} intro={copy.moreServicesIntro} />
+      ) : null}
+      <AboutBand content={copy.aboutBand} />
+      {primaryLocation ? (
+        <LocationSection site={site} location={primaryLocation} intro={copy.locationIntro} />
+      ) : null}
     </>
   );
 }

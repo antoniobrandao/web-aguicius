@@ -1,25 +1,28 @@
 import type { Metadata } from "next";
 
+import { QuoteForm } from "@/components/forms/quote-form";
 import { Container } from "@/components/shared/container";
 import { PageHero } from "@/components/shared/page-hero";
-import { QuoteForm } from "@/components/forms/quote-form";
+import { designCopy } from "@/content/design-copy";
+import { getServiceGroups, toServiceOptions, toSiteSettings } from "@/lib/content/adapters";
+import { getPage, getServices, getSettings } from "@/lib/content/content";
 import { getContentIcon } from "@/lib/content/icons";
-import {
-  getServiceGroups,
-  toSiteSettings,
-} from "@/lib/content/adapters";
-import { getWebsiteContent } from "@/lib/content/website-content";
+import { toPageMetadata } from "@/lib/content/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { content } = await getWebsiteContent();
-  return content.pages.quote.seo;
+  return toPageMetadata(await getPage("quote"));
 }
 
 export default async function OrcamentoPage() {
-  const { content } = await getWebsiteContent();
-  const site = toSiteSettings(content);
-  const page = content.pages.quote;
-  const { allServices } = getServiceGroups(content);
+  const [page, settings, services] = await Promise.all([
+    getPage("quote"),
+    getSettings(),
+    getServices(),
+  ]);
+
+  const site = toSiteSettings(settings);
+  const { allServices } = getServiceGroups(services);
+  const copy = designCopy.quote;
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
   const hasEmail = Boolean(site.email.trim());
   const hasContactSidebar = hasPhone || hasEmail;
@@ -32,7 +35,7 @@ export default async function OrcamentoPage() {
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-10 lg:col-span-5">
             <div className="flex flex-col gap-6">
-              {page.perks.map((perk) => {
+              {copy.perks.map((perk) => {
                 const Icon = getContentIcon(perk.icon);
                 return (
                   <div key={perk.title} className="flex gap-4">
@@ -43,9 +46,7 @@ export default async function OrcamentoPage() {
                       <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
                         {perk.title}
                       </h3>
-                      <p className="frontend-copy mt-1 text-sm">
-                        {perk.description}
-                      </p>
+                      <p className="frontend-copy mt-1 text-sm">{perk.description}</p>
                     </div>
                   </div>
                 );
@@ -55,7 +56,7 @@ export default async function OrcamentoPage() {
             {hasContactSidebar ? (
               <div className="frontend-flat-card bg-frontend-muted p-8">
                 <p className="frontend-small-label text-frontend-brand">
-                  {page.sidebarHeading}
+                  {copy.sidebarHeading}
                 </p>
                 {hasPhone ? (
                   <a
@@ -73,9 +74,7 @@ export default async function OrcamentoPage() {
           </div>
 
           <div className="lg:col-span-7">
-            <QuoteForm
-              services={allServices.map(({ slug, title }) => ({ slug, title }))}
-            />
+            <QuoteForm services={toServiceOptions(allServices)} />
           </div>
         </Container>
       </section>

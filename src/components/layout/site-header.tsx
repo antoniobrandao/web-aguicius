@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import type { NavItem, SiteSettings } from "@/lib/content/website-types";
+import type { NavItem, SiteSettings } from "@/lib/content/types";
 import { Logo } from "@/components/layout/logo";
 import { NavLinks } from "@/components/layout/nav-links";
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -34,7 +34,7 @@ export function SiteHeader({
       )}
     >
       <div className="mx-auto flex h-20 max-w-(--container-frontend-page) items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
-        <Logo responsive />
+        <Logo responsive name={site.name} />
 
         <div className="flex items-center gap-6">
           <NavLinks className="hidden lg:flex" items={navItems} />

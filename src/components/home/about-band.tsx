@@ -1,14 +1,20 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import type { WebsiteContent } from "@/lib/content/website-schema";
+import type { Cta } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/site/ui/button";
 
 export function AboutBand({
   content,
 }: {
-  content: WebsiteContent["pages"]["home"]["aboutBand"];
+  content: {
+    statValue: string;
+    statLabel: string;
+    lead: string;
+    body: string;
+    cta: Cta;
+  };
 }) {
   return (
     <section className="frontend-section bg-frontend-surface text-white">

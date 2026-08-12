@@ -1,31 +1,38 @@
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 
-import type { SiteSettings } from "@/lib/content/website-types";
-import type { WebsiteLocation } from "@/lib/content/website-schema";
+import type { SiteLocation, SiteSettings } from "@/lib/content/types";
 
 export function ContactInfo({
   site,
   location,
 }: {
   site: SiteSettings;
-  location: WebsiteLocation;
+  location?: SiteLocation;
 }) {
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
   const hasEmail = Boolean(site.email.trim());
+  const hasAddress = Boolean(location && (location.lines.length || location.city));
+  const hasSchedule = site.schedule.length > 0;
+
+  if (!hasAddress && !hasPhone && !hasEmail && !hasSchedule) {
+    return null;
+  }
 
   return (
     <div className="grid gap-px border border-frontend-border bg-frontend-border sm:grid-cols-2">
-      <InfoCard icon={<MapPin className="size-5" />} label="Morada">
-        <p>
-          {location.lines.map((line) => (
-            <span key={line}>
-              {line}
-              <br />
-            </span>
-          ))}
-          {location.city}
-        </p>
-      </InfoCard>
+      {hasAddress && location ? (
+        <InfoCard icon={<MapPin className="size-5" />} label="Morada">
+          <p>
+            {location.lines.map((line) => (
+              <span key={line}>
+                {line}
+                <br />
+              </span>
+            ))}
+            {location.city}
+          </p>
+        </InfoCard>
+      ) : null}
 
       {hasPhone ? (
         <InfoCard icon={<Phone className="size-5" />} label="Telefone">
@@ -49,16 +56,18 @@ export function ContactInfo({
         </InfoCard>
       ) : null}
 
-      <InfoCard icon={<Clock className="size-5" />} label="Horário">
-        <div className="flex flex-col gap-1">
-          {site.schedule.map((slot) => (
-            <p key={slot.days}>
-              <span className="font-medium text-frontend-heading">{slot.days}</span>{" "}
-              <span className="text-frontend-body">{slot.hours}</span>
-            </p>
-          ))}
-        </div>
-      </InfoCard>
+      {hasSchedule ? (
+        <InfoCard icon={<Clock className="size-5" />} label="Horário">
+          <div className="flex flex-col gap-1">
+            {site.schedule.map((slot) => (
+              <p key={slot.days}>
+                <span className="font-medium text-frontend-heading">{slot.days}</span>{" "}
+                <span className="text-frontend-body">{slot.hours}</span>
+              </p>
+            ))}
+          </div>
+        </InfoCard>
+      ) : null}
     </div>
   );
 }

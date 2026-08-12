@@ -29,19 +29,6 @@ export const contentIcons = {
 
 export type ContentIconName = ContentIconKey;
 
-export const contentIconOptions: { value: ContentIconName; label: string }[] = [
-  { value: "truck", label: "Camião" },
-  { value: "wrench", label: "Ferramenta" },
-  { value: "packageCheck", label: "Entrega validada" },
-  { value: "hammer", label: "Martelo" },
-  { value: "boxes", label: "Caixas" },
-  { value: "warehouse", label: "Armazém" },
-  { value: "arrowDownToLine", label: "Recolha" },
-  { value: "zap", label: "Express" },
-  { value: "clock", label: "Relógio" },
-  { value: "shieldCheck", label: "Garantia" },
-];
-
 export function getContentIcon(name: ContentIconName): LucideIcon {
   return contentIcons[name];
 }

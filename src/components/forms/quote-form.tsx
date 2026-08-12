@@ -56,7 +56,7 @@ export function QuoteForm({
           Pedido enviado
         </h3>
         <p className="frontend-copy max-w-md text-sm">
-          Obrigado pelo seu contacto. A equipa Aguicius irá responder ao seu
+          Obrigado pelo seu contacto. A nossa equipa irá responder ao seu
           pedido de orçamento o mais brevemente possível.
         </p>
         <Button variant="outline" size="sm" onClick={() => setStatus("idle")}>

@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import type { WebsiteContent } from "@/lib/content/website-schema";
+import type { Cta } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/site/ui/button";
 
 export function ReserveCta({
   content,
 }: {
-  content: WebsiteContent["pages"]["home"]["reserveCta"];
+  content: { title: string; description: string; button: Cta };
 }) {
   return (
     <section className="bg-frontend-brand text-white">

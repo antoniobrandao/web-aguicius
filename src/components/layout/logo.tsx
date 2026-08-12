@@ -14,22 +14,25 @@ export function Logo({
   className,
   variant = "dark",
   responsive = false,
+  name = "",
 }: {
   className?: string;
   variant?: "dark" | "light";
   responsive?: boolean;
+  name?: string;
 }) {
   const tint = variant === "light" ? "brightness-0 invert" : undefined;
+  const label = name || "Início";
 
   return (
     <Link
       href="/"
-      aria-label="Aguicius — página inicial"
+      aria-label={`${label} — página inicial`}
       className={cn("inline-flex items-center", className)}
     >
       <Image
         src="/logo.png"
-        alt="Aguicius"
+        alt={name}
         width={500}
         height={112}
         priority
@@ -42,7 +45,7 @@ export function Logo({
       {responsive ? (
         <Image
           src="/logo-icon.png"
-          alt="Aguicius"
+          alt={name}
           width={280}
           height={280}
           priority

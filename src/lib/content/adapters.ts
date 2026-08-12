@@ -1,65 +1,58 @@
-import type { NavItem, Service, SiteSettings } from "@/lib/content/website-types";
-
 import { getContentIcon } from "./icons";
-import type {
-  WebsiteContent,
-  WebsiteLocation,
-  WebsiteService,
-} from "./website-schema";
+import type { LocationContent, ServiceContent, Settings } from "./resources";
+import type { Service, SiteSettings } from "./types";
 
-export function toService(service: WebsiteService): Service {
+// Maps Site API content onto the view types the components use.
+//
+// These functions are honest about absence: a site whose content has not been
+// authored yet has no services and no locations, so anything that picks a single
+// item returns undefined and callers must handle it.
+
+export function toService(service: ServiceContent): Service {
   return {
     slug: service.slug,
     title: service.title,
     icon: getContentIcon(service.icon),
-    image: service.image,
+    image: service.image?.pathname
+      ? {
+          ...service.image,
+          alt: service.image.alt || service.title,
+        }
+      : undefined,
     short: service.short,
     description: service.description,
     bullets: service.bullets,
   };
 }
 
-export function getServiceGroups(content: WebsiteContent) {
-  const primaryServices = content.services
-    .filter((service) => service.tier === "primary")
-    .map(toService);
-  const installations =
-    content.services.find((service) => service.tier === "featured") ??
-    content.services[0];
-  const secondaryServices = content.services
-    .filter((service) => service.tier === "secondary")
-    .map(toService);
+export function getServiceGroups(services: ServiceContent[]) {
+  const featured = services.find((service) => service.tier === "featured") ?? services[0];
 
   return {
-    primaryServices,
-    installations: toService(installations),
-    secondaryServices,
-    allServices: content.services.map(toService),
+    primaryServices: services.filter((service) => service.tier === "primary").map(toService),
+    // Undefined when the site has no services at all.
+    featuredService: featured ? toService(featured) : undefined,
+    secondaryServices: services.filter((service) => service.tier === "secondary").map(toService),
+    allServices: services.map(toService),
   };
 }
 
-export function toSiteSettings(content: WebsiteContent): SiteSettings {
+export function toSiteSettings(settings: Settings): SiteSettings {
+  const { appUrl, seo: _seo, ...rest } = settings;
+  void _seo;
+
   return {
-    name: content.site.name,
-    tagline: content.site.tagline,
-    description: content.site.description,
-    phone: content.site.phone,
-    phoneHref: content.site.phoneHref,
-    email: content.site.email,
-    whatsapp: content.site.whatsapp,
-    schedule: content.site.schedule,
-    social: content.site.social,
-    app: content.site.appUrl,
+    ...rest,
+    app: appUrl,
   };
 }
 
-export function toNavItems(content: WebsiteContent): NavItem[] {
-  return content.navigation.header;
+export function getPrimaryLocation(
+  locations: LocationContent[],
+): LocationContent | undefined {
+  return locations.find((location) => location.primary) ?? locations[0];
 }
 
-export function getPrimaryLocation(content: WebsiteContent): WebsiteLocation {
-  return (
-    content.locations.find((location) => location.primary) ??
-    content.locations[0]
-  );
+export function toServiceOptions(services: Service[]) {
+  return services.map(({ slug, title }) => ({ slug, title }));
 }

@@ -1,27 +1,21 @@
 import type { Metadata } from "next";
 
-import { PageHero } from "@/components/shared/page-hero";
 import { LegalContent } from "@/components/legal/legal-content";
-import { getWebsiteContent } from "@/lib/content/website-content";
+import { PageHero } from "@/components/shared/page-hero";
+import { getPage } from "@/lib/content/content";
+import { toPageMetadata } from "@/lib/content/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { content } = await getWebsiteContent();
-  return content.pages.terms.seo;
+  return toPageMetadata(await getPage("terms"));
 }
 
 export default async function TermosPage() {
-  const { content } = await getWebsiteContent();
-  const page = content.pages.terms;
+  const page = await getPage("terms");
 
   return (
     <>
       <PageHero {...page.hero} />
-      <LegalContent
-        sections={page.sections.map((section) => ({
-          heading: section.title,
-          body: section.body,
-        }))}
-      />
+      <LegalContent sections={page.sections} />
     </>
   );
 }

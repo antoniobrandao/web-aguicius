@@ -1,5 +1,4 @@
-import type { Service } from "@/lib/content/website-types";
-import type { WebsiteContent } from "@/lib/content/website-schema";
+import type { SectionIntro, Service } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ServiceCard } from "@/components/shared/service-card";
@@ -9,7 +8,7 @@ export function MoreServicesSection({
   intro,
 }: {
   services: Service[];
-  intro: WebsiteContent["pages"]["home"]["moreServicesIntro"];
+  intro: SectionIntro;
 }) {
   return (
     <section className="bg-frontend-bg py-20 lg:py-28">

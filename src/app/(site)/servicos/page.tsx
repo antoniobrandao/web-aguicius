@@ -1,54 +1,58 @@
 import type { Metadata } from "next";
 
-import { Container } from "@/components/shared/container";
-import { PageHero } from "@/components/shared/page-hero";
-import { SectionHeading } from "@/components/shared/section-heading";
-import { CtaBand } from "@/components/shared/cta-band";
 import { ServiceDetail } from "@/components/services/service-detail";
 import { ServicesAccordion } from "@/components/services/services-accordion";
+import { Container } from "@/components/shared/container";
+import { CtaBand } from "@/components/shared/cta-band";
+import { PageHero } from "@/components/shared/page-hero";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { designCopy } from "@/content/design-copy";
 import { getServiceGroups } from "@/lib/content/adapters";
-import { getWebsiteContent } from "@/lib/content/website-content";
+import { getPage, getServices } from "@/lib/content/content";
+import { toPageMetadata } from "@/lib/content/metadata";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { content } = await getWebsiteContent();
-  return content.pages.services.seo;
+  return toPageMetadata(await getPage("services"));
 }
 
 export default async function ServicosPage() {
-  const { content } = await getWebsiteContent();
-  const page = content.pages.services;
-  const { primaryServices, installations, secondaryServices } =
-    getServiceGroups(content);
-  const featured = [...primaryServices, installations];
+  const [page, services] = await Promise.all([getPage("services"), getServices()]);
+  const { primaryServices, featuredService, secondaryServices } = getServiceGroups(services);
+  const copy = designCopy.services;
+  const featured = featuredService ? [...primaryServices, featuredService] : primaryServices;
 
   return (
     <>
       <PageHero {...page.hero} />
 
-      <section className="bg-frontend-bg py-20 lg:py-28">
-        <Container className="flex flex-col gap-20 lg:gap-28">
-          {featured.map((service, index) => (
-            <ServiceDetail key={service.slug} service={service} index={index} />
-          ))}
-        </Container>
-      </section>
+      {featured.length ? (
+        <section className="bg-frontend-bg py-20 lg:py-28">
+          <Container className="flex flex-col gap-20 lg:gap-28">
+            {featured.map((service, index) => (
+              <ServiceDetail key={service.slug} service={service} index={index} />
+            ))}
+          </Container>
+        </section>
+      ) : null}
 
-      <section className="bg-frontend-muted py-20 lg:py-28">
-        <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-5">
-            <SectionHeading {...page.secondaryIntro} />
-          </div>
-          <div className="lg:col-span-7">
-            <ServicesAccordion services={secondaryServices} />
-          </div>
-        </Container>
-      </section>
+      {secondaryServices.length ? (
+        <section className="bg-frontend-muted py-20 lg:py-28">
+          <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <SectionHeading {...copy.secondaryIntro} />
+            </div>
+            <div className="lg:col-span-7">
+              <ServicesAccordion services={secondaryServices} />
+            </div>
+          </Container>
+        </section>
+      ) : null}
 
       <CtaBand
-        title={page.ctaBand.title}
-        description={page.ctaBand.description}
-        primary={page.ctaBand.primary}
-        secondary={page.ctaBand.secondary}
+        title={copy.ctaBand.title}
+        description={copy.ctaBand.description}
+        primary={copy.ctaBand.primary}
+        secondary={copy.ctaBand.secondary}
       />
     </>
   );

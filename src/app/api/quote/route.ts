@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import {
   getApiBaseUrl,
   getSiteApiKey,
-} from "@/lib/content/website-repository";
+} from "@/lib/content/api";
 
 type QuotePayload = {
   name?: string;
