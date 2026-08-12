@@ -7,9 +7,12 @@ import { CtaBand } from "@/components/shared/cta-band";
 import { PageHero } from "@/components/shared/page-hero";
 import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
+import { buildPageMetadata } from "@/lib/content/metadata";
 import { getLocations, getValues } from "@/lib/content/content";
 
-export const metadata: Metadata = pages.about.seo;
+export function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata(pages.about.seo);
+}
 
 export default async function SobreNosPage() {
   const [locations, values] = await Promise.all([

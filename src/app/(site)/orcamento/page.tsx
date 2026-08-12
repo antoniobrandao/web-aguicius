@@ -5,11 +5,14 @@ import { Container } from "@/components/shared/container";
 import { PageHero } from "@/components/shared/page-hero";
 import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
+import { buildPageMetadata } from "@/lib/content/metadata";
 import { getServiceGroups, toServiceOptions, toSiteSettings } from "@/lib/content/adapters";
 import { getServices, getSettings } from "@/lib/content/content";
 import { getContentIcon } from "@/lib/content/icons";
 
-export const metadata: Metadata = pages.quote.seo;
+export function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata(pages.quote.seo);
+}
 
 export default async function OrcamentoPage() {
   const [settings, services] = await Promise.all([

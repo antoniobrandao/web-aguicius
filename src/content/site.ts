@@ -11,11 +11,19 @@ import type { NavItem } from "@/lib/content/types";
 // or rewording a heading is a change in this repository, with no platform
 // involvement and no schema to update.
 
+// Site-wide metadata is composed from the company information the client maintains
+// in the dashboard: the business name titles the site, the tagline completes the
+// home title, and the description is the default meta description. Only the
+// deployment URL belongs here, because it is a property of the deployment rather
+// than of the business.
+//
+// The fallbacks are used when a field has not been filled in yet, so a site whose
+// company record is empty still has sensible metadata.
 export const siteMeta = {
   url: "https://aguicius.com",
-  title: "Aguicius — Transporte e Serviços Técnicos",
-  titleTemplate: "%s — Aguicius",
-  description:
+  fallbackName: "Aguicius",
+  fallbackTagline: "Transporte e Serviços Técnicos",
+  fallbackDescription:
     "Soluções Smart para o mercado de serviços e transporte eficientes, sustentáveis e de qualidade. Transporte de mercadorias, montagens, instalações e mudanças.",
 } as const;
 
@@ -35,7 +43,16 @@ export const footerNav: NavItem[] = [
 ];
 
 type PageContent = {
-  seo: { title: string; description: string };
+  /**
+   * The page's own name and description. The name is suffixed with the business
+   * name by the root title template, so it is written bare here. A page with no
+   * description falls back to the business description.
+   *
+   * Omitted for the home page, which takes the root metadata composed from the
+   * company record. Add a `generateMetadata` with `title: { absolute }` there if
+   * it ever needs its own.
+   */
+  seo?: { title: string; description: string };
   hero: { eyebrow: string; title: string; description: string };
   /** Prose blocks for pages that have them. Empty means the section is not shown. */
   prose?: { title: string; body: string }[];
@@ -43,7 +60,6 @@ type PageContent = {
 
 export const pages = {
   home: {
-    seo: { title: "Aguicius - Soluções completas para o seu negócio", description: "De pequenos a grandes volumes, com ou sem complexidade técnica. Temos a solução para o seu negócio." },
     hero: {
       eyebrow: "O que fazemos",
       title: "Soluções completas para o seu negócio",

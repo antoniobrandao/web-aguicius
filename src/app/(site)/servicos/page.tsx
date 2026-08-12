@@ -8,10 +8,13 @@ import { PageHero } from "@/components/shared/page-hero";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
+import { buildPageMetadata } from "@/lib/content/metadata";
 import { getServiceGroups } from "@/lib/content/adapters";
 import { getServices } from "@/lib/content/content";
 
-export const metadata: Metadata = pages.services.seo;
+export function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata(pages.services.seo);
+}
 
 export default async function ServicosPage() {
   const [services] = await Promise.all([ getServices()]);

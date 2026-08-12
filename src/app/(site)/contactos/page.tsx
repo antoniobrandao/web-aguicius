@@ -8,6 +8,7 @@ import { PageHero } from "@/components/shared/page-hero";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
+import { buildPageMetadata } from "@/lib/content/metadata";
 import {
   getPrimaryLocation,
   getServiceGroups,
@@ -16,7 +17,9 @@ import {
 } from "@/lib/content/adapters";
 import { getLocations, getServices, getSettings } from "@/lib/content/content";
 
-export const metadata: Metadata = pages.contact.seo;
+export function generateMetadata(): Promise<Metadata> {
+  return buildPageMetadata(pages.contact.seo);
+}
 
 export default async function ContactosPage() {
   const [settings, services, locations] = await Promise.all([

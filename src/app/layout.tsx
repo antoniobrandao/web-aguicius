@@ -4,7 +4,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import "./frontend.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { siteMeta } from "@/content/site";
+import { buildRootMetadata } from "@/lib/content/metadata";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -13,16 +13,10 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
-// Metadata belongs to this site, not to the platform: it is static, versioned with
-// the code, and each route adds its own title and description.
-export const metadata: Metadata = {
-  metadataBase: new URL(siteMeta.url),
-  title: {
-    default: siteMeta.title,
-    template: siteMeta.titleTemplate,
-  },
-  description: siteMeta.description,
-};
+// Titled after the business, which the client maintains in the dashboard.
+export function generateMetadata(): Promise<Metadata> {
+  return buildRootMetadata();
+}
 
 export default function RootLayout({
   children,
