@@ -2,10 +2,14 @@
 
 Website for Aguicius, a Portuguese transport and services company.
 
-This is a pure view layer. All business content — identity and contacts,
-services, locations, company values, navigation, and each page's SEO, hero and
-prose — is managed by the client in the Casa Digital dashboard and read over the
-authenticated Site API. This repo owns the design and nothing else.
+This repo owns the website: its pages, its structure, its layout, its copy and its
+metadata. The business it presents — identity and contacts, services, locations,
+company values and legal text — is managed by the client in the Casa Digital
+dashboard and read over the authenticated Site API.
+
+That split is the point. Adding a page, renaming a route, rewording a heading or
+tuning a meta description is a change here, with no platform involvement. The
+platform never knows what this website looks like.
 
 ## Stack
 
@@ -26,6 +30,7 @@ src/
     api/revalidate/          # cache invalidation, called by the dashboard
     api/blob/[...pathname]/  # image proxy, keeps asset URLs same-origin
   components/                # layout, home, about, services, contact, legal, forms, shared
+  content/site.ts            # this site's pages, nav, hero copy and metadata
   content/design-copy.ts     # this design's layout and section copy
   lib/content/
     resources.ts             # Zod mirror of the Site API contract
@@ -34,7 +39,6 @@ src/
     cache.ts                 # cache tag names
     adapters.ts              # content to view types
     types.ts                 # view types
-    metadata.ts              # page metadata from authored SEO
 ```
 
 ## Business data vs design copy
@@ -42,7 +46,11 @@ src/
 The split matters when deciding where a string belongs.
 
 **Business data** comes from the dashboard: the client edits it and it appears
-here. Anything true of the business rather than of this layout is business data.
+here. Anything true of the business rather than of this website is business data.
+
+**Site content** lives in `src/content/site.ts`: which pages exist, their titles,
+their meta descriptions, their hero copy and the navigation menus. Metadata is
+static, exported per route the ordinary Next.js way.
 
 **Design copy** lives in `src/content/design-copy.ts`: band headings, stat
 framing, button labels, section intros. It is scaffolding this particular design
@@ -55,7 +63,7 @@ model any of it.
 One request per resource, so each route fetches only what it renders:
 
 ```ts
-import { getPage, getServices, getSettings } from "@/lib/content/content";
+import { getLegal, getServices, getSettings } from "@/lib/content/content";
 ```
 
 Each resource is cached under its own tag with a 300 second fallback interval. On
@@ -93,7 +101,8 @@ npm run lint        # eslint
 The schemas in `src/lib/content/resources.ts` mirror the platform contract,
 published as JSON Schema at `GET /api/content-schema`. `src/lib/content/api.ts`
 compares the contract major version on every response and logs loudly on a
-mismatch, which is the signal to update these schemas.
+mismatch, which is the signal to update these schemas. This site is built against
+contract 3.x.
 
 ## Notes
 

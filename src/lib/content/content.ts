@@ -1,22 +1,17 @@
 import { unstable_cache } from "next/cache";
 
 import {
+  fetchLegal,
   fetchLocations,
-  fetchNavigation,
-  fetchPage,
   fetchServices,
   fetchSettings,
   fetchValues,
 } from "./api";
-import { pageTag } from "./cache";
-import { PAGE_KEYS, type PageKey } from "./constants";
 import {
-  emptyNavigation,
-  emptyPage,
+  emptyLegal,
   emptySettings,
+  type Legal,
   type LocationContent,
-  type Navigation,
-  type PageContent,
   type ServiceContent,
   type Settings,
   type ValueContent,
@@ -67,14 +62,6 @@ const readSettings = cachedResource(
   emptySettings,
 );
 
-const readNavigation = cachedResource(
-  "navigation",
-  ["navigation"],
-  ["navigation"],
-  fetchNavigation,
-  emptyNavigation,
-);
-
 const readServices = cachedResource(
   "services",
   ["services"],
@@ -99,28 +86,10 @@ const readValues = cachedResource(
   noItems<ValueContent>,
 );
 
-// Pages are cached per key and tagged twice, so the backoffice can invalidate a
-// single page or every page at once. Built once at module load rather than per
-// call, so each page key keeps a stable cache entry.
-const readPage = Object.fromEntries(
-  PAGE_KEYS.map((pageKey) => [
-    pageKey,
-    cachedResource(
-      `page "${pageKey}"`,
-      ["page", pageKey],
-      ["pages", pageTag(pageKey)],
-      () => fetchPage(pageKey),
-      emptyPage,
-    ),
-  ]),
-) as Record<PageKey, () => Promise<PageContent>>;
+const readLegal = cachedResource("legal", ["legal"], ["legal"], fetchLegal, emptyLegal);
 
 export function getSettings(): Promise<Settings> {
   return readSettings();
-}
-
-export function getNavigation(): Promise<Navigation> {
-  return readNavigation();
 }
 
 export function getServices(): Promise<ServiceContent[]> {
@@ -135,6 +104,6 @@ export function getValues(): Promise<ValueContent[]> {
   return readValues();
 }
 
-export function getPage(pageKey: PageKey): Promise<PageContent> {
-  return readPage[pageKey]();
+export function getLegal(): Promise<Legal> {
+  return readLegal();
 }

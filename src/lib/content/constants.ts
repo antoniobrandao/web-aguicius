@@ -16,16 +16,10 @@ export const CONTENT_ICON_KEYS = [
 
 export const SERVICE_TIERS = ["primary", "featured", "secondary"] as const;
 
-export const PAGE_KEYS = [
-  "home",
-  "about",
-  "services",
-  "contact",
-  "quote",
-  "terms",
-  "privacy",
-] as const;
+// The only page-shaped content the platform holds. This site's pages, their copy
+// and their metadata live in this repository.
+export const LEGAL_DOCUMENT_KEYS = ["terms", "privacy"] as const;
 
 export type ContentIconKey = (typeof CONTENT_ICON_KEYS)[number];
 export type ServiceTier = (typeof SERVICE_TIERS)[number];
-export type PageKey = (typeof PAGE_KEYS)[number];
+export type LegalDocumentKey = (typeof LEGAL_DOCUMENT_KEYS)[number];

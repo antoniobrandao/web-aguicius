@@ -2,20 +2,18 @@ import type { Metadata } from "next";
 
 import { LegalContent } from "@/components/legal/legal-content";
 import { PageHero } from "@/components/shared/page-hero";
-import { getPage } from "@/lib/content/content";
-import { toPageMetadata } from "@/lib/content/metadata";
+import { pages } from "@/content/site";
+import { getLegal } from "@/lib/content/content";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return toPageMetadata(await getPage("terms"));
-}
+export const metadata: Metadata = pages.terms.seo;
 
 export default async function TermosPage() {
-  const page = await getPage("terms");
+  const legal = await getLegal();
 
   return (
     <>
-      <PageHero {...page.hero} />
-      <LegalContent sections={page.sections} />
+      <PageHero {...pages.terms.hero} />
+      <LegalContent sections={legal.terms?.sections ?? []} />
     </>
   );
 }

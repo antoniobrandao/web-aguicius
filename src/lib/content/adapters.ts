@@ -38,13 +38,9 @@ export function getServiceGroups(services: ServiceContent[]) {
 }
 
 export function toSiteSettings(settings: Settings): SiteSettings {
-  const { appUrl, seo: _seo, ...rest } = settings;
-  void _seo;
+  const { appUrl, ...rest } = settings;
 
-  return {
-    ...rest,
-    app: appUrl,
-  };
+  return { ...rest, app: appUrl };
 }
 
 export function getPrimaryLocation(

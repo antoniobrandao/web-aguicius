@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 
-import type { LocationContent, Navigation, Settings } from "./resources";
+import type { LocationContent, Settings } from "./resources";
 
 // View-layer types. Components depend on these rather than on where the data came
 // from, so a section reads the same whether its copy is business data from the
@@ -17,11 +17,15 @@ export type SectionIntro = {
   description?: string;
 };
 
-export type SiteSettings = Omit<Settings, "appUrl" | "seo"> & {
+export type SiteSettings = Omit<Settings, "appUrl"> & {
   app: string;
 };
 
-export type NavItem = Navigation["header"][number];
+export type NavItem = {
+  label: string;
+  href: string;
+  cta?: boolean;
+};
 
 export type SiteLocation = LocationContent;
 

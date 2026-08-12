@@ -7,23 +7,21 @@ import { CtaBand } from "@/components/shared/cta-band";
 import { PageHero } from "@/components/shared/page-hero";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { designCopy } from "@/content/design-copy";
+import { pages } from "@/content/site";
 import { getServiceGroups } from "@/lib/content/adapters";
-import { getPage, getServices } from "@/lib/content/content";
-import { toPageMetadata } from "@/lib/content/metadata";
+import { getServices } from "@/lib/content/content";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return toPageMetadata(await getPage("services"));
-}
+export const metadata: Metadata = pages.services.seo;
 
 export default async function ServicosPage() {
-  const [page, services] = await Promise.all([getPage("services"), getServices()]);
+  const [services] = await Promise.all([ getServices()]);
   const { primaryServices, featuredService, secondaryServices } = getServiceGroups(services);
   const copy = designCopy.services;
   const featured = featuredService ? [...primaryServices, featuredService] : primaryServices;
 
   return (
     <>
-      <PageHero {...page.hero} />
+      <PageHero {...pages.services.hero} />
 
       {featured.length ? (
         <section className="bg-frontend-bg py-20 lg:py-28">

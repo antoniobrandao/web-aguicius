@@ -6,16 +6,13 @@ import { ValuesSection } from "@/components/about/values-section";
 import { CtaBand } from "@/components/shared/cta-band";
 import { PageHero } from "@/components/shared/page-hero";
 import { designCopy } from "@/content/design-copy";
-import { getLocations, getPage, getValues } from "@/lib/content/content";
-import { toPageMetadata } from "@/lib/content/metadata";
+import { pages } from "@/content/site";
+import { getLocations, getValues } from "@/lib/content/content";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return toPageMetadata(await getPage("about"));
-}
+export const metadata: Metadata = pages.about.seo;
 
 export default async function SobreNosPage() {
-  const [page, locations, values] = await Promise.all([
-    getPage("about"),
+  const [locations, values] = await Promise.all([
     getLocations(),
     getValues(),
   ]);
@@ -23,9 +20,9 @@ export default async function SobreNosPage() {
 
   return (
     <>
-      <PageHero {...page.hero} />
-      {page.sections.length ? (
-        <StorySection eyebrow={copy.storyEyebrow} sections={page.sections} />
+      <PageHero {...pages.about.hero} />
+      {pages.about.prose.length ? (
+        <StorySection eyebrow={copy.storyEyebrow} sections={pages.about.prose} />
       ) : null}
       {locations.length ? (
         <LocationsSection locations={locations} intro={copy.locationsIntro} />

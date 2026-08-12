@@ -7,22 +7,19 @@ import { Container } from "@/components/shared/container";
 import { PageHero } from "@/components/shared/page-hero";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { designCopy } from "@/content/design-copy";
+import { pages } from "@/content/site";
 import {
   getPrimaryLocation,
   getServiceGroups,
   toServiceOptions,
   toSiteSettings,
 } from "@/lib/content/adapters";
-import { getLocations, getPage, getServices, getSettings } from "@/lib/content/content";
-import { toPageMetadata } from "@/lib/content/metadata";
+import { getLocations, getServices, getSettings } from "@/lib/content/content";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return toPageMetadata(await getPage("contact"));
-}
+export const metadata: Metadata = pages.contact.seo;
 
 export default async function ContactosPage() {
-  const [page, settings, services, locations] = await Promise.all([
-    getPage("contact"),
+  const [settings, services, locations] = await Promise.all([
     getSettings(),
     getServices(),
     getLocations(),
@@ -35,7 +32,7 @@ export default async function ContactosPage() {
 
   return (
     <>
-      <PageHero {...page.hero} />
+      <PageHero {...pages.contact.hero} />
 
       <section className="bg-frontend-bg py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-2 lg:gap-16">

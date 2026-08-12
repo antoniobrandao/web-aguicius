@@ -6,15 +6,15 @@ import { MoreServicesSection } from "@/components/home/more-services-section";
 import { ReserveCta } from "@/components/home/reserve-cta";
 import { ServicesSection } from "@/components/home/services-section";
 import { designCopy } from "@/content/design-copy";
+import { pages } from "@/content/site";
 import { getPrimaryLocation, getServiceGroups, toSiteSettings } from "@/lib/content/adapters";
-import { getLocations, getPage, getServices, getSettings } from "@/lib/content/content";
+import { getLocations, getServices, getSettings } from "@/lib/content/content";
 
 export default async function HomePage() {
-  const [settings, services, locations, page] = await Promise.all([
+  const [settings, services, locations] = await Promise.all([
     getSettings(),
     getServices(),
     getLocations(),
-    getPage("home"),
   ]);
 
   const site = toSiteSettings(settings);
@@ -24,7 +24,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <Hero site={site} hero={page.hero} copy={copy} />
+      <Hero site={site} hero={pages.home.hero} copy={copy} />
       {primaryServices.length ? (
         <ServicesSection services={primaryServices} intro={copy.servicesIntro} />
       ) : null}

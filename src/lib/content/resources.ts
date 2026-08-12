@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { CONTENT_ICON_KEYS, PAGE_KEYS, SERVICE_TIERS } from "./constants";
+import { CONTENT_ICON_KEYS, LEGAL_DOCUMENT_KEYS, SERVICE_TIERS } from "./constants";
 
 // Mirror of the casadigital Site API resource contract (JSON Schema available at
 // GET /api/content-schema). The platform owns design-agnostic business data only;
@@ -8,12 +8,6 @@ import { CONTENT_ICON_KEYS, PAGE_KEYS, SERVICE_TIERS } from "./constants";
 //
 // Every field is optional or defaulted, which is deliberate: a site whose content
 // has not been authored yet must still validate and render an empty state.
-
-const linkSchema = z.object({
-  label: z.string().default(""),
-  href: z.string().default(""),
-  cta: z.boolean().optional(),
-});
 
 export const settingsSchema = z.object({
   name: z.string().default(""),
@@ -41,19 +35,6 @@ export const settingsSchema = z.object({
       youtube: z.string().default(""),
     })
     .prefault({}),
-  seo: z
-    .object({
-      metadataBase: z.string().default(""),
-      defaultTitle: z.string().default(""),
-      titleTemplate: z.string().default(""),
-      defaultDescription: z.string().default(""),
-    })
-    .prefault({}),
-});
-
-export const navigationSchema = z.object({
-  header: z.array(linkSchema).default([]),
-  footerCompany: z.array(linkSchema).default([]),
 });
 
 export const serviceSchema = z.object({
@@ -118,20 +99,7 @@ export const valueSchema = z.object({
   description: z.string().default(""),
 });
 
-export const pageSchema = z.object({
-  seo: z
-    .object({
-      title: z.string().default(""),
-      description: z.string().default(""),
-    })
-    .prefault({}),
-  hero: z
-    .object({
-      eyebrow: z.string().default(""),
-      title: z.string().default(""),
-      description: z.string().default(""),
-    })
-    .prefault({}),
+export const legalDocumentSchema = z.object({
   sections: z
     .array(
       z.object({
@@ -142,20 +110,21 @@ export const pageSchema = z.object({
     .default([]),
 });
 
+export const legalSchema = z.partialRecord(z.enum(LEGAL_DOCUMENT_KEYS), legalDocumentSchema);
+
 export const servicesSchema = z.array(serviceSchema);
 export const locationsSchema = z.array(locationSchema);
 export const valuesSchema = z.array(valueSchema);
 
 export type Settings = z.infer<typeof settingsSchema>;
-export type Navigation = z.infer<typeof navigationSchema>;
 export type ServiceContent = z.infer<typeof serviceSchema>;
 export type LocationContent = z.infer<typeof locationSchema>;
 export type ValueContent = z.infer<typeof valueSchema>;
-export type PageContent = z.infer<typeof pageSchema>;
-export type PageKey = (typeof PAGE_KEYS)[number];
+export type LegalDocument = z.infer<typeof legalDocumentSchema>;
+export type Legal = z.infer<typeof legalSchema>;
+export type LegalDocumentKey = (typeof LEGAL_DOCUMENT_KEYS)[number];
 
 // Safe empty values for a site whose content has not been authored yet, or when
 // the platform is unreachable. Parsing an empty object fills every default.
 export const emptySettings = (): Settings => settingsSchema.parse({});
-export const emptyNavigation = (): Navigation => navigationSchema.parse({});
-export const emptyPage = (): PageContent => pageSchema.parse({});
+export const emptyLegal = (): Legal => legalSchema.parse({});

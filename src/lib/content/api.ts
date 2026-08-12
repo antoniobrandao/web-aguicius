@@ -1,16 +1,13 @@
 import type { z } from "zod";
 
-import type { PageKey } from "./constants";
 import {
+  legalSchema,
   locationsSchema,
-  navigationSchema,
-  pageSchema,
   servicesSchema,
   settingsSchema,
   valuesSchema,
+  type Legal,
   type LocationContent,
-  type Navigation,
-  type PageContent,
   type ServiceContent,
   type Settings,
   type ValueContent,
@@ -22,7 +19,7 @@ import {
 
 // The contract major version this site was built against. A mismatch means the
 // platform changed shape underneath us and the payload can no longer be trusted.
-const EXPECTED_CONTRACT_MAJOR = "2";
+const EXPECTED_CONTRACT_MAJOR = "3";
 
 const REQUEST_TIMEOUT_MS = 5_000;
 
@@ -84,10 +81,6 @@ export function fetchSettings(): Promise<Settings> {
   return fetchResource("/api/v1/settings", "settings", settingsSchema);
 }
 
-export function fetchNavigation(): Promise<Navigation> {
-  return fetchResource("/api/v1/navigation", "navigation", navigationSchema);
-}
-
 export function fetchServices(): Promise<ServiceContent[]> {
   return fetchResource("/api/v1/services", "services", servicesSchema);
 }
@@ -100,6 +93,6 @@ export function fetchValues(): Promise<ValueContent[]> {
   return fetchResource("/api/v1/values", "values", valuesSchema);
 }
 
-export function fetchPage(pageKey: PageKey): Promise<PageContent> {
-  return fetchResource(`/api/v1/pages/${pageKey}`, "page", pageSchema);
+export function fetchLegal(): Promise<Legal> {
+  return fetchResource("/api/v1/legal", "legal", legalSchema);
 }

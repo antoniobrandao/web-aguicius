@@ -4,18 +4,15 @@ import { QuoteForm } from "@/components/forms/quote-form";
 import { Container } from "@/components/shared/container";
 import { PageHero } from "@/components/shared/page-hero";
 import { designCopy } from "@/content/design-copy";
+import { pages } from "@/content/site";
 import { getServiceGroups, toServiceOptions, toSiteSettings } from "@/lib/content/adapters";
-import { getPage, getServices, getSettings } from "@/lib/content/content";
+import { getServices, getSettings } from "@/lib/content/content";
 import { getContentIcon } from "@/lib/content/icons";
-import { toPageMetadata } from "@/lib/content/metadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  return toPageMetadata(await getPage("quote"));
-}
+export const metadata: Metadata = pages.quote.seo;
 
 export default async function OrcamentoPage() {
-  const [page, settings, services] = await Promise.all([
-    getPage("quote"),
+  const [settings, services] = await Promise.all([
     getSettings(),
     getServices(),
   ]);
@@ -29,7 +26,7 @@ export default async function OrcamentoPage() {
 
   return (
     <>
-      <PageHero {...page.hero} />
+      <PageHero {...pages.quote.hero} />
 
       <section className="bg-frontend-bg py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">

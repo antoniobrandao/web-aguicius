@@ -1,16 +1,16 @@
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { footerNav, headerNav } from "@/content/site";
 import { getPrimaryLocation, getServiceGroups, toSiteSettings } from "@/lib/content/adapters";
-import { getLocations, getNavigation, getServices, getSettings } from "@/lib/content/content";
+import { getLocations, getServices, getSettings } from "@/lib/content/content";
 
 export default async function SiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [settings, navigation, services, locations] = await Promise.all([
+  const [settings, services, locations] = await Promise.all([
     getSettings(),
-    getNavigation(),
     getServices(),
     getLocations(),
   ]);
@@ -20,12 +20,12 @@ export default async function SiteLayout({
 
   return (
     <div className="frontend-theme flex min-h-dvh flex-col bg-frontend-bg text-frontend-body">
-      <SiteHeader site={site} navItems={navigation.header} />
+      <SiteHeader site={site} navItems={headerNav} />
       <main className="flex-1">{children}</main>
       <SiteFooter
         site={site}
         services={allServices}
-        companyLinks={navigation.footerCompany}
+        companyLinks={footerNav}
         location={getPrimaryLocation(locations)}
       />
     </div>
