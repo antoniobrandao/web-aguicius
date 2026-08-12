@@ -16,7 +16,6 @@ export function Hero({
     heroHighlight: string;
     heroPrimaryCta: Cta;
     heroSecondaryCta: Cta;
-    heroStats: { value: string; label: string }[];
   };
 }) {
   // The headline is authored in the dashboard; the design renders one fragment of
@@ -30,8 +29,8 @@ export function Hero({
 
   return (
     <section className="bg-frontend-surface-dark text-white">
-      <Container className="grid items-center gap-12 py-24 lg:grid-cols-12 lg:py-32">
-        <div className="lg:col-span-7">
+      <Container className="py-24 lg:py-32">
+        <div className="max-w-3xl">
           <h1 className="frontend-display-heading mt-6 text-4xl sm:text-6xl lg:text-7xl">
             {beforeHighlight}
             {highlight ? <span className="text-frontend-brand">{highlight}</span> : null}
@@ -61,30 +60,11 @@ export function Hero({
               <span className="inline-flex size-10 items-center justify-center border border-white/15 text-frontend-brand">
                 <Phone className="size-4" />
               </span>
-              <span className="font-medium tracking-widest">{site.phone}</span>
+              <span className="font-medium tracking-widest text-white">{site.phone}</span>
             </a>
           ) : null}
-        </div>
-
-        <div className="lg:col-span-5">
-          <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10">
-            {copy.heroStats.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col gap-1 bg-frontend-surface p-8"
-              >
-                <span className="text-4xl font-medium text-white">
-                  {stat.value}
-                </span>
-                <span className="text-xs uppercase tracking-[0.15em] text-white/50">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
         </div>
       </Container>
     </section>
   );
 }
-

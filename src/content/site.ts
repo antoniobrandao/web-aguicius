@@ -43,10 +43,10 @@ type PageContent = {
 
 export const pages = {
   home: {
-    seo: { title: "", description: "" },
+    seo: { title: "Aguicius - Soluções completas para o seu negócio", description: "De pequenos a grandes volumes, com ou sem complexidade técnica. Temos a solução para o seu negócio." },
     hero: {
       eyebrow: "O que fazemos",
-      title: "Serviços",
+      title: "Soluções completas para o seu negócio",
       description:
         "De pequenos a grandes volumes, com ou sem complexidade técnica. Temos a solução para o seu negócio.",
     },

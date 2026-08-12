@@ -5,6 +5,7 @@ import { LocationSection } from "@/components/home/location-section";
 import { MoreServicesSection } from "@/components/home/more-services-section";
 import { ReserveCta } from "@/components/home/reserve-cta";
 import { ServicesSection } from "@/components/home/services-section";
+import { StatsBar } from "@/components/home/stats-bar";
 import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
 import { getPrimaryLocation, getServiceGroups, toSiteSettings } from "@/lib/content/adapters";
@@ -25,6 +26,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero site={site} hero={pages.home.hero} copy={copy} />
+      <StatsBar stats={copy.heroStats} />
       {primaryServices.length ? (
         <ServicesSection services={primaryServices} intro={copy.servicesIntro} />
       ) : null}

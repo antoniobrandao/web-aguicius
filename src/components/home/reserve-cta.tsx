@@ -24,7 +24,7 @@ export function ReserveCta({
         <Button
           asChild
           size="lg"
-          className="bg-white text-frontend-brand hover:bg-frontend-surface hover:text-white"
+          className="bg-white text-frontend-brand hover:bg-frontend-surface hover:text-frontend-brand"
         >
           <Link href={content.button.href}>
             {content.button.label}

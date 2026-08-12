@@ -63,7 +63,7 @@ export function LocationSection({
                   </a>
                 </Button>
               ) : null}
-              <Button asChild variant="outline" size="sm">
+              <Button asChild variant="outline" size="sm" className="bg-white text-frontend-brand hover:bg-frontend-surface hover:text-frontend-brand">
                 <Link href="/contactos">Contactos</Link>
               </Button>
             </div>
