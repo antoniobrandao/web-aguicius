@@ -6,18 +6,17 @@ import { Field, fieldErrorProps } from "@/components/forms/field";
 import { useLeadForm } from "@/components/forms/use-lead-form";
 import { Button } from "@/components/site/ui/button";
 import { Input } from "@/components/site/ui/input";
-import { Select } from "@/components/site/ui/select";
 import { Textarea } from "@/components/site/ui/textarea";
 import { designCopy } from "@/content/design-copy";
-import { quoteFormSchema } from "@/lib/leads/form-schemas";
+import { contactFormSchema } from "@/lib/leads/form-schemas";
 
-// Quote request form. Posts to /api/quote, which creates a lead tagged as a quote
-// request in the casadigital dashboard.
-export function QuoteForm({ services }: { services: { slug: string; title: string }[] }) {
-  const copy = designCopy.quote.form;
+// General contact form. Posts to /api/contact, which creates a lead tagged as a
+// contact submission in the casadigital dashboard.
+export function ContactForm() {
+  const copy = designCopy.contact.form;
   const { status, fieldErrors, reset, formProps } = useLeadForm({
-    schema: quoteFormSchema,
-    endpoint: "/api/quote",
+    schema: contactFormSchema,
+    endpoint: "/api/contact",
   });
 
   if (status === "success") {
@@ -47,76 +46,47 @@ export function QuoteForm({ services }: { services: { slug: string; title: strin
         className="absolute left-[-9999px] h-0 w-0 opacity-0"
       />
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field id="name" label="Nome" required error={fieldErrors.name}>
+        <Field id="contact-name" label="Nome" required error={fieldErrors.name}>
           <Input
-            id="name"
+            id="contact-name"
             name="name"
             placeholder="O seu nome"
             autoComplete="name"
             required
-            {...fieldErrorProps("name", fieldErrors.name)}
+            {...fieldErrorProps("contact-name", fieldErrors.name)}
           />
         </Field>
-        <Field id="email" label="Email" required error={fieldErrors.email}>
+        <Field id="contact-email" label="Email" required error={fieldErrors.email}>
           <Input
-            id="email"
+            id="contact-email"
             name="email"
             type="email"
             placeholder="[email protected]"
             autoComplete="email"
             required
-            {...fieldErrorProps("email", fieldErrors.email)}
+            {...fieldErrorProps("contact-email", fieldErrors.email)}
           />
-        </Field>
-        <Field id="phone" label="Telefone" error={fieldErrors.phone}>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            placeholder="+351 ..."
-            autoComplete="tel"
-            {...fieldErrorProps("phone", fieldErrors.phone)}
-          />
-        </Field>
-        <Field id="service" label="Serviço" error={fieldErrors.service}>
-          <Select
-            id="service"
-            name="service"
-            defaultValue=""
-            {...fieldErrorProps("service", fieldErrors.service)}
-          >
-            <option value="" disabled>
-              Selecione um serviço
-            </option>
-            {services.map((service) => (
-              <option key={service.slug} value={service.slug}>
-                {service.title}
-              </option>
-            ))}
-          </Select>
         </Field>
       </div>
 
-      <Field
-        id="origin-destination"
-        label="Recolha / Entrega"
-        error={fieldErrors["origin-destination"]}
-      >
+      <Field id="contact-phone" label="Telefone" error={fieldErrors.phone}>
         <Input
-          id="origin-destination"
-          name="origin-destination"
-          placeholder="Origem → Destino"
-          {...fieldErrorProps("origin-destination", fieldErrors["origin-destination"])}
+          id="contact-phone"
+          name="phone"
+          type="tel"
+          placeholder="+351 ..."
+          autoComplete="tel"
+          {...fieldErrorProps("contact-phone", fieldErrors.phone)}
         />
       </Field>
 
-      <Field id="message" label="Mensagem" required error={fieldErrors.message}>
+      <Field id="contact-message" label="Mensagem" required error={fieldErrors.message}>
         <Textarea
-          id="message"
+          id="contact-message"
           name="message"
-          placeholder="Descreva o que precisa transportar ou o serviço pretendido."
+          placeholder="Como podemos ajudar?"
           required
-          {...fieldErrorProps("message", fieldErrors.message)}
+          {...fieldErrorProps("contact-message", fieldErrors.message)}
         />
       </Field>
 

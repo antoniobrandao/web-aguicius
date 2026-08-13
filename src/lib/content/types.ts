@@ -17,6 +17,13 @@ export type SectionIntro = {
   description?: string;
 };
 
+export type FormCopy = {
+  submitLabel: string;
+  submittingLabel: string;
+  success: { title: string; description: string; resetLabel: string };
+  error: string;
+};
+
 export type SiteSettings = Omit<Settings, "appUrl"> & {
   app: string;
 };

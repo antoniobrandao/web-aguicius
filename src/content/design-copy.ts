@@ -1,5 +1,5 @@
 import type { ContentIconKey } from "@/lib/content/constants";
-import type { Cta, SectionIntro } from "@/lib/content/types";
+import type { Cta, FormCopy, SectionIntro } from "@/lib/content/types";
 
 // Layout and section copy for this site's bespoke design.
 //
@@ -103,9 +103,33 @@ export const designCopy = {
       title: "Envie-nos o seu pedido",
       description: "Preencha o formulário e entramos em contacto o mais breve possível.",
     },
+    form: {
+      submitLabel: "Enviar mensagem",
+      submittingLabel: "A enviar...",
+      success: {
+        title: "Mensagem enviada",
+        description:
+          "Obrigado pelo seu contacto. Respondemos o mais brevemente possível.",
+        resetLabel: "Enviar nova mensagem",
+      },
+      error:
+        "Não foi possível enviar a sua mensagem. Tente novamente ou contacte-nos diretamente.",
+    },
   },
   quote: {
     sidebarHeading: "Prefere falar diretamente?",
+    form: {
+      submitLabel: "Reserve já",
+      submittingLabel: "A enviar...",
+      success: {
+        title: "Pedido enviado",
+        description:
+          "Obrigado pelo seu contacto. A nossa equipa irá responder ao seu pedido de orçamento o mais brevemente possível.",
+        resetLabel: "Enviar novo pedido",
+      },
+      error:
+        "Não foi possível enviar o seu pedido. Tente novamente ou contacte-nos diretamente.",
+    },
     perks: [
       {
         icon: "clock",
@@ -153,9 +177,10 @@ export const designCopy = {
     secondaryIntro: SectionIntro;
     ctaBand: { title: string; description: string; primary: Cta; secondary: Cta };
   };
-  contact: { formIntro: SectionIntro };
+  contact: { formIntro: SectionIntro; form: FormCopy };
   quote: {
     sidebarHeading: string;
+    form: FormCopy;
     perks: { icon: ContentIconKey; title: string; description: string }[];
   };
 };

@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 
-import { quoteFormSchema, toFieldErrors } from "@/lib/leads/form-schemas";
+import { contactFormSchema, toFieldErrors } from "@/lib/leads/form-schemas";
 import { submitLead } from "@/lib/leads/submit-lead";
 
-// Quote form endpoint. A thin proxy over the casadigital.pt Site API.
+// General contact form. Creates a lead exactly like the quote form does, only
+// tagged with a different form type.
 export async function POST(request: Request) {
   let body: Record<string, unknown>;
   try {
@@ -21,7 +22,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   }
 
-  const parsed = quoteFormSchema.safeParse(body);
+  const parsed = contactFormSchema.safeParse(body);
 
   if (!parsed.success) {
     return NextResponse.json(
@@ -36,18 +37,16 @@ export async function POST(request: Request) {
   }
 
   const result = await submitLead({
-    formType: "quote",
+    formType: "contact",
     name: parsed.data.name,
     email: parsed.data.email,
     message: parsed.data.message,
     phone: parsed.data.phone || undefined,
-    serviceSlug: parsed.data.service || undefined,
-    originDestination: parsed.data["origin-destination"] || undefined,
   });
 
   if (!result.ok) {
     return NextResponse.json(
-      { success: false, message: "Unable to send your request." },
+      { success: false, message: "Unable to send your message." },
       { status: result.reason === "rejected" ? 400 : 502 },
     );
   }
