@@ -5,6 +5,7 @@
 export const CONTENT_TAGS = [
   "settings",
   "services",
+  "products",
   "locations",
   "values",
   "legal",
