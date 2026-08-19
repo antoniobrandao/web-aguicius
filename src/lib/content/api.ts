@@ -19,7 +19,7 @@ import {
 
 // The contract major version this site was built against. A mismatch means the
 // platform changed shape underneath us and the payload can no longer be trusted.
-const EXPECTED_CONTRACT_MAJOR = "5";
+const EXPECTED_CONTRACT_MAJOR = "6";
 
 const REQUEST_TIMEOUT_MS = 5_000;
 
