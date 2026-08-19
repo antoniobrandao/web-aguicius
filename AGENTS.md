@@ -1,28 +1,59 @@
 # AGENTS.md
 
-A customer-facing website built from the Casa Digital client-site template. One deployment per customer, on the customer's own domain.
+This website gets its business content from the **Casa Digital platform** and sends the leads its forms collect back to it. The business edits that content, and works those leads, in the Casa Digital backoffice. This file is the standing brief for any agent working in this repository.
 
-**This app is a pure view.** It holds no database credentials and no integration secrets: no MongoDB, no blob token, no SMS provider, no email provider. Everything it shows or records goes through the Casa Digital Site API, authenticated with this site's API key, which alone identifies the tenant. If a feature seems to need a secret or a direct database read, it belongs on the platform side instead.
+## Before writing integration code, read the platform's own docs
 
-Only three env vars, and there should never be a fourth:
+Fetch **`https://casadigital.pt/llms.txt`**. It is a short index that links to everything an agent needs: the full integration contract (`/api/v1/integration.md`), the OpenAPI description, and the JSON Schema of every content resource. `https://casadigital.pt/llms-full.txt` is the same material in a single fetch.
+
+Those documents are generated from the code that serves the API, so they are always current. **Use them as the source of truth for field names, payload shapes, limits and error codes — never guess, and never hand-copy a field list into this repo without checking it.**
+
+## What this site is allowed to do
+
+Two operations, both authenticated with `Authorization: Bearer <SITE_API_KEY>`:
+
+1. **Read this business's content** — `GET https://casadigital.pt/api/v1/<resource>`, one resource per request: `settings`, `services`, `products`, `caseStudies`, `locations`, `values`, `legal`. The key identifies the business, so there is no id to pass and no way to read anyone else's data.
+2. **Create a lead** — `POST https://casadigital.pt/api/v1/leads`, with `formType: "quote" | "contact"`. Every form on the site should go through this, so enquiries land in the business's CRM instead of an inbox.
+
+Files the business uploaded (service images, case-study attachments) arrive inside the content as absolute URLs. Use them directly as an image or link source — no key, no proxy, nothing to sign. Allow the URL's host in your image optimiser.
+
+## Build the revalidation endpoint (do not skip this)
+
+The site must **expose** `POST /api/revalidate`. After the business saves something in the backoffice, the platform calls it with the names of the resources that changed, and the site drops just those caches — that is what makes an edit show up in seconds instead of whenever your cache happens to expire. Skip it and the business will conclude the backoffice is broken.
+
+The platform documents the whole thing, with a complete route handler you can copy, under "Cache invalidation: the endpoint your site must expose" in `https://casadigital.pt/api/v1/integration.md`. Read that section rather than inventing the protocol. In short: verify `Authorization: Bearer <REVALIDATE_SECRET>` and answer 401 otherwise, read `{ "tags": [...] }` from the body, reject a tag that is not one of the resource names with a 400 rather than ignoring it, invalidate those tags, and return 2xx.
+
+Two things a person has to do, not an agent:
+
+1. Invent a long random `REVALIDATE_SECRET` and set it in this site's environment.
+2. Send Casa Digital the endpoint's public URL and that secret, so the push can be registered for this business. Until that happens the endpoint is simply never called.
+
+Treat the push as an optimisation, never a guarantee: it is best effort, at most once, with no retries. Keep a slow revalidation interval underneath it as the safety net.
+
+## Environment
 
 | Env var | Purpose |
 | --- | --- |
-| `CASADIGITAL_API_URL` | Base URL of the Site API (defaults to `https://casadigital.pt`; point it at a local casadigital.pt in dev). |
-| `SITE_API_KEY` | This site's API key, issued by the platform. Authenticates *and* identifies the tenant. |
-| `REVALIDATE_SECRET` | Shared secret the backoffice uses to push cache invalidation to `POST /api/revalidate`. |
+| `CASADIGITAL_API_URL` | Base URL of the platform. Defaults to `https://casadigital.pt`. |
+| `SITE_API_KEY` | This site's key, issued by Casa Digital. Authenticates *and* identifies the business. |
+| `REVALIDATE_SECRET` | Shared secret for this site's `POST /api/revalidate`. You choose it, then give it to Casa Digital along with the endpoint's URL. |
 
-## How content flows
+Those three are the whole configuration. This site needs no database, no storage token and no email or SMS provider: if a feature seems to need one, it is a platform feature, not a website feature.
 
-- `src/lib/content/api.ts` reads one resource per request (`GET /api/v1/{settings,services,locations,values,legal}`) and validates the payload against the local Zod contract in `src/lib/content/resources.ts`. It also warns when the API's contract major version stops matching `EXPECTED_CONTRACT_MAJOR` (`5`). The `products` and `caseStudies` resources exist on the platform and are not consumed here yet; ignoring a resource is fine, a stale major is not.
-- `src/lib/content/adapters.ts` maps a resource onto the view types in `types.ts`. Anything mechanical the platform refuses to store twice is derived here — the `tel:` URI comes from the display phone, for instance — so components never format business data themselves.
-- `src/lib/content/content.ts` wraps each read in its own cache entry and tag, with a 5-minute interval as a safety net. **An unavailable resource degrades to its empty value and logs — it never throws**, so a brand-new site and an unreachable platform both leave the site standing.
-- `POST /api/revalidate` drops only the tags the backoffice reports as changed. Tag names live in `src/lib/content/cache.ts` and must stay in step with the platform's resource names.
-- Images arrive as absolute `image.url` values on the platform's public blob CDN and are used directly as an `<Image src>`; that host is allowed in `next.config.ts` `images.remotePatterns`. There is no proxy route and no API key involved in serving a file.
-- The quote and contact forms post to `/api/quote` and `/api/contact` (honeypot + full field validation), which forward to `POST /api/v1/leads` with a `formType`. The platform files the lead and notifies the tenant; this app never emails or texts anyone itself.
+## Rules
 
-Content shape is the platform's contract, not this repo's invention: `GET /api/content-schema/docs` on the API host is the authoritative reference, and `/api-docs` documents the endpoints. Page structure, copy, layout and metadata **are** this repo's business — the platform knows nothing about them.
+- **The pages are yours; the business data is not.** Which pages exist, how they are routed, laid out and worded, and all SEO metadata belong in this repository. Names, contacts, addresses, opening hours, services, products, case studies, values and legal texts come from the API — never hardcode them, or the business will edit them in the backoffice and nothing will change.
+- **Cache each resource yourself and invalidate on push.** The platform deliberately does not cache responses for you. Give each resource its own cache entry and tag, plus a slow interval as a safety net.
+- **Missing content is normal, not an error.** A business that has not filled a section in yet gets a valid response with empty values. Render an empty state; never crash and never show a placeholder that looks like real content.
+- **Never let the platform take the site down.** If a read fails, log it and fall back to the empty state so the rest of the page still renders.
+- **Ignore fields you do not know.** Within a major contract version new fields may appear. Compare the major of the response's `version` against the one you built against and log loudly if it moved.
+- **Spam protection is yours.** Every accepted lead creates a CRM record, so put a honeypot or similar in front of every form and validate fields before posting.
+- **Keep the key server-side.** It is never exposed to the browser, never in a `NEXT_PUBLIC_` variable, never in client-side fetches.
 
-The platform itself (backoffice, Site API, database, and the architecture of the whole system) lives in the separate `casadigital.pt` repository; read its `AGENTS.md` before changing anything that crosses the API boundary.
+## What the business gets, and can ask you for
 
-Stack: Next.js (App Router), React, Tailwind 4, Zod.
+Worth knowing when scoping work, because these are already paid for and need no code here: editing all of the above content, a leads pipeline with notifications on new enquiries, file uploads, and their own legal texts. Anything in that list is a backoffice feature — build the site to surface it, not to reimplement it.
+
+## Where the integration lives in this repo
+
+`src/lib/content/` — one module reading the API, one wrapping each read in a cache, one Zod mirror of the payloads, one mapping payloads onto the view types the components use. Derive anything mechanical (a `tel:` URI from a phone number, a formatted price from an amount) there, so components never format business data themselves.
