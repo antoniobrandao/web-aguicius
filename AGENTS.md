@@ -38,7 +38,7 @@ If something in this repository contradicts those documents, the documents are r
 Two environment variables and one message to send. The contract documents each in full; this is the checklist.
 
 1. **Ask Casa Digital for this site's `SITE_API_KEY`** and set it in the environment. It both authenticates the request and identifies the business, so it stays server-side and never reaches the browser.
-2. **Invent a long random `REVALIDATE_SECRET`** and set it too. Recommended rather than required.
+2. **Generate a `REVALIDATE_SECRET`** — any opaque random string, e.g. `openssl rand -base64 32` — and set it in the **deployed** environment, not only in `.env.local`; the platform calls the live site. Recommended rather than required, but registering the endpoint without setting the variable is worse than not registering it at all: every push is then rejected with a 401 instead of quietly not happening.
 3. **Send Casa Digital the public URL of this site's `/api/revalidate` endpoint along with that secret**, so the invalidation push can be registered for this business. Until that happens the endpoint is never called, and an edit in the backoffice appears whenever the site's own cache interval expires — 300 seconds here — instead of within seconds.
 
 `CASADIGITAL_API_URL` is optional and only needed to point the site at a local platform instance; it defaults to production.
