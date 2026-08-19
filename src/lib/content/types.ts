@@ -26,6 +26,8 @@ export type FormCopy = {
 
 export type SiteSettings = Omit<Settings, "appUrl"> & {
   app: string;
+  /** `tel:` URI derived from `phone`; empty when there is no number to call. */
+  phoneHref: string;
 };
 
 export type NavItem = {
@@ -42,7 +44,7 @@ export type Service = {
   icon: LucideIcon;
   image?: {
     assetId?: string;
-    pathname?: string;
+    url?: string;
     alt: string;
     width?: number;
     height?: number;

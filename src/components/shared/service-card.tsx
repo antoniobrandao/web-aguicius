@@ -26,10 +26,10 @@ export function ServiceCard({
         className
       )}
     >
-      {service.image?.pathname ? (
+      {service.image?.url ? (
         <div className="-mx-8 -mt-8 aspect-video overflow-hidden bg-frontend-muted">
           <Image
-            src={`/api/blob/${service.image.pathname}`}
+            src={service.image.url}
             alt={service.image.alt}
             width={service.image.width ?? 800}
             height={service.image.height ?? 450}

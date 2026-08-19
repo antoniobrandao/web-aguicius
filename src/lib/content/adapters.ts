@@ -13,7 +13,7 @@ export function toService(service: ServiceContent): Service {
     slug: service.slug,
     title: service.title,
     icon: getContentIcon(service.icon),
-    image: service.image?.pathname
+    image: service.image?.url
       ? {
           ...service.image,
           alt: service.image.alt || service.title,
@@ -40,7 +40,19 @@ export function getServiceGroups(services: ServiceContent[]) {
 export function toSiteSettings(settings: Settings): SiteSettings {
   const { appUrl, ...rest } = settings;
 
-  return { ...rest, app: appUrl };
+  return { ...rest, app: appUrl, phoneHref: telHref(settings.phone) };
+}
+
+/**
+ * `tel:` URI for a display number, e.g. "+351 918 897 872" -> "tel:+351918897872".
+ * The platform stores only the human-readable number, so the dialable form is
+ * derived here. Empty when there is nothing to call, which is what the components
+ * test before rendering a phone link.
+ */
+function telHref(phone: string) {
+  const dialable = phone.replace(/[^+\d]/g, "");
+
+  return dialable ? `tel:${dialable}` : "";
 }
 
 export function getPrimaryLocation(

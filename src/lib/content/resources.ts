@@ -14,7 +14,6 @@ export const settingsSchema = z.object({
   tagline: z.string().default(""),
   description: z.string().default(""),
   phone: z.string().default(""),
-  phoneHref: z.string().default(""),
   email: z.string().default(""),
   whatsapp: z.string().default(""),
   appUrl: z.string().default(""),
@@ -44,7 +43,8 @@ export const serviceSchema = z.object({
   image: z
     .object({
       assetId: z.string().optional(),
-      pathname: z.string().default(""),
+      // Absolute URL on the platform's public blob CDN, usable as an image src.
+      url: z.string().default(""),
       alt: z.string().default(""),
       width: z.number().int().positive().optional(),
       height: z.number().int().positive().optional(),

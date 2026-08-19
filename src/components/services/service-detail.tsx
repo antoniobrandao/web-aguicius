@@ -63,9 +63,9 @@ export function ServiceDetail({
           reversed && "lg:order-1"
         )}
       >
-        {service.image?.pathname ? (
+        {service.image?.url ? (
           <Image
-            src={`/api/blob/${service.image.pathname}`}
+            src={service.image.url}
             alt={service.image.alt}
             width={service.image.width ?? 1200}
             height={service.image.height ?? 900}
