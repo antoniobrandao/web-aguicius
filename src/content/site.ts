@@ -62,7 +62,7 @@ export const pages = {
   home: {
     hero: {
       eyebrow: "O que fazemos",
-      title: "Transportamos, montamos, instalamos.",
+      title: "Multiserviços que movem e transformam.",
       description: "Da recolha à montagem final, um só parceiro — 100% para si.",
     },
   },
