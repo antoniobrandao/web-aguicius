@@ -62,9 +62,8 @@ export const pages = {
   home: {
     hero: {
       eyebrow: "O que fazemos",
-      title: "Soluções completas para o seu negócio",
-      description:
-        "De pequenos a grandes volumes, com ou sem complexidade técnica. Temos a solução para o seu negócio.",
+      title: "Transportamos, montamos, instalamos.",
+      description: "Da recolha à montagem final, um só parceiro — 100% para si.",
     },
   },
   about: {
