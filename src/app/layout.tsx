@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Montserrat } from "next/font/google";
 
 import "./globals.css";
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="pt-PT">
       <body className={`${montserrat.variable} min-h-dvh`}>
         <TooltipProvider>{children}</TooltipProvider>
+        <Analytics />
       </body>
     </html>
   );

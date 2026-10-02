@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { quoteFormSchema, toFieldErrors } from "@/lib/leads/form-schemas";
-import { submitLead } from "@/lib/leads/submit-lead";
+import { submitLead, toLeadFieldErrors } from "@/lib/leads/submit-lead";
 
 // Quote form endpoint. A thin proxy over the casadigital.pt Site API.
 export async function POST(request: Request) {
@@ -47,7 +47,21 @@ export async function POST(request: Request) {
 
   if (!result.ok) {
     return NextResponse.json(
-      { success: false, message: "Unable to send your request." },
+      {
+        success: false,
+        message: "Unable to send your request.",
+        // A 422 from the platform names the offending fields; put them back on
+        // the form. Any other failure leaves the generic banner, which points the
+        // visitor at the contact details shown beside the form.
+        ...(result.reason === "rejected"
+          ? {
+              fieldErrors: toLeadFieldErrors(result.issues, {
+                serviceSlug: "service",
+                originDestination: "origin-destination",
+              }),
+            }
+          : {}),
+      },
       { status: result.reason === "rejected" ? 400 : 502 },
     );
   }

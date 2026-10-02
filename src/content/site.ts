@@ -100,7 +100,7 @@ export const pages = {
     seo: {
       title: "Contactos",
       description:
-        "Entre em contacto com a Aguicius. Estamos disponíveis de segunda a sábado, das 09h às 19h. Telefone: +351 918 451 505.",
+        "Entre em contacto com a Aguicius. Fale connosco por telefone, email ou através do formulário.",
     },
     hero: {
       eyebrow: "Contactos",

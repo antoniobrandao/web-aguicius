@@ -79,9 +79,8 @@ blocks rather than failing.
 ## Environment
 
 ```
-SITE_API_KEY         # this site's Casa Digital API key (sk_…)
-CASADIGITAL_API_URL  # platform base URL, defaults to https://casadigital.pt
-REVALIDATE_SECRET    # shared secret for POST /api/revalidate
+SITE_API_KEY       # this site's Casa Digital API key (sk_…)
+REVALIDATE_SECRET  # shared secret for POST /api/revalidate
 ```
 
 `SITE_API_KEY` is server-only and must never be exposed through a

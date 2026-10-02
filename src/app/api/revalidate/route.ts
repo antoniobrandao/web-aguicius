@@ -44,7 +44,9 @@ export async function POST(request: Request) {
   const tags = [...new Set(requested.filter(isContentTag))];
 
   for (const tag of tags) {
-    revalidateTag(tag, "max");
+    // Expire immediately: the push means the content already changed, and the
+    // default "max" profile would serve the stale copy once more first.
+    revalidateTag(tag, { expire: 0 });
   }
 
   return Response.json({ revalidated: true, tags });

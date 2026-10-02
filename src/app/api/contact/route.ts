@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { contactFormSchema, toFieldErrors } from "@/lib/leads/form-schemas";
-import { submitLead } from "@/lib/leads/submit-lead";
+import { submitLead, toLeadFieldErrors } from "@/lib/leads/submit-lead";
 
 // General contact form. Creates a lead exactly like the quote form does, only
 // tagged with a different form type.
@@ -46,7 +46,16 @@ export async function POST(request: Request) {
 
   if (!result.ok) {
     return NextResponse.json(
-      { success: false, message: "Unable to send your message." },
+      {
+        success: false,
+        message: "Unable to send your message.",
+        // A 422 from the platform names the offending fields; put them back on
+        // the form. Any other failure leaves the generic banner, which points the
+        // visitor at the contact details shown beside the form.
+        ...(result.reason === "rejected"
+          ? { fieldErrors: toLeadFieldErrors(result.issues) }
+          : {}),
+      },
       { status: result.reason === "rejected" ? 400 : 502 },
     );
   }

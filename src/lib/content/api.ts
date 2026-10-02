@@ -23,9 +23,10 @@ const EXPECTED_CONTRACT_MAJOR = "6";
 
 const REQUEST_TIMEOUT_MS = 5_000;
 
-export function getApiBaseUrl() {
-  return (process.env.CASADIGITAL_API_URL ?? "https://casadigital.pt").replace(/\/+$/, "");
-}
+// The platform origin from the contract. The bare domain 308-redirects here, and
+// fetch drops the Authorization header on a cross-origin redirect, so every
+// request to it would come back 401.
+export const API_BASE_URL = "https://www.casadigital.pt";
 
 export function getSiteApiKey() {
   const apiKey = process.env.SITE_API_KEY;
@@ -38,7 +39,12 @@ export function getSiteApiKey() {
 }
 
 function assertContractVersion(version: unknown, path: string) {
-  if (typeof version !== "string") return;
+  if (typeof version !== "string") {
+    console.error(
+      `[content] ${path} returned no contract version; this site expects ${EXPECTED_CONTRACT_MAJOR}.x.`,
+    );
+    return;
+  }
 
   const major = version.split(".")[0];
   if (major !== EXPECTED_CONTRACT_MAJOR) {
@@ -58,7 +64,7 @@ async function fetchResource<Schema extends z.ZodType>(
   key: string,
   schema: Schema,
 ): Promise<z.infer<Schema>> {
-  const response = await fetch(`${getApiBaseUrl()}${path}`, {
+  const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: { Authorization: `Bearer ${getSiteApiKey()}` },
     // Freshness is owned by the cache wrappers in content.ts.
     cache: "no-store",
