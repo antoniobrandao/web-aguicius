@@ -11,7 +11,8 @@ export function ServicesSection({
   intro: SectionIntro;
 }) {
   return (
-    <section className="bg-frontend-bg py-20 lg:py-28">
+    // Short at the foot: the quote panel that follows brings its own spacing.
+    <section className="bg-frontend-bg pb-10 pt-20 lg:pb-14 lg:pt-28">
       <Container>
         <SectionHeading
           eyebrow={intro.eyebrow}
@@ -19,7 +20,7 @@ export function ServicesSection({
           description={intro.description}
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {services.map((service) => (
             <ServiceCard key={service.slug} service={service} />
           ))}

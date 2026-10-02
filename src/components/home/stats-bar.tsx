@@ -6,20 +6,18 @@ export function StatsBar({
   stats: { value: string; label: string }[];
 }) {
   return (
-    <section className="border-y border-white/10 bg-zinc-100 text-white">
-      <Container className="py-12 lg:py-14">
-        <ul className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:gap-16 lg:gap-24">
+    <section className="bg-frontend-muted pb-16 lg:pb-20">
+      <Container>
+        <dl className="frontend-card grid divide-y divide-frontend-border sm:auto-cols-fr sm:grid-flow-col sm:divide-x sm:divide-y-0">
           {stats.map((stat) => (
-            <li key={stat.label} className="flex flex-col items-center gap-1 text-center">
-              <span className="text-4xl font-medium tracking-tight text-zinc-800 sm:text-5xl">
+            <div key={stat.label} className="flex flex-col-reverse gap-1 px-8 py-7">
+              <dt className="text-[0.9375rem] text-frontend-body">{stat.label}</dt>
+              <dd className="frontend-display-heading text-4xl tabular-nums text-frontend-heading">
                 {stat.value}
-              </span>
-              <span className="text-xs uppercase tracking-[0.15em] text-zinc-500">
-                {stat.label}
-              </span>
-            </li>
+              </dd>
+            </div>
           ))}
-        </ul>
+        </dl>
       </Container>
     </section>
   );

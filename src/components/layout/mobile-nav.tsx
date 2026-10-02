@@ -26,21 +26,25 @@ export function MobileNav({
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
+  // The call to action gets the button at the foot of the panel rather than a row
+  // in the list.
+  const links = items.filter((item) => !item.cta);
+  const cta = items.find((item) => item.cta);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button
           aria-label="Abrir menu"
-          className="inline-flex size-11 cursor-pointer items-center justify-center text-frontend-heading transition-colors duration-150 ease-in-out hover:text-frontend-brand lg:hidden"
+          className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full text-frontend-heading transition-colors duration-150 ease-out hover:bg-frontend-muted hover:text-frontend-brand lg:hidden"
         >
           <Menu className="size-6" />
         </button>
       </SheetTrigger>
       <SheetContent side="right" className="p-8">
-        <SheetTitle className="text-white">Menu</SheetTitle>
-        <nav className="mt-4 flex flex-col">
-          {items.map((item) => {
+        <SheetTitle>Menu</SheetTitle>
+        <nav className="mt-2 flex flex-col">
+          {links.map((item) => {
             const active =
               item.href === "/"
                 ? pathname === "/"
@@ -51,8 +55,8 @@ export function MobileNav({
                 <Link
                   href={item.href}
                   className={cn(
-                    "frontend-small-label border-b border-white/10 py-4 transition-colors duration-150 ease-in-out",
-                    active ? "text-frontend-brand" : "text-white/80 hover:text-white"
+                    "border-b border-frontend-border py-4 text-lg font-semibold transition-colors duration-150 ease-out",
+                    active ? "text-frontend-brand" : "text-frontend-heading hover:text-frontend-brand"
                   )}
                 >
                   {item.label}
@@ -62,17 +66,19 @@ export function MobileNav({
           })}
         </nav>
         <div className="mt-auto flex flex-col gap-4">
-          <Button asChild variant="primary" className="w-full">
-            <Link href="/orcamento" onClick={() => setOpen(false)}>
-              Reserve já
-            </Link>
-          </Button>
+          {cta ? (
+            <Button asChild variant="primary" size="lg" className="w-full">
+              <Link href={cta.href} onClick={() => setOpen(false)}>
+                {cta.label}
+              </Link>
+            </Button>
+          ) : null}
           {hasPhone ? (
             <a
               href={site.phoneHref}
-              className="inline-flex items-center gap-2 text-sm text-white/70 transition-colors duration-150 ease-in-out hover:text-white"
+              className="inline-flex items-center justify-center gap-2 py-2 font-semibold text-frontend-heading transition-colors duration-150 ease-out hover:text-frontend-brand"
             >
-              <Phone className="size-4" />
+              <Phone className="size-4 text-frontend-brand" />
               {site.phone}
             </a>
           ) : null}

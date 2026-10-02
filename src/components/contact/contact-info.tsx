@@ -19,7 +19,7 @@ export function ContactInfo({
   }
 
   return (
-    <div className="grid gap-px border border-frontend-border bg-frontend-border sm:grid-cols-2">
+    <div className="grid gap-5 sm:grid-cols-2">
       {hasAddress && location ? (
         <InfoCard icon={<MapPin className="size-5" />} label="Morada">
           <p>
@@ -38,7 +38,7 @@ export function ContactInfo({
         <InfoCard icon={<Phone className="size-5" />} label="Telefone">
           <a
             href={site.phoneHref}
-            className="transition-colors hover:text-frontend-brand"
+            className="tabular-nums transition-colors duration-150 ease-out hover:text-frontend-brand"
           >
             {site.phone}
           </a>
@@ -49,7 +49,7 @@ export function ContactInfo({
         <InfoCard icon={<Mail className="size-5" />} label="Email">
           <a
             href={`mailto:${site.email}`}
-            className="break-all transition-colors hover:text-frontend-brand"
+            className="break-all transition-colors duration-150 ease-out hover:text-frontend-brand"
           >
             {site.email}
           </a>
@@ -62,7 +62,7 @@ export function ContactInfo({
             {site.schedule.map((slot) => (
               <p key={slot.days}>
                 <span className="font-medium text-frontend-heading">{slot.days}</span>{" "}
-                <span className="text-frontend-body">{slot.hours}</span>
+                <span className="font-normal text-frontend-body">{slot.hours}</span>
               </p>
             ))}
           </div>
@@ -82,14 +82,10 @@ function InfoCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 bg-frontend-card p-8">
-      <span className="inline-flex size-12 items-center justify-center bg-frontend-surface text-white">
-        {icon}
-      </span>
-      <h3 className="frontend-small-label text-frontend-brand">
-        {label}
-      </h3>
-      <div className="frontend-copy text-sm text-frontend-heading">{children}</div>
+    <div className="frontend-card flex flex-col gap-3 p-7">
+      <span className="frontend-tile mb-1">{icon}</span>
+      <h3 className="text-sm font-medium text-frontend-body">{label}</h3>
+      <div className="font-medium leading-relaxed text-frontend-heading">{children}</div>
     </div>
   );
 }

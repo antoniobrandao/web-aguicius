@@ -7,7 +7,7 @@ function Input({ className, type, ...props }: React.ComponentProps<"input">) {
     <input
       type={type}
       className={cn(
-        "frontend-control flex h-12 w-full px-4 py-2 text-sm",
+        "frontend-control flex h-12 w-full px-4 py-2 text-[0.9375rem]",
         className
       )}
       {...props}

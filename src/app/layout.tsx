@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Montserrat } from "next/font/google";
+import { Archivo } from "next/font/google";
 
 import "./globals.css";
-import "./frontend.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { buildRootMetadata } from "@/lib/content/metadata";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+// Variable in weight and width; headlines use the wide end of the width axis.
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  axes: ["wdth"],
   display: "swap",
 });
 
@@ -25,8 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-PT">
-      <body className={`${montserrat.variable} min-h-dvh`}>
+    <html lang="pt-PT" className={archivo.variable}>
+      <body className="min-h-dvh">
         <TooltipProvider>{children}</TooltipProvider>
         <Analytics />
       </body>

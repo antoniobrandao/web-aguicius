@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 import type { Cta } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
@@ -17,29 +16,24 @@ export function AboutBand({
   };
 }) {
   return (
-    <section className="frontend-section bg-frontend-surface text-white">
-      <Container className="grid gap-12 lg:grid-cols-12 lg:items-center">
-        <div className="lg:col-span-5">
-          <p className="frontend-display-heading text-6xl sm:text-7xl lg:text-8xl">
+    <section className="bg-frontend-muted py-20 lg:py-28">
+      <Container className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-16">
+        <div className="lg:col-span-4">
+          <p className="frontend-display-heading text-7xl tabular-nums text-frontend-brand lg:text-8xl">
             {content.statValue}
           </p>
-          <p className="frontend-small-label mt-2 text-frontend-brand">
+          <p className="mt-2 text-lg font-semibold text-frontend-heading">
             {content.statLabel}
           </p>
         </div>
 
-        <div className="flex flex-col gap-6 lg:col-span-7">
-          <p className="text-xl font-medium leading-8 text-white">
+        <div className="flex flex-col gap-5 lg:col-span-8">
+          <p className="frontend-display-heading frontend-display-sm max-w-2xl text-frontend-heading">
             {content.lead}
           </p>
-          <p className="frontend-copy text-white/70">
-            {content.body}
-          </p>
-          <Button asChild variant="primary" className="mt-2 self-start">
-            <Link href={content.cta.href}>
-              {content.cta.label}
-              <ArrowRight className="size-4" />
-            </Link>
+          <p className="frontend-copy max-w-2xl text-[1.0625rem]">{content.body}</p>
+          <Button asChild variant="outline" className="mt-3 self-start bg-frontend-bg">
+            <Link href={content.cta.href}>{content.cta.label}</Link>
           </Button>
         </div>
       </Container>

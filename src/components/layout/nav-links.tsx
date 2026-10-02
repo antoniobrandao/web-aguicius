@@ -37,8 +37,8 @@ export function NavLinks({
             key={item.href}
             href={item.href}
             className={cn(
-              "frontend-small-label relative transition-colors duration-150 ease-in-out",
-              "after:absolute after:-bottom-1.5 after:left-0 after:h-px after:bg-frontend-brand after:transition-[width] after:duration-150 after:ease-in-out",
+              "frontend-small-label relative transition-colors duration-150 ease-out",
+              "after:absolute after:-bottom-2 after:left-0 after:h-0.5 after:rounded-full after:bg-frontend-brand after:transition-[width] after:duration-150 after:ease-out",
               active
                 ? "text-frontend-heading after:w-full"
                 : "text-frontend-body hover:text-frontend-heading after:w-0 hover:after:w-full"

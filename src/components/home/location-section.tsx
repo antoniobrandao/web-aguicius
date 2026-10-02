@@ -27,12 +27,10 @@ export function LocationSection({
             description={intro.description}
           />
 
-          <div className="frontend-flat-card mt-10 p-8">
-            <p className="frontend-small-label text-frontend-brand">
-              {location.city}
-            </p>
+          <div className="frontend-card mt-10 p-8">
+            <p className="frontend-card-title">{location.city}</p>
             <div className="mt-5 flex flex-col gap-4 text-frontend-heading">
-              <p className="flex items-start gap-3 text-sm leading-relaxed">
+              <p className="flex items-start gap-3 leading-relaxed">
                 <MapPin className="mt-0.5 size-5 shrink-0 text-frontend-brand" />
                 <span>
                   {location.lines.map((line, index) => (
@@ -46,7 +44,7 @@ export function LocationSection({
               {hasPhone ? (
                 <a
                   href={site.phoneHref}
-                  className="flex items-center gap-3 text-sm transition-colors duration-150 ease-in-out hover:text-frontend-brand"
+                  className="flex items-center gap-3 tabular-nums transition-colors duration-150 ease-out hover:text-frontend-brand"
                 >
                   <Phone className="size-5 shrink-0 text-frontend-brand" />
                   {site.phone}
@@ -54,7 +52,7 @@ export function LocationSection({
               ) : null}
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-4">
+            <div className="mt-7 flex flex-wrap gap-3">
               {location.mapsSearchUrl ? (
                 <Button asChild variant="default" size="sm">
                   <a href={location.mapsSearchUrl} target="_blank" rel="noreferrer">
@@ -63,7 +61,7 @@ export function LocationSection({
                   </a>
                 </Button>
               ) : null}
-              <Button asChild variant="outline" size="sm" className="bg-white text-frontend-brand hover:bg-frontend-surface hover:text-frontend-brand">
+              <Button asChild variant="outline" size="sm">
                 <Link href="/contactos">Contactos</Link>
               </Button>
             </div>
@@ -71,7 +69,7 @@ export function LocationSection({
         </div>
 
         {location.mapEmbedUrl ? (
-          <div className="min-h-80 overflow-hidden border border-frontend-border">
+          <div className="min-h-80 overflow-hidden rounded-3xl shadow-frontend-card">
             <iframe
               title={`Mapa ${site.name} ${location.city}`.trim()}
               src={location.mapEmbedUrl}

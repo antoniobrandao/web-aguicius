@@ -36,7 +36,7 @@ export function Field({
         <p
           id={`${id}-error`}
           role="alert"
-          className="flex items-start gap-1.5 text-xs text-frontend-danger"
+          className="flex items-start gap-1.5 text-[0.8125rem] text-frontend-danger"
         >
           <AlertCircle className="mt-px size-3.5 shrink-0" />
           {error}

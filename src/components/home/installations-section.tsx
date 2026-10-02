@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
+import { Check } from "lucide-react";
 
 import type { Cta, Service } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
@@ -22,22 +22,19 @@ export function InstallationsSection({
             title={content.title}
             description={service.description}
           />
-          <Button asChild variant="default" className="mt-8">
-            <Link href={content.button.href}>
-              {content.button.label}
-              <ArrowRight className="size-4" />
-            </Link>
+          <Button asChild variant="primary" className="mt-8">
+            <Link href={content.button.href}>{content.button.label}</Link>
           </Button>
         </div>
 
-        <ul className="grid gap-px border border-frontend-border bg-frontend-border sm:grid-cols-2">
+        <ul className="frontend-card divide-y divide-frontend-border px-7 py-2">
           {content.highlights.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-3 bg-frontend-card p-6 text-sm font-medium text-frontend-heading"
+              className="flex items-center gap-4 py-5 font-medium text-frontend-heading"
             >
-              <span className="inline-flex size-6 shrink-0 items-center justify-center bg-frontend-brand text-white">
-                <Check className="size-4" />
+              <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-frontend-brand-soft text-frontend-brand">
+                <Check className="size-4" strokeWidth={2.5} />
               </span>
               {item}
             </li>

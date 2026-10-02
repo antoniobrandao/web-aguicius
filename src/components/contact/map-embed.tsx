@@ -10,7 +10,7 @@ export function MapEmbed({
   title?: string;
 }) {
   return (
-    <div className={cn("overflow-hidden border border-frontend-border", className)}>
+    <div className={cn("overflow-hidden rounded-3xl shadow-frontend-card", className)}>
       <iframe
         title={title}
         src={src}

@@ -19,7 +19,7 @@ Record decisions here, never business data. Names, contacts, addresses, opening 
 | **Pages** | _The routes this site has, and what each is for_ |
 | **Language** | _e.g. European Portuguese, single locale_ |
 | **Production domain** | _e.g. `https://example.pt`_ |
-| **Design direction** | _Tone, references, any brand constraints_ |
+| **Design direction** | Light, soft and friendly-professional. White and a faint plum-tinted off-white carry the page; the brand plum (`#850064`) is the only strong colour and appears as contained rounded panels, never as dark grey blocks. Type is Archivo, with headlines in its wide cut, sentence case. Rounded cards with soft plum-tinted shadows, pill buttons. Heroes are type-led, with no illustration. The only decorative element is the road from the logo (plum band, dashed white centre line), used as a thin stripe above the footer. Tokens and component classes live in `src/app/frontend.css`. |
 | **Resources used** | _Which platform resources this site actually renders. A resource nobody renders needs no cache entry, only a tag on the invalidation receiver_ |
 | **Out of scope** | _Deliberate exclusions, so they do not get "fixed" later_ |
 

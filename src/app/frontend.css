@@ -1,76 +1,35 @@
-@theme inline {
-  --color-frontend-brand: #850064;
-  --color-frontend-brand-50: hsl(315 100% 97%);
-  --color-frontend-brand-100: hsl(315 100% 94%);
-  --color-frontend-brand-200: hsl(315 100% 86%);
-  --color-frontend-brand-300: hsl(315 100% 76%);
-  --color-frontend-brand-400: hsl(315 100% 64%);
-  --color-frontend-brand-500: hsl(315 100% 50%);
-  --color-frontend-brand-600: hsl(315 100% 40%);
-  --color-frontend-brand-700: hsl(315 100% 32%);
-  --color-frontend-brand-800: hsl(315 100% 24%);
-  --color-frontend-brand-900: hsl(315 100% 16%);
-  --color-frontend-brand-950: hsl(315 100% 10%);
+/* Site design tokens and component classes.
+ *
+ * Imported by globals.css, so the tokens are part of the Tailwind build: every
+ * colour below gets its utilities (bg-, text-, border-, ring-) and their variants
+ * (hover:, focus-visible:, /opacity) without being written out by hand.
+ */
 
+@theme static {
+  --color-frontend-brand: #850064;
+  --color-frontend-brand-strong: #64004b;
+  --color-frontend-brand-soft: #f6e9f2;
   --color-frontend-bg: #ffffff;
   --color-frontend-card: #ffffff;
-  --color-frontend-muted: #f4f4f5;
-  --color-frontend-border: #e5e5e7;
-  --color-frontend-line: #b4b5ba;
-  --color-frontend-body: #6c6d74;
-  --color-frontend-heading: #2d2e33;
-  --color-frontend-surface: #303033;
-  --color-frontend-surface-dark: #000;
-  --color-frontend-steel: #414141;
+  --color-frontend-muted: #faf6f9;
+  --color-frontend-border: #ece4ea;
+  --color-frontend-line: #cfc3cb;
+  --color-frontend-body: #5d5661;
+  --color-frontend-heading: #2a212a;
   --color-frontend-danger: #b00020;
 
-  --font-frontend-sans: var(--font-montserrat), Montserrat, system-ui, sans-serif;
-  --container-frontend-page: 1600px;
-  --spacing-frontend-xs: 5px;
-  --spacing-frontend-sm: 40px;
-  --spacing-frontend-md: 70px;
-  --spacing-frontend-lg: 140px;
-  --spacing-frontend-xl: 180px;
-  --spacing-frontend-2xl: 200px;
-  --ease-frontend: ease-in-out;
+  --font-frontend-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --container-frontend-page: 1240px;
 
-  --animate-frontend-accordion-down: frontend-accordion-down 0.2s ease-in-out;
-  --animate-frontend-accordion-up: frontend-accordion-up 0.2s ease-in-out;
-}
+  --shadow-frontend-card:
+    0 0 0 1px rgb(42 33 42 / 0.06), 0 1px 2px rgb(42 33 42 / 0.04),
+    0 12px 28px -18px rgb(133 0 100 / 0.22);
+  --shadow-frontend-card-hover:
+    0 0 0 1px rgb(42 33 42 / 0.07), 0 2px 4px rgb(42 33 42 / 0.05),
+    0 22px 40px -20px rgb(133 0 100 / 0.34);
 
-:root {
-  --color-frontend-brand: #850064;
-  --color-frontend-brand-50: hsl(315 100% 97%);
-  --color-frontend-brand-100: hsl(315 100% 94%);
-  --color-frontend-brand-200: hsl(315 100% 86%);
-  --color-frontend-brand-300: hsl(315 100% 76%);
-  --color-frontend-brand-400: hsl(315 100% 64%);
-  --color-frontend-brand-500: hsl(315 100% 50%);
-  --color-frontend-brand-600: hsl(315 100% 40%);
-  --color-frontend-brand-700: hsl(315 100% 32%);
-  --color-frontend-brand-800: hsl(315 100% 24%);
-  --color-frontend-brand-900: hsl(315 100% 16%);
-  --color-frontend-brand-950: hsl(315 100% 10%);
-  --color-frontend-bg: #ffffff;
-  --color-frontend-card: #ffffff;
-  --color-frontend-muted: #f4f4f5;
-  --color-frontend-border: #e5e5e7;
-  --color-frontend-line: #b4b5ba;
-  --color-frontend-body: #6c6d74;
-  --color-frontend-heading: #2d2e33;
-  --color-frontend-surface: #303033;
-  --color-frontend-surface-dark: #242427;
-  --color-frontend-steel: #414141;
-  --color-frontend-danger: #b00020;
-  --font-frontend-sans: var(--font-montserrat), Montserrat, system-ui, sans-serif;
-  --container-frontend-page: 1600px;
-  --spacing-frontend-xs: 5px;
-  --spacing-frontend-sm: 40px;
-  --spacing-frontend-md: 70px;
-  --spacing-frontend-lg: 140px;
-  --spacing-frontend-xl: 180px;
-  --spacing-frontend-2xl: 200px;
-  --ease-frontend: ease-in-out;
+  --animate-frontend-accordion-down: frontend-accordion-down 0.2s ease-out;
+  --animate-frontend-accordion-up: frontend-accordion-up 0.2s ease-out;
 }
 
 @keyframes frontend-accordion-down {
@@ -91,103 +50,13 @@
   }
 }
 
-@layer utilities {
-  .bg-frontend-brand {
-    background-color: var(--color-frontend-brand);
-  }
-
-  .bg-frontend-bg {
-    background-color: var(--color-frontend-bg);
-  }
-
-  .bg-frontend-bg\/95 {
-    background-color: color-mix(in srgb, var(--color-frontend-bg) 95%, transparent);
-  }
-
-  .bg-frontend-card {
-    background-color: var(--color-frontend-card);
-  }
-
-  .bg-frontend-muted {
-    background-color: var(--color-frontend-muted);
-  }
-
-  .bg-frontend-surface {
-    background-color: var(--color-frontend-surface);
-  }
-
-  .bg-frontend-surface-dark {
-    background-color: var(--color-frontend-surface-dark);
-  }
-
-  .bg-frontend-steel {
-    background-color: var(--color-frontend-steel);
-  }
-
-  .text-frontend-brand {
-    color: var(--color-frontend-brand);
-  }
-
-  .text-frontend-body {
-    color: var(--color-frontend-body);
-  }
-
-  .text-frontend-heading {
-    color: var(--color-frontend-heading);
-  }
-
-  .text-frontend-line {
-    color: var(--color-frontend-line);
-  }
-
-  .text-frontend-danger {
-    color: var(--color-frontend-danger);
-  }
-
-  .border-frontend-brand {
-    border-color: var(--color-frontend-brand);
-  }
-
-  .border-frontend-border {
-    border-color: var(--color-frontend-border);
-  }
-
-  .border-frontend-danger {
-    border-color: var(--color-frontend-danger);
-  }
-
-  .border-frontend-danger\/40 {
-    border-color: color-mix(in srgb, var(--color-frontend-danger) 40%, transparent);
-  }
-
-  .bg-frontend-danger\/5 {
-    background-color: color-mix(in srgb, var(--color-frontend-danger) 5%, transparent);
-  }
-
-  .outline-frontend-brand {
-    outline-color: var(--color-frontend-brand);
-  }
-
-  .ring-frontend-brand {
-    --tw-ring-color: var(--color-frontend-brand);
-  }
-
-  .ring-frontend-brand\/30 {
-    --tw-ring-color: color-mix(in srgb, var(--color-frontend-brand) 30%, transparent);
-  }
-
-  .ring-offset-frontend-bg {
-    --tw-ring-offset-color: var(--color-frontend-bg);
-  }
-}
-
 @layer components {
   .frontend-theme {
     background: var(--color-frontend-bg);
     color: var(--color-frontend-body);
     font-family: var(--font-frontend-sans);
     font-size: 1rem;
-    line-height: 1.625;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -197,74 +66,102 @@
     color: #ffffff;
   }
 
+  /* Headlines are set in the wide cut of the family — the proportions of
+     lettering on the side of a van — and sized with the modifiers below.
+     Sizes are fluid: they scale with the viewport between a phone and a desktop. */
   .frontend-display-heading {
-    font-weight: 400;
+    font-stretch: 112%;
+    font-variation-settings: "wdth" 112;
+    font-weight: 600;
+    letter-spacing: -0.02em;
     line-height: 1.08;
-    letter-spacing: 0;
-    text-transform: uppercase;
+    overflow-wrap: break-word;
     text-wrap: balance;
+  }
+
+  .frontend-display-xl {
+    font-size: clamp(2.25rem, 1.3rem + 4.2vw, 4.75rem);
+    line-height: 1.04;
+  }
+
+  .frontend-display-lg {
+    font-size: clamp(2.125rem, 1.5rem + 2.6vw, 3.5rem);
+  }
+
+  .frontend-display-md {
+    font-size: clamp(1.75rem, 1.35rem + 1.7vw, 2.625rem);
+  }
+
+  .frontend-display-sm {
+    font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.875rem);
+    line-height: 1.15;
   }
 
   .frontend-eyebrow {
     color: var(--color-frontend-brand);
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    line-height: 1.625;
-    text-transform: uppercase;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
   }
 
   .frontend-copy {
     color: var(--color-frontend-body);
     font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.625;
+    line-height: 1.6;
     text-wrap: pretty;
   }
 
   .frontend-small-label {
-    font-size: 0.6875rem;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    line-height: 1.625;
-    text-transform: uppercase;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
   }
 
-  .frontend-transition {
-    transition-duration: 150ms;
-    transition-timing-function: var(--ease-frontend);
+  .frontend-card-title {
+    color: var(--color-frontend-heading);
+    font-size: 1.25rem;
+    font-stretch: 105%;
+    font-variation-settings: "wdth" 105;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+    text-wrap: balance;
   }
 
-  .frontend-section {
-    padding-block: var(--spacing-frontend-md);
-  }
-
-  .frontend-section-tight {
-    padding-block: var(--spacing-frontend-sm);
-  }
-
-  .frontend-flat-card {
+  .frontend-card {
     background: var(--color-frontend-card);
-    border: 1px solid var(--color-frontend-border);
-    border-radius: 0;
-    box-shadow: none;
+    border-radius: 24px;
+    box-shadow: var(--shadow-frontend-card);
+  }
+
+  /* Soft square behind an icon. */
+  .frontend-tile {
+    align-items: center;
+    background: var(--color-frontend-brand-soft);
+    border-radius: 14px;
+    color: var(--color-frontend-brand);
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 3rem;
+    justify-content: center;
+    width: 3rem;
   }
 
   .frontend-control {
     background: var(--color-frontend-bg);
-    border: 1px solid var(--color-frontend-border);
-    border-radius: 0;
+    border: 1px solid var(--color-frontend-line);
+    border-radius: 12px;
     color: var(--color-frontend-heading);
     min-height: 3rem;
     outline: none;
     transition:
-      border-color 150ms var(--ease-frontend),
-      box-shadow 150ms var(--ease-frontend);
+      border-color 150ms ease-out,
+      box-shadow 150ms ease-out;
   }
 
   .frontend-control:focus-visible {
     border-color: var(--color-frontend-brand);
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-frontend-brand) 20%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-frontend-brand) 18%, transparent);
   }
 
   .frontend-control::placeholder {
@@ -278,5 +175,19 @@
 
   .frontend-control[aria-invalid="true"] {
     border-color: var(--color-frontend-danger);
+  }
+
+  /* The road from the logo: a brand-coloured band with a dashed centre line. */
+  .frontend-road {
+    background-color: var(--color-frontend-brand);
+    background-image: repeating-linear-gradient(
+      90deg,
+      #ffffff 0 22px,
+      transparent 22px 40px
+    );
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 2px;
+    height: 14px;
   }
 }

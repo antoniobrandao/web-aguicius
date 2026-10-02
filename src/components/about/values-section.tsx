@@ -11,28 +11,16 @@ export function ValuesSection({
   intro: SectionIntro;
 }) {
   return (
-    <section className="bg-frontend-bg py-20 lg:py-28">
+    <section className="bg-frontend-muted py-20 lg:py-28">
       <Container>
-        <SectionHeading
-          eyebrow={intro.eyebrow}
-          title={intro.title}
-        />
+        <SectionHeading eyebrow={intro.eyebrow} title={intro.title} />
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-3">
-          {values.map((value, index) => (
-            <div
-              key={value.title}
-              className="flex flex-col gap-5 border-t-2 border-frontend-brand pt-8"
-            >
-              <span className="text-5xl font-medium text-frontend-border">
-                0{index + 1}
-              </span>
-              <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
-                {value.title}
-              </h3>
-              <p className="frontend-copy text-sm">
-                {value.description}
-              </p>
+        <div className="mt-12 grid gap-x-10 gap-y-12 md:grid-cols-3">
+          {values.map((value) => (
+            <div key={value.title} className="flex flex-col gap-3">
+              <span className="mb-2 block h-1 w-10 rounded-full bg-frontend-brand" aria-hidden />
+              <h3 className="frontend-card-title">{value.title}</h3>
+              <p className="frontend-copy text-[0.9375rem]">{value.description}</p>
             </div>
           ))}
         </div>

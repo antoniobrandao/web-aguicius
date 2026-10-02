@@ -33,7 +33,7 @@ function SheetOverlay({
   return (
     <SheetPrimitive.Overlay
       className={cn(
-        "fixed inset-0 z-50 bg-black/60 opacity-0 transition-opacity duration-200 ease-in-out data-[state=open]:opacity-100",
+        "fixed inset-0 z-50 bg-frontend-heading/40 opacity-0 transition-opacity duration-200 ease-out data-[state=open]:opacity-100",
         className
       )}
       {...props}
@@ -54,17 +54,17 @@ function SheetContent({
       <SheetOverlay />
       <SheetPrimitive.Content
         className={cn(
-          "fixed z-50 flex flex-col gap-6 bg-frontend-surface text-white transition-transform duration-200 ease-in-out",
+          "fixed z-50 flex flex-col gap-6 bg-frontend-bg text-frontend-heading shadow-2xl transition-transform duration-200 ease-out",
           side === "right" &&
-            "inset-y-0 right-0 h-full w-4/5 max-w-sm translate-x-full border-l border-white/10 data-[state=open]:translate-x-0",
+            "inset-y-0 right-0 h-full w-4/5 max-w-sm translate-x-full data-[state=open]:translate-x-0",
           side === "left" &&
-            "inset-y-0 left-0 h-full w-4/5 max-w-sm -translate-x-full border-r border-white/10 data-[state=open]:translate-x-0",
+            "inset-y-0 left-0 h-full w-4/5 max-w-sm -translate-x-full data-[state=open]:translate-x-0",
           className
         )}
         {...props}
       >
         {children}
-        <SheetPrimitive.Close className="absolute right-6 top-6 cursor-pointer text-white/70 outline-none transition-colors duration-150 ease-in-out hover:text-white focus-visible:text-white">
+        <SheetPrimitive.Close className="absolute right-4 top-4 inline-flex size-11 cursor-pointer items-center justify-center rounded-full text-frontend-body outline-none transition-colors duration-150 ease-out hover:bg-frontend-muted hover:text-frontend-heading focus-visible:bg-frontend-muted focus-visible:text-frontend-heading">
           <X className="size-6" />
           <span className="sr-only">Fechar</span>
         </SheetPrimitive.Close>
@@ -91,7 +91,7 @@ function SheetTitle({
 }: React.ComponentProps<typeof SheetPrimitive.Title>) {
   return (
     <SheetPrimitive.Title
-      className={cn("frontend-small-label text-white", className)}
+      className={cn("frontend-small-label text-frontend-body", className)}
       {...props}
     />
   );
@@ -103,7 +103,7 @@ function SheetDescription({
 }: React.ComponentProps<typeof SheetPrimitive.Description>) {
   return (
     <SheetPrimitive.Description
-      className={cn("text-sm text-white/70", className)}
+      className={cn("text-sm text-frontend-body", className)}
       {...props}
     />
   );

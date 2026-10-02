@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertCircle, ArrowRight, CheckCircle2 } from "lucide-react";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 import { Field, fieldErrorProps } from "@/components/forms/field";
 import { useLeadForm } from "@/components/forms/use-lead-form";
@@ -22,13 +22,13 @@ export function QuoteForm({ services }: { services: { slug: string; title: strin
 
   if (status === "success") {
     return (
-      <div className="frontend-flat-card flex flex-col items-center gap-4 p-12 text-center">
+      <div className="frontend-card flex flex-col items-center gap-4 p-12 text-center">
         <CheckCircle2 className="size-12 text-frontend-brand" />
-        <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
+        <h3 className="frontend-card-title">
           {copy.success.title}
         </h3>
-        <p className="frontend-copy max-w-md text-sm">{copy.success.description}</p>
-        <Button variant="outline" size="sm" onClick={reset}>
+        <p className="frontend-copy max-w-md">{copy.success.description}</p>
+        <Button variant="outline" size="sm" className="mt-2" onClick={reset}>
           {copy.success.resetLabel}
         </Button>
       </div>
@@ -36,7 +36,7 @@ export function QuoteForm({ services }: { services: { slug: string; title: strin
   }
 
   return (
-    <form {...formProps} className="frontend-flat-card flex flex-col gap-6 p-8 lg:p-10">
+    <form {...formProps} className="frontend-card flex flex-col gap-6 p-8 lg:p-10">
       {/* Honeypot: hidden from humans, bots tend to fill it. */}
       <input
         type="text"
@@ -123,7 +123,7 @@ export function QuoteForm({ services }: { services: { slug: string; title: strin
       {status === "error" ? (
         <div
           role="alert"
-          className="flex items-start gap-3 border border-frontend-danger/40 bg-frontend-danger/5 p-4 text-sm text-frontend-danger"
+          className="flex items-start gap-3 rounded-xl border border-frontend-danger/40 bg-frontend-danger/5 p-4 text-sm text-frontend-danger"
         >
           <AlertCircle className="mt-0.5 size-5 shrink-0" />
           <p>{copy.error}</p>
@@ -138,7 +138,6 @@ export function QuoteForm({ services }: { services: { slug: string; title: strin
         disabled={status === "submitting"}
       >
         {status === "submitting" ? copy.submittingLabel : copy.submitLabel}
-        <ArrowRight className="size-4" />
       </Button>
     </form>
   );

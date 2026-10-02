@@ -12,7 +12,7 @@ function Label({
   return (
     <LabelPrimitive.Root
       className={cn(
-        "frontend-small-label select-none text-frontend-heading",
+        "select-none text-sm font-semibold text-frontend-heading",
         "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         className
       )}

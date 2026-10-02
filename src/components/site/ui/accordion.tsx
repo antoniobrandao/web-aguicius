@@ -18,7 +18,7 @@ function AccordionItem({
 }: React.ComponentProps<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
-      className={cn("border-b border-frontend-border", className)}
+      className={cn("border-b border-frontend-border last:border-b-0", className)}
       {...props}
     />
   );
@@ -33,13 +33,13 @@ function AccordionTrigger({
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         className={cn(
-          "frontend-small-label group flex flex-1 cursor-pointer items-center justify-between gap-4 py-6 text-left text-frontend-heading outline-none transition-colors duration-150 ease-in-out hover:text-frontend-brand focus-visible:text-frontend-brand [&[data-state=open]>svg]:rotate-45",
+          "group flex flex-1 cursor-pointer items-center justify-between gap-4 py-5 text-left text-[1.0625rem] font-semibold text-frontend-heading outline-none transition-colors duration-150 ease-out hover:text-frontend-brand focus-visible:text-frontend-brand [&[data-state=open]>svg]:rotate-45",
           className
         )}
         {...props}
       >
         {children}
-        <Plus className="size-5 shrink-0 text-frontend-brand transition-transform duration-200 ease-in-out" />
+        <Plus className="size-5 shrink-0 text-frontend-brand transition-transform duration-200 ease-out" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );
@@ -55,7 +55,7 @@ function AccordionContent({
       className="overflow-hidden text-sm data-[state=closed]:animate-frontend-accordion-up data-[state=open]:animate-frontend-accordion-down"
       {...props}
     >
-      <div className={cn("frontend-copy pb-6 pt-0", className)}>
+      <div className={cn("frontend-copy pb-6 pt-0 pr-9", className)}>
         {children}
       </div>
     </AccordionPrimitive.Content>

@@ -34,19 +34,19 @@ export default async function OrcamentoPage() {
       <section className="bg-frontend-bg py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="flex flex-col gap-10 lg:col-span-5">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-7">
               {copy.perks.map((perk) => {
                 const Icon = getContentIcon(perk.icon);
                 return (
                   <div key={perk.title} className="flex gap-4">
-                    <span className="inline-flex size-12 shrink-0 items-center justify-center bg-frontend-brand text-white">
+                    <span className="frontend-tile">
                       <Icon className="size-5" />
                     </span>
                     <div>
-                      <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
+                      <h3 className="frontend-card-title text-lg">
                         {perk.title}
                       </h3>
-                      <p className="frontend-copy mt-1 text-sm">{perk.description}</p>
+                      <p className="frontend-copy mt-1 text-[0.9375rem]">{perk.description}</p>
                     </div>
                   </div>
                 );
@@ -54,20 +54,20 @@ export default async function OrcamentoPage() {
             </div>
 
             {hasContactSidebar ? (
-              <div className="frontend-flat-card bg-frontend-muted p-8">
-                <p className="frontend-small-label text-frontend-brand">
+              <div className="rounded-3xl bg-frontend-muted p-8">
+                <p className="frontend-eyebrow">
                   {copy.sidebarHeading}
                 </p>
                 {hasPhone ? (
                   <a
                     href={site.phoneHref}
-                    className="mt-3 block text-2xl font-medium text-frontend-heading transition-colors duration-150 ease-in-out hover:text-frontend-brand"
+                    className="frontend-display-heading mt-2 block text-2xl tabular-nums text-frontend-heading transition-colors duration-150 ease-out hover:text-frontend-brand"
                   >
                     {site.phone}
                   </a>
                 ) : null}
                 {hasEmail ? (
-                  <p className="mt-1 text-sm text-frontend-body">{site.email}</p>
+                  <p className="mt-2 text-[0.9375rem] text-frontend-body">{site.email}</p>
                 ) : null}
               </div>
             ) : null}

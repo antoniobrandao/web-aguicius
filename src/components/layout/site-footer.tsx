@@ -47,12 +47,13 @@ export function SiteFooter({
   ].filter((link) => link.href.trim());
 
   return (
-    <footer className="bg-frontend-surface-dark text-white/70">
+    <footer className="bg-frontend-muted text-frontend-body">
+      <div className="frontend-road" aria-hidden />
       <div className="mx-auto max-w-(--container-frontend-page) px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
         <div className="grid gap-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="flex flex-col gap-5">
-            <Logo variant="light" name={site.name} />
-            <p className="frontend-copy max-w-xs text-sm text-white/60">
+            <Logo name={site.name} />
+            <p className="frontend-copy max-w-xs text-[0.9375rem]">
               {site.description}
             </p>
             {socialLinks.length > 0 ? (
@@ -85,7 +86,7 @@ export function SiteFooter({
           <FooterColumn title="Contactos">
             {location?.lines.length ? (
               <li className="flex items-start gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-frontend-brand" />
+                <MapPin className="mt-1 size-4 shrink-0 text-frontend-brand" />
                 <span>
                   {location.lines.map((line, index) => (
                     <span key={line}>
@@ -100,7 +101,7 @@ export function SiteFooter({
               <li>
                 <a
                   href={site.phoneHref}
-                  className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
+                  className="flex items-center gap-3 transition-colors duration-150 ease-out hover:text-frontend-brand"
                 >
                   <Phone className="size-4 shrink-0 text-frontend-brand" />
                   {site.phone}
@@ -111,7 +112,7 @@ export function SiteFooter({
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className="flex items-center gap-3 transition-colors duration-150 ease-in-out hover:text-white"
+                  className="flex items-center gap-3 transition-colors duration-150 ease-out hover:text-frontend-brand"
                 >
                   <Mail className="size-4 shrink-0 text-frontend-brand" />
                   {site.email}
@@ -121,7 +122,7 @@ export function SiteFooter({
           </FooterColumn>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-frontend-border pt-8 text-sm sm:flex-row">
           <p>
             © {new Date().getFullYear()} {site.name}. Todos os direitos reservados.
           </p>
@@ -130,9 +131,9 @@ export function SiteFooter({
               href={site.app}
               target="_blank"
               rel="noreferrer"
-              className="frontend-small-label transition-colors duration-150 ease-in-out hover:text-white"
+              className="font-semibold text-frontend-heading transition-colors duration-150 ease-out hover:text-frontend-brand"
             >
-              Descarregue a nossa APP
+              Descarregue a nossa app
             </a>
           ) : null}
         </div>
@@ -150,10 +151,8 @@ function FooterColumn({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="frontend-small-label text-white">
-        {title}
-      </h3>
-      <ul className="flex flex-col gap-3 text-sm">{children}</ul>
+      <h3 className="frontend-small-label text-frontend-heading">{title}</h3>
+      <ul className="flex flex-col gap-3 text-[0.9375rem]">{children}</ul>
     </div>
   );
 }
@@ -169,7 +168,7 @@ function FooterLink({
     <li>
       <Link
         href={href}
-        className="transition-colors duration-150 ease-in-out hover:text-white hover:underline underline-offset-4"
+        className="transition-colors duration-150 ease-out hover:text-frontend-brand"
       >
         {children}
       </Link>
@@ -192,7 +191,7 @@ function SocialLink({
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="inline-flex size-9 items-center justify-center border border-white/15 text-white/70 transition-colors duration-150 ease-in-out hover:border-frontend-brand hover:bg-frontend-brand hover:text-white"
+      className="inline-flex size-10 items-center justify-center rounded-full bg-frontend-bg text-frontend-heading shadow-frontend-card transition-colors duration-150 ease-out hover:bg-frontend-brand hover:text-white"
     >
       {children}
     </a>

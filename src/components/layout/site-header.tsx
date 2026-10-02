@@ -29,7 +29,7 @@ export function SiteHeader({
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b bg-frontend-bg/95 transition-colors duration-150 ease-in-out",
+        "sticky top-0 z-50 w-full border-b bg-frontend-bg/90 backdrop-blur-md transition-colors duration-150 ease-out",
         scrolled ? "border-frontend-border" : "border-transparent"
       )}
     >
@@ -41,7 +41,7 @@ export function SiteHeader({
           {hasPhone ? (
             <a
               href={site.phoneHref}
-              className="frontend-small-label hidden items-center gap-2 text-frontend-body transition-colors duration-150 ease-in-out hover:text-frontend-brand xl:inline-flex"
+              className="frontend-small-label hidden items-center gap-2 text-frontend-heading tabular-nums transition-colors duration-150 ease-out hover:text-frontend-brand xl:inline-flex"
             >
               <Phone className="size-4 text-frontend-brand" />
               {site.phone}

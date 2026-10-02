@@ -4,7 +4,6 @@ import { ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import type { Service } from "@/lib/content/types";
-import { Button } from "@/components/site/ui/button";
 
 export function ServiceCard({
   service,
@@ -22,40 +21,42 @@ export function ServiceCard({
   return (
     <article
       className={cn(
-        "frontend-flat-card group relative flex flex-col gap-5 p-8 transition-colors duration-150 ease-in-out hover:border-frontend-brand",
+        "frontend-card group relative flex flex-col p-3 transition-shadow duration-200 ease-out hover:shadow-frontend-card-hover",
         className
       )}
     >
       {service.image?.url ? (
-        <div className="-mx-8 -mt-8 aspect-video overflow-hidden bg-frontend-muted">
+        <div className="aspect-16/10 overflow-hidden rounded-xl bg-frontend-muted">
           <Image
             src={service.image.url}
             alt={service.image.alt}
             width={service.image.width ?? 800}
-            height={service.image.height ?? 450}
-            className="h-full w-full object-cover outline -outline-offset-1 outline-black/10"
+            height={service.image.height ?? 500}
+            className="h-full w-full rounded-xl object-cover outline -outline-offset-1 outline-black/10"
           />
         </div>
-      ) : (
-        <span className="inline-flex size-14 items-center justify-center bg-frontend-surface text-white transition-colors duration-150 ease-in-out group-hover:bg-frontend-brand">
-          <Icon className="size-6" />
-        </span>
-      )}
+      ) : null}
 
-      <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
-        {service.title}
-      </h3>
+      <div className="flex flex-1 flex-col gap-3 px-4 pb-4 pt-5">
+        {service.image?.url ? null : (
+          <span className="frontend-tile mb-2">
+            <Icon className="size-5.5" />
+          </span>
+        )}
 
-      <p className="frontend-copy flex-1 text-sm">
-        {service.short}
-      </p>
+        <h3 className="frontend-card-title">{service.title}</h3>
 
-      <Button asChild variant="ghost" size="sm" className="self-start px-0">
-        <Link href={ctaHref}>
+        <p className="frontend-copy flex-1 text-[0.9375rem]">{service.short}</p>
+
+        {/* The link's hit area is stretched over the whole card. */}
+        <Link
+          href={ctaHref}
+          className="frontend-small-label mt-2 inline-flex items-center gap-2 self-start text-frontend-brand outline-none after:absolute after:inset-0 after:rounded-3xl focus-visible:after:ring-2 focus-visible:after:ring-frontend-brand/40"
+        >
           {cta}
-          <ArrowRight className="size-4 transition-transform duration-150 ease-in-out group-hover:translate-x-1" />
+          <ArrowRight className="size-4 transition-transform duration-150 ease-out group-hover:translate-x-1" />
         </Link>
-      </Button>
+      </div>
     </article>
   );
 }

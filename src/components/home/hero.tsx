@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 
 import type { Cta, SiteSettings } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
@@ -28,39 +28,32 @@ export function Hero({
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
-    <section className="bg-frontend-surface-dark text-white">
-      <Container className="py-24 lg:py-32">
-        <div className="max-w-3xl">
-          <h1 className="frontend-display-heading mt-6 text-4xl sm:text-6xl lg:text-7xl">
-            {beforeHighlight}
-            {highlight ? <span className="text-frontend-brand">{highlight}</span> : null}
-            {afterHighlight}
-          </h1>
-          <p className="frontend-copy mt-7 max-w-xl text-white/70">
-            {hero.description}
-          </p>
+    <section className="bg-frontend-muted">
+      <Container className="py-16 lg:py-24">
+        <h1 className="frontend-display-heading frontend-display-xl max-w-5xl text-frontend-heading">
+          {beforeHighlight}
+          {highlight ? <span className="text-frontend-brand">{highlight}</span> : null}
+          {afterHighlight}
+        </h1>
+        <p className="frontend-copy mt-7 max-w-xl text-lg lg:text-xl">{hero.description}</p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Button asChild variant="primary" size="lg">
-              <Link href={copy.heroPrimaryCta.href}>
-                {copy.heroPrimaryCta.label}
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="outlineLight" size="lg">
-              <Link href={copy.heroSecondaryCta.href}>{copy.heroSecondaryCta.label}</Link>
-            </Button>
-          </div>
+        <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-4">
+          <Button asChild variant="primary" size="lg">
+            <Link href={copy.heroPrimaryCta.href}>{copy.heroPrimaryCta.label}</Link>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link href={copy.heroSecondaryCta.href}>{copy.heroSecondaryCta.label}</Link>
+          </Button>
 
           {hasPhone ? (
             <a
               href={site.phoneHref}
-              className="mt-10 inline-flex items-center gap-3 text-sm text-white/60 transition-colors duration-150 ease-in-out hover:text-white"
+              className="inline-flex h-13 items-center gap-3 px-3 text-[1.0625rem] font-semibold tabular-nums text-frontend-heading transition-colors duration-150 ease-out hover:text-frontend-brand"
             >
-              <span className="inline-flex size-10 items-center justify-center border border-white/15 text-frontend-brand">
+              <span className="inline-flex size-10 items-center justify-center rounded-full bg-frontend-brand-soft text-frontend-brand">
                 <Phone className="size-4" />
               </span>
-              <span className="font-medium tracking-widest text-white">{site.phone}</span>
+              {site.phone}
             </a>
           ) : null}
         </div>

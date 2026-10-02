@@ -12,11 +12,11 @@ export function LegalContent({
   return (
     <section className="bg-frontend-bg py-20 lg:py-28">
       <Container className="max-w-3xl">
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-9">
           {sections.map((section, index) => (
             <div key={section.title || index} className="flex flex-col gap-3">
               {section.title ? (
-                <h2 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
+                <h2 className="frontend-card-title">
                   {section.title}
                 </h2>
               ) : null}

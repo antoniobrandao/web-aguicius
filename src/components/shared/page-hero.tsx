@@ -10,20 +10,14 @@ export function PageHero({
   description?: string;
 }) {
   return (
-    <section className="bg-frontend-surface text-white">
-      <Container className="frontend-section">
-        {eyebrow ? (
-          <span className="frontend-eyebrow">
-            {eyebrow}
-          </span>
-        ) : null}
-        <h1 className="frontend-display-heading mt-5 max-w-4xl text-4xl sm:text-6xl lg:text-7xl">
+    <section className="bg-frontend-muted">
+      <Container className="py-16 lg:py-24">
+        {eyebrow ? <p className="frontend-eyebrow">{eyebrow}</p> : null}
+        <h1 className="frontend-display-heading frontend-display-lg mt-3 max-w-4xl text-frontend-heading">
           {title}
         </h1>
         {description ? (
-          <p className="frontend-copy mt-6 max-w-2xl text-white/70">
-            {description}
-          </p>
+          <p className="frontend-copy mt-5 max-w-2xl text-lg">{description}</p>
         ) : null}
       </Container>
     </section>

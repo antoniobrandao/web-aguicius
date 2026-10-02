@@ -12,7 +12,7 @@ export function LocationsSection({
   intro: SectionIntro;
 }) {
   return (
-    <section className="bg-frontend-muted py-20 lg:py-28">
+    <section className="bg-frontend-bg py-20 lg:py-28">
       <Container>
         <SectionHeading
           eyebrow={intro.eyebrow}
@@ -20,16 +20,14 @@ export function LocationsSection({
           description={intro.description}
         />
 
-        <div className="mt-14 grid gap-px border border-frontend-border bg-frontend-border sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {locations.map((location) => (
-            <div key={location.city} className="flex flex-col gap-4 bg-frontend-card p-8">
-              <span className="inline-flex size-12 items-center justify-center bg-frontend-brand text-white">
+            <div key={location.city} className="frontend-card flex flex-col gap-4 p-7">
+              <span className="frontend-tile">
                 <MapPin className="size-5" />
               </span>
-              <h3 className="text-xl font-medium leading-7 tracking-widest text-frontend-heading">
-                {location.city}
-              </h3>
-              <div className="frontend-copy text-sm">
+              <h3 className="frontend-card-title">{location.city}</h3>
+              <div className="frontend-copy text-[0.9375rem]">
                 {location.lines.map((line) => (
                   <p key={line}>{line}</p>
                 ))}
