@@ -21,7 +21,11 @@ import {
 // platform changed shape underneath us and the payload can no longer be trusted.
 const EXPECTED_CONTRACT_MAJOR = "6";
 
-const REQUEST_TIMEOUT_MS = 5_000;
+// Generous on purpose. Rendering fires every resource for every page at once, and
+// under that burst the platform has been measured answering in over 6 s; a slow
+// render is cheap next to caching an empty page. Still well under the function's
+// own time limit.
+const REQUEST_TIMEOUT_MS = 15_000;
 
 // The platform origin from the contract. The bare domain 308-redirects here, and
 // fetch drops the Authorization header on a cross-origin redirect, so every

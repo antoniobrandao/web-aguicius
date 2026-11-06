@@ -35,21 +35,26 @@ function cachedResource<T>(
   load: () => Promise<T>,
   empty: () => T,
 ) {
-  return unstable_cache(
-    async () => {
-      try {
-        return await load();
-      } catch (error) {
-        console.error(
-          `[content] ${resource} unavailable, rendering empty state:`,
-          error instanceof Error ? error.message : error,
-        );
-        return empty();
-      }
-    },
-    keyParts,
-    { tags, revalidate: FALLBACK_REVALIDATE_SECONDS },
-  );
+  // The fallback sits outside the cache on purpose. A failed read throws through
+  // unstable_cache, so it is never stored: a stale entry keeps being served while
+  // the refresh fails, and the next request retries instead of the empty state
+  // being pinned for the whole revalidate interval.
+  const cached = unstable_cache(load, keyParts, {
+    tags,
+    revalidate: FALLBACK_REVALIDATE_SECONDS,
+  });
+
+  return async () => {
+    try {
+      return await cached();
+    } catch (error) {
+      console.error(
+        `[content] ${resource} unavailable, rendering empty state:`,
+        error instanceof Error ? error.message : error,
+      );
+      return empty();
+    }
+  };
 }
 
 const noItems = <T>(): T[] => [];
