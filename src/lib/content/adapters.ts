@@ -30,8 +30,12 @@ export function getServiceGroups(services: ServiceContent[]) {
 
   return {
     primaryServices: services.filter((service) => service.tier === "primary").map(toService),
-    // Undefined when the site has no services at all.
+    // The single service a spotlight section shows: the first featured one, else
+    // the first service. Undefined when the site has no services at all.
     featuredService: featured ? toService(featured) : undefined,
+    // Every service actually marked featured, with no fallback, for lists that
+    // must show each service once.
+    featuredServices: services.filter((service) => service.tier === "featured").map(toService),
     secondaryServices: services.filter((service) => service.tier === "secondary").map(toService),
     allServices: services.map(toService),
   };

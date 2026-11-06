@@ -17,10 +17,10 @@ export function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicosPage() {
-  const [services] = await Promise.all([ getServices()]);
-  const { primaryServices, featuredService, secondaryServices } = getServiceGroups(services);
+  const services = await getServices();
+  const { primaryServices, featuredServices, secondaryServices } = getServiceGroups(services);
   const copy = designCopy.services;
-  const featured = featuredService ? [...primaryServices, featuredService] : primaryServices;
+  const featured = [...primaryServices, ...featuredServices];
 
   return (
     <>
