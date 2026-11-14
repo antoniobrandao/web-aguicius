@@ -1,0 +1,1097 @@
+{
+  "blocks": [
+    {
+      "key": "layout.header",
+      "label": "Cabeçalho",
+      "page": "/",
+      "fields": [
+        {
+          "id": "navHome",
+          "type": "text",
+          "label": "Menu: início"
+        },
+        {
+          "id": "navAbout",
+          "type": "text",
+          "label": "Menu: sobre nós"
+        },
+        {
+          "id": "navServices",
+          "type": "text",
+          "label": "Menu: serviços"
+        },
+        {
+          "id": "navContact",
+          "type": "text",
+          "label": "Menu: contactos"
+        },
+        {
+          "id": "cta",
+          "type": "link",
+          "label": "Botão do cabeçalho"
+        },
+        {
+          "id": "phone",
+          "type": "setting",
+          "label": "Telefone",
+          "property": "phone"
+        }
+      ],
+      "defaults": {
+        "navHome": "Home",
+        "navAbout": "Sobre Nós",
+        "navServices": "Serviços",
+        "navContact": "Contactos",
+        "cta": {
+          "label": "Peça o seu orçamento",
+          "href": "/orcamento"
+        }
+      }
+    },
+    {
+      "key": "home.hero",
+      "label": "Início: destaque",
+      "page": "/",
+      "fields": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "highlight",
+          "type": "text",
+          "label": "Parte do título a cor"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "primaryCta",
+          "type": "link",
+          "label": "Botão principal"
+        },
+        {
+          "id": "secondaryCta",
+          "type": "link",
+          "label": "Botão secundário"
+        },
+        {
+          "id": "phone",
+          "type": "setting",
+          "label": "Telefone",
+          "property": "phone"
+        }
+      ],
+      "defaults": {
+        "title": "Multiserviços que movem e transformam.",
+        "highlight": "transporte e serviços",
+        "description": "Da recolha à montagem final, um só parceiro — 100% para si.",
+        "primaryCta": {
+          "label": "Peça o seu orçamento",
+          "href": "/orcamento"
+        },
+        "secondaryCta": {
+          "label": "Ver serviços",
+          "href": "/servicos"
+        }
+      }
+    },
+    {
+      "key": "home.stats",
+      "label": "Início: números",
+      "page": "/",
+      "fields": [
+        {
+          "id": "stats",
+          "type": "list",
+          "label": "Números",
+          "fields": [
+            {
+              "id": "value",
+              "type": "text",
+              "label": "Número"
+            },
+            {
+              "id": "label",
+              "type": "text",
+              "label": "Legenda"
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "stats": [
+          {
+            "value": "10+",
+            "label": "Anos de experiência"
+          },
+          {
+            "value": "24h",
+            "label": "Resposta a pedidos"
+          },
+          {
+            "value": "100%",
+            "label": "Serviço dedicado"
+          }
+        ]
+      }
+    },
+    {
+      "key": "home.services",
+      "label": "Início: serviços principais",
+      "page": "/",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "list",
+          "type": "collection",
+          "label": "Serviços",
+          "resource": "services",
+          "properties": [
+            "title",
+            "short",
+            "image",
+            "icon"
+          ]
+        },
+        {
+          "id": "cta",
+          "type": "link",
+          "label": "Ligação de cada serviço"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "O que fazemos",
+        "title": "Serviços pensados para si",
+        "description": "Transporte, montagens e instalações com equipas próprias e acompanhamento do início ao fim.",
+        "cta": {
+          "label": "Reserve já",
+          "href": "/orcamento"
+        }
+      }
+    },
+    {
+      "key": "home.quote",
+      "label": "Início: faixa de orçamento",
+      "page": "/",
+      "fields": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "button",
+          "type": "link",
+          "label": "Botão"
+        }
+      ],
+      "defaults": {
+        "title": "Precisa de um orçamento hoje?",
+        "description": "Diga-nos o que precisa e respondemos com uma proposta clara.",
+        "button": {
+          "label": "Pedir orçamento",
+          "href": "/orcamento"
+        }
+      }
+    },
+    {
+      "key": "home.installations",
+      "label": "Início: serviço em destaque",
+      "page": "/",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "service",
+          "type": "collection",
+          "label": "Serviço em destaque",
+          "resource": "services",
+          "properties": [
+            "description"
+          ]
+        },
+        {
+          "id": "button",
+          "type": "link",
+          "label": "Botão"
+        },
+        {
+          "id": "highlights",
+          "type": "list",
+          "label": "Pontos fortes",
+          "fields": [
+            {
+              "id": "text",
+              "type": "text",
+              "label": "Texto"
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Em destaque",
+        "title": "Instalações e montagens",
+        "button": {
+          "label": "Falar connosco",
+          "href": "/contactos"
+        },
+        "highlights": [
+          {
+            "text": "Equipas próprias e material incluído"
+          },
+          {
+            "text": "Agendamento à medida da sua operação"
+          },
+          {
+            "text": "Montagem e desmontagem no mesmo serviço"
+          },
+          {
+            "text": "Acompanhamento após a intervenção"
+          }
+        ]
+      }
+    },
+    {
+      "key": "home.more-services",
+      "label": "Início: mais serviços",
+      "page": "/",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "list",
+          "type": "collection",
+          "label": "Serviços",
+          "resource": "services",
+          "properties": [
+            "title",
+            "short",
+            "image",
+            "icon"
+          ]
+        },
+        {
+          "id": "cta",
+          "type": "link",
+          "label": "Ligação de cada serviço"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Mais serviços",
+        "title": "Também podemos ajudar com",
+        "description": "Serviços complementares que tratamos com a mesma exigência.",
+        "cta": {
+          "label": "Saber mais",
+          "href": "/servicos"
+        }
+      }
+    },
+    {
+      "key": "home.about",
+      "label": "Início: sobre a empresa",
+      "page": "/",
+      "fields": [
+        {
+          "id": "statValue",
+          "type": "text",
+          "label": "Número"
+        },
+        {
+          "id": "statLabel",
+          "type": "text",
+          "label": "Legenda do número"
+        },
+        {
+          "id": "lead",
+          "type": "text",
+          "label": "Frase de destaque"
+        },
+        {
+          "id": "body",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "cta",
+          "type": "link",
+          "label": "Botão"
+        }
+      ],
+      "defaults": {
+        "statValue": "10+",
+        "statLabel": "Anos ao seu lado",
+        "lead": "Uma equipa que trata cada serviço como se fosse o primeiro.",
+        "body": "Trabalhamos com rigor, pontualidade e comunicação direta, para que saiba sempre em que ponto está o seu pedido.",
+        "cta": {
+          "label": "Conhecer a empresa",
+          "href": "/sobre-nos"
+        }
+      }
+    },
+    {
+      "key": "home.location",
+      "label": "Início: onde estamos",
+      "page": "/",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "location",
+          "type": "collection",
+          "label": "Localização",
+          "resource": "locations",
+          "properties": [
+            "city",
+            "lines",
+            "mapsSearchUrl",
+            "mapEmbedUrl"
+          ],
+          "max": 1
+        },
+        {
+          "id": "phone",
+          "type": "setting",
+          "label": "Telefone",
+          "property": "phone"
+        },
+        {
+          "id": "mapLabel",
+          "type": "text",
+          "label": "Botão do mapa"
+        },
+        {
+          "id": "cta",
+          "type": "link",
+          "label": "Botão de contactos"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Onde estamos",
+        "title": "Perto de si",
+        "description": "Visite-nos ou fale connosco para combinarmos o melhor horário.",
+        "mapLabel": "Abrir no mapa",
+        "cta": {
+          "label": "Contactos",
+          "href": "/contactos"
+        }
+      }
+    },
+    {
+      "key": "about.hero",
+      "label": "Sobre nós: topo",
+      "page": "/sobre-nos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Sobre Nós",
+        "title": "Soluções Smart para o mercado de serviços e transporte",
+        "description": "Desenvolvemos e aplicamos soluções eficientes, sustentáveis e de qualidade para o mercado de serviços e transporte."
+      }
+    },
+    {
+      "key": "about.story",
+      "label": "Sobre nós: a nossa história",
+      "page": "/sobre-nos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "paragraphs",
+          "type": "list",
+          "label": "Parágrafos",
+          "fields": [
+            {
+              "id": "text",
+              "type": "text",
+              "label": "Parágrafo"
+            }
+          ]
+        }
+      ],
+      "defaults": {
+        "eyebrow": "A nossa história"
+      }
+    },
+    {
+      "key": "about.locations",
+      "label": "Sobre nós: localizações",
+      "page": "/sobre-nos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "list",
+          "type": "collection",
+          "label": "Localizações",
+          "resource": "locations",
+          "properties": [
+            "city",
+            "lines"
+          ]
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Localizações",
+        "title": "Onde nos pode encontrar",
+        "description": "Estamos presentes em vários pontos para servir mais perto."
+      }
+    },
+    {
+      "key": "about.values",
+      "label": "Sobre nós: valores",
+      "page": "/sobre-nos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "list",
+          "type": "collection",
+          "label": "Valores",
+          "resource": "values",
+          "properties": [
+            "title",
+            "description"
+          ]
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Os nossos valores",
+        "title": "O que nos guia"
+      }
+    },
+    {
+      "key": "about.cta",
+      "label": "Sobre nós: faixa final",
+      "page": "/sobre-nos",
+      "fields": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "primary",
+          "type": "link",
+          "label": "Botão principal"
+        },
+        {
+          "id": "secondary",
+          "type": "link",
+          "label": "Botão secundário"
+        }
+      ],
+      "defaults": {
+        "title": "Vamos falar sobre o que precisa?",
+        "description": "Conte-nos o seu caso e apresentamos a melhor solução.",
+        "primary": {
+          "label": "Peça o seu orçamento",
+          "href": "/orcamento"
+        },
+        "secondary": {
+          "label": "Contactos",
+          "href": "/contactos"
+        }
+      }
+    },
+    {
+      "key": "services.hero",
+      "label": "Serviços: topo",
+      "page": "/servicos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Serviços",
+        "title": "Soluções completas para o seu negócio",
+        "description": "De pequenos a grandes volumes, com ou sem complexidade técnica, seja uma empresa ou particular, temos a solução para o seu negócio."
+      }
+    },
+    {
+      "key": "services.featured",
+      "label": "Serviços: principais e em destaque",
+      "page": "/servicos",
+      "fields": [
+        {
+          "id": "list",
+          "type": "collection",
+          "label": "Serviços",
+          "resource": "services",
+          "properties": [
+            "title",
+            "description",
+            "bullets",
+            "image",
+            "icon"
+          ]
+        },
+        {
+          "id": "cta",
+          "type": "link",
+          "label": "Ligação de cada serviço"
+        }
+      ],
+      "defaults": {
+        "cta": {
+          "label": "Reserve já",
+          "href": "/orcamento"
+        }
+      }
+    },
+    {
+      "key": "services.more",
+      "label": "Serviços: outros serviços",
+      "page": "/servicos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "list",
+          "type": "collection",
+          "label": "Serviços",
+          "resource": "services",
+          "properties": [
+            "title",
+            "description",
+            "icon"
+          ]
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Outros serviços",
+        "title": "Soluções complementares",
+        "description": "Serviços que acrescentamos sempre que o seu projeto o exige."
+      }
+    },
+    {
+      "key": "services.cta",
+      "label": "Serviços: faixa final",
+      "page": "/servicos",
+      "fields": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "primary",
+          "type": "link",
+          "label": "Botão principal"
+        },
+        {
+          "id": "secondary",
+          "type": "link",
+          "label": "Botão secundário"
+        }
+      ],
+      "defaults": {
+        "title": "Não encontrou o que procura?",
+        "description": "Fale connosco: quase sempre há uma solução à medida.",
+        "primary": {
+          "label": "Peça o seu orçamento",
+          "href": "/orcamento"
+        },
+        "secondary": {
+          "label": "Contactos",
+          "href": "/contactos"
+        }
+      }
+    },
+    {
+      "key": "contact.hero",
+      "label": "Contactos: topo",
+      "page": "/contactos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Contactos",
+        "title": "Fale connosco",
+        "description": "Estamos disponíveis para responder a todas as suas questões e apresentar as melhores soluções para as suas necessidades."
+      }
+    },
+    {
+      "key": "contact.info",
+      "label": "Contactos: dados de contacto",
+      "page": "/contactos",
+      "fields": [
+        {
+          "id": "addressLabel",
+          "type": "text",
+          "label": "Título da morada"
+        },
+        {
+          "id": "address",
+          "type": "collection",
+          "label": "Morada",
+          "resource": "locations",
+          "properties": [
+            "lines",
+            "city",
+            "mapEmbedUrl"
+          ],
+          "max": 1
+        },
+        {
+          "id": "phoneLabel",
+          "type": "text",
+          "label": "Título do telefone"
+        },
+        {
+          "id": "phone",
+          "type": "setting",
+          "label": "Telefone",
+          "property": "phone"
+        },
+        {
+          "id": "emailLabel",
+          "type": "text",
+          "label": "Título do email"
+        },
+        {
+          "id": "email",
+          "type": "setting",
+          "label": "Email",
+          "property": "email"
+        },
+        {
+          "id": "scheduleLabel",
+          "type": "text",
+          "label": "Título do horário"
+        },
+        {
+          "id": "schedule",
+          "type": "setting",
+          "label": "Horário",
+          "property": "schedule"
+        }
+      ],
+      "defaults": {
+        "addressLabel": "Morada",
+        "phoneLabel": "Telefone",
+        "emailLabel": "Email",
+        "scheduleLabel": "Horário"
+      }
+    },
+    {
+      "key": "contact.form",
+      "label": "Contactos: formulário",
+      "page": "/contactos",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        },
+        {
+          "id": "submit",
+          "type": "text",
+          "label": "Botão de envio"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Fale connosco",
+        "title": "Envie-nos o seu pedido",
+        "description": "Preencha o formulário e entramos em contacto o mais breve possível.",
+        "submit": "Enviar mensagem"
+      }
+    },
+    {
+      "key": "quote.hero",
+      "label": "Orçamento: topo",
+      "page": "/orcamento",
+      "fields": [
+        {
+          "id": "eyebrow",
+          "type": "text",
+          "label": "Linha de topo"
+        },
+        {
+          "id": "title",
+          "type": "text",
+          "label": "Título"
+        },
+        {
+          "id": "description",
+          "type": "text",
+          "label": "Texto"
+        }
+      ],
+      "defaults": {
+        "eyebrow": "Orçamento",
+        "title": "Peça o seu orçamento",
+        "description": "Preencha o formulário e receba uma proposta personalizada para o seu projeto. Respondemos com rapidez e profissionalismo."
+      }
+    },
+    {
+      "key": "quote.request",
+      "label": "Orçamento: pedido",
+      "page": "/orcamento",
+      "fields": [
+        {
+          "id": "perks",
+          "type": "list",
+          "label": "Vantagens",
+          "fields": [
+            {
+              "id": "title",
+              "type": "text",
+              "label": "Título"
+            },
+            {
+              "id": "description",
+              "type": "text",
+              "label": "Texto"
+            }
+          ]
+        },
+        {
+          "id": "sidebarHeading",
+          "type": "text",
+          "label": "Título do contacto direto"
+        },
+        {
+          "id": "phone",
+          "type": "setting",
+          "label": "Telefone",
+          "property": "phone"
+        },
+        {
+          "id": "email",
+          "type": "setting",
+          "label": "Email",
+          "property": "email"
+        },
+        {
+          "id": "submit",
+          "type": "text",
+          "label": "Botão de envio"
+        }
+      ],
+      "defaults": {
+        "perks": [
+          {
+            "title": "Resposta rápida",
+            "description": "Analisamos o seu pedido e respondemos com uma proposta clara."
+          },
+          {
+            "title": "Sem compromisso",
+            "description": "Pedir um orçamento não implica qualquer obrigação da sua parte."
+          },
+          {
+            "title": "Serviço acompanhado",
+            "description": "Ficamos ao seu lado do primeiro contacto até à conclusão."
+          }
+        ],
+        "sidebarHeading": "Prefere falar diretamente?",
+        "submit": "Reserve já"
+      }
+    },
+    {
+      "key": "layout.footer",
+      "label": "Rodapé",
+      "page": "/",
+      "fields": [
+        {
+          "id": "description",
+          "type": "setting",
+          "label": "Apresentação",
+          "property": "description"
+        },
+        {
+          "id": "facebook",
+          "type": "setting",
+          "label": "Facebook",
+          "property": "social.facebook"
+        },
+        {
+          "id": "instagram",
+          "type": "setting",
+          "label": "Instagram",
+          "property": "social.instagram"
+        },
+        {
+          "id": "youtube",
+          "type": "setting",
+          "label": "YouTube",
+          "property": "social.youtube"
+        },
+        {
+          "id": "servicesTitle",
+          "type": "text",
+          "label": "Título da coluna de serviços"
+        },
+        {
+          "id": "services",
+          "type": "collection",
+          "label": "Serviços",
+          "resource": "services",
+          "properties": [
+            "title"
+          ],
+          "max": 6
+        },
+        {
+          "id": "companyTitle",
+          "type": "text",
+          "label": "Título da coluna da empresa"
+        },
+        {
+          "id": "company",
+          "type": "list",
+          "label": "Ligações da empresa",
+          "fields": [
+            {
+              "id": "link",
+              "type": "link",
+              "label": "Ligação"
+            }
+          ]
+        },
+        {
+          "id": "contactTitle",
+          "type": "text",
+          "label": "Título da coluna de contactos"
+        },
+        {
+          "id": "address",
+          "type": "collection",
+          "label": "Morada",
+          "resource": "locations",
+          "properties": [
+            "lines"
+          ],
+          "max": 1
+        },
+        {
+          "id": "phone",
+          "type": "setting",
+          "label": "Telefone",
+          "property": "phone"
+        },
+        {
+          "id": "email",
+          "type": "setting",
+          "label": "Email",
+          "property": "email"
+        },
+        {
+          "id": "name",
+          "type": "setting",
+          "label": "Nome no direito de autor",
+          "property": "name"
+        },
+        {
+          "id": "rights",
+          "type": "text",
+          "label": "Texto do direito de autor"
+        },
+        {
+          "id": "appLabel",
+          "type": "text",
+          "label": "Texto da ligação da app"
+        },
+        {
+          "id": "app",
+          "type": "setting",
+          "label": "Endereço da app",
+          "property": "appUrl"
+        }
+      ],
+      "defaults": {
+        "servicesTitle": "Serviços",
+        "companyTitle": "Empresa",
+        "contactTitle": "Contactos",
+        "company": [
+          {
+            "link": {
+              "label": "Quem somos",
+              "href": "/sobre-nos"
+            }
+          },
+          {
+            "link": {
+              "label": "Contactos",
+              "href": "/contactos"
+            }
+          },
+          {
+            "link": {
+              "label": "Termos e condições",
+              "href": "/termos"
+            }
+          },
+          {
+            "link": {
+              "label": "Política de privacidade",
+              "href": "/privacidade"
+            }
+          }
+        ],
+        "rights": "Todos os direitos reservados.",
+        "appLabel": "Descarregue a nossa app"
+      }
+    }
+  ]
+}
