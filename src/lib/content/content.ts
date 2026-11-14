@@ -1,12 +1,14 @@
 import { unstable_cache } from "next/cache";
 
 import {
+  fetchBlocks,
   fetchLegal,
   fetchLocations,
   fetchServices,
   fetchSettings,
   fetchValues,
 } from "./api";
+import type { Blocks } from "./blocks";
 import {
   emptyLegal,
   emptySettings,
@@ -92,6 +94,16 @@ const readValues = cachedResource(
 );
 
 const readLegal = cachedResource("legal", ["legal"], ["legal"], fetchLegal, emptyLegal);
+
+// The website blocks (casadigital.blocks.json): this site's own copy as the owner
+// edited it in the backoffice, plus the business content each section is bound
+// to. Unavailable or never synced, it is {} and every block renders the copy in
+// this repository.
+const readBlocks = cachedResource("blocks", ["blocks"], ["blocks"], fetchBlocks, (): Blocks => ({}));
+
+export function getBlocks(): Promise<Blocks> {
+  return readBlocks();
+}
 
 export function getSettings(): Promise<Settings> {
   return readSettings();

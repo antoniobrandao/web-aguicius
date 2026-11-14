@@ -17,6 +17,9 @@ export const CONTENT_TAGS = [
   "locations",
   "values",
   "legal",
+  // The website blocks. Pushed on a save in the Website editor, and whenever
+  // content a block is bound to changes on any other screen.
+  "blocks",
 ] as const;
 
 export type ContentTag = (typeof CONTENT_TAGS)[number];

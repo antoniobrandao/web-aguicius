@@ -1,5 +1,6 @@
-import type { z } from "zod";
+import { z } from "zod";
 
+import type { Blocks } from "./blocks";
 import {
   legalSchema,
   locationsSchema,
@@ -30,7 +31,9 @@ const REQUEST_TIMEOUT_MS = 15_000;
 // The platform origin from the contract. The bare domain 308-redirects here, and
 // fetch drops the Authorization header on a cross-origin redirect, so every
 // request to it would come back 401.
-export const API_BASE_URL = "https://www.casadigital.pt";
+// CASADIGITAL_URL overrides it for local work against another deployment, as in
+// scripts/sync-blocks.mjs.
+export const API_BASE_URL = process.env.CASADIGITAL_URL ?? "https://www.casadigital.pt";
 
 export function getSiteApiKey() {
   const apiKey = process.env.SITE_API_KEY;
@@ -105,4 +108,19 @@ export function fetchValues(): Promise<ValueContent[]> {
 
 export function fetchLegal(): Promise<Legal> {
   return fetchResource("/api/v1/legal", "legal", legalSchema);
+}
+
+// What GET /api/v1/blocks serves: one entry per block the manifest declares. The
+// values are checked where they are rendered (src/lib/content/blocks.ts and
+// bound.ts), field by field, so one malformed value costs one fallback and not
+// the whole read.
+const blocksSchema = z.array(
+  z.object({ key: z.string(), values: z.record(z.string(), z.unknown()) }),
+);
+
+/** The website blocks, keyed by block key. */
+export async function fetchBlocks(): Promise<Blocks> {
+  const list = await fetchResource("/api/v1/blocks", "blocks", blocksSchema);
+
+  return Object.fromEntries(list.map((block) => [block.key, block.values]));
 }

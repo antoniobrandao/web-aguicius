@@ -53,7 +53,7 @@ export function toSiteSettings(settings: Settings): SiteSettings {
  * derived here. Empty when there is nothing to call, which is what the components
  * test before rendering a phone link.
  */
-function telHref(phone: string) {
+export function telHref(phone: string) {
   const dialable = phone.replace(/[^+\d]/g, "");
 
   return dialable ? `tel:${dialable}` : "";
