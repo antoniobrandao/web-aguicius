@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { fieldAttrs } from "@/lib/content/blocks";
 import { cn } from "@/lib/utils";
 import type { NavItem } from "@/lib/content/types";
 import { Button } from "@/components/site/ui/button";
@@ -19,10 +20,14 @@ export function NavLinks({
   return (
     <nav className={cn("flex items-center gap-8", className)}>
       {items.map((item) => {
+        const mark = item.field ? fieldAttrs(item.field) : {};
+
         if (item.cta) {
           return (
             <Button key={item.href} asChild variant="primary" size="sm">
-              <Link href={item.href}>{item.label}</Link>
+              <Link {...mark} href={item.href}>
+                {item.label}
+              </Link>
             </Button>
           );
         }
@@ -35,6 +40,7 @@ export function NavLinks({
         return (
           <Link
             key={item.href}
+            {...mark}
             href={item.href}
             className={cn(
               "frontend-small-label relative transition-colors duration-150 ease-out",

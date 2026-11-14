@@ -34,6 +34,8 @@ export type NavItem = {
   label: string;
   href: string;
   cta?: boolean;
+  /** Id of the website block field this label comes from, for the backoffice preview. */
+  field?: string;
 };
 
 export type SiteLocation = LocationContent;

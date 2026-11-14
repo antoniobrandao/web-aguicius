@@ -10,26 +10,43 @@ import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
 import { buildPageMetadata } from "@/lib/content/metadata";
 import { getPrimaryLocation, toSiteSettings } from "@/lib/content/adapters";
-import { getLocations, getSettings } from "@/lib/content/content";
+import { blockAttrs, textOf } from "@/lib/content/blocks";
+import { boundLocations, boundSite, introOf } from "@/lib/content/bound";
+import { getBlocks, getLocations, getSettings } from "@/lib/content/content";
 
 export function generateMetadata(): Promise<Metadata> {
   return buildPageMetadata(pages.contact.seo);
 }
 
 export default async function ContactosPage() {
-  const [settings, locations] = await Promise.all([getSettings(), getLocations()]);
+  const [blocks, settings, locations] = await Promise.all([
+    getBlocks(),
+    getSettings(),
+    getLocations(),
+  ]);
 
-  const site = toSiteSettings(settings);
-  const primaryLocation = getPrimaryLocation(locations);
+  // Bound content: what the block serves, else the resource read here.
+  const site = boundSite(toSiteSettings(settings), blocks, "contact.info");
+  const servedLocations = boundLocations(blocks, "contact.info", "address");
+  const primaryLocation = servedLocations ? servedLocations[0] : getPrimaryLocation(locations);
   const copy = designCopy.contact;
 
   return (
     <>
-      <PageHero {...pages.contact.hero} />
+      <PageHero block="contact.hero" {...introOf(blocks, "contact.hero", pages.contact.hero)} />
 
-      <section className="bg-frontend-bg py-20 lg:py-28">
+      <section {...blockAttrs("contact.info")} className="bg-frontend-bg py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <ContactInfo site={site} location={primaryLocation} />
+          <ContactInfo
+            site={site}
+            location={primaryLocation}
+            labels={{
+              address: textOf(blocks, "contact.info", "addressLabel", "Morada"),
+              phone: textOf(blocks, "contact.info", "phoneLabel", "Telefone"),
+              email: textOf(blocks, "contact.info", "emailLabel", "Email"),
+              schedule: textOf(blocks, "contact.info", "scheduleLabel", "Horário"),
+            }}
+          />
           {primaryLocation?.mapEmbedUrl ? (
             <MapEmbed
               className="min-h-80"
@@ -40,13 +57,15 @@ export default async function ContactosPage() {
         </Container>
       </section>
 
-      <section className="bg-frontend-muted py-20 lg:py-28">
+      <section {...blockAttrs("contact.form")} className="bg-frontend-muted py-20 lg:py-28">
         <Container className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <SectionHeading {...copy.formIntro} />
+            <SectionHeading marked {...introOf(blocks, "contact.form", copy.formIntro)} />
           </div>
           <div className="lg:col-span-7">
-            <ContactForm />
+            <ContactForm
+              submitLabel={textOf(blocks, "contact.form", "submit", copy.form.submitLabel)}
+            />
           </div>
         </Container>
       </section>

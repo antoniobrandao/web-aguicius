@@ -27,6 +27,8 @@ export const siteMeta = {
     "Soluções Smart para o mercado de serviços e transporte eficientes, sustentáveis e de qualidade. Transporte de mercadorias, montagens, instalações e mudanças.",
 } as const;
 
+// The labels of both menus and every page's hero are also fields of website
+// blocks (casadigital.blocks.json); these are their fallbacks. The routes are not.
 export const headerNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Sobre Nós", href: "/sobre-nos" },

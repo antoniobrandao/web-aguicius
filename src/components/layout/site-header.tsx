@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Phone } from "lucide-react";
 
+import { blockAttrs, fieldAttrs } from "@/lib/content/blocks";
 import { cn } from "@/lib/utils";
 import type { NavItem, SiteSettings } from "@/lib/content/types";
 import { Logo } from "@/components/layout/logo";
@@ -27,7 +28,10 @@ export function SiteHeader({
   }, []);
 
   return (
+    // The website block `layout.header`. The mobile menu shows the same labels,
+    // but opens in a portal outside this element, so it carries no marks.
     <header
+      {...blockAttrs("layout.header")}
       className={cn(
         "sticky top-0 z-50 w-full border-b bg-frontend-bg/90 backdrop-blur-md transition-colors duration-150 ease-out",
         scrolled ? "border-frontend-border" : "border-transparent"
@@ -44,7 +48,7 @@ export function SiteHeader({
               className="frontend-small-label hidden items-center gap-2 text-frontend-heading tabular-nums transition-colors duration-150 ease-out hover:text-frontend-brand xl:inline-flex"
             >
               <Phone className="size-4 text-frontend-brand" />
-              {site.phone}
+              <span {...fieldAttrs("phone")}>{site.phone}</span>
             </a>
           ) : null}
           <MobileNav items={navItems} site={site} />

@@ -12,6 +12,11 @@ import type { Cta, FormCopy, SectionIntro } from "@/lib/content/types";
 // the platform does not model any of it.
 //
 // Anything added here should be true of the design, not of the business.
+//
+// Each of these strings is also the default of a field in casadigital.blocks.json
+// (a website block), which the business can edit in the backoffice. What is here
+// is what renders until it does, and whenever the blocks read is unavailable.
+// Keep the two in step: a new string needs a field there to be editable.
 
 export const designCopy = {
   home: {

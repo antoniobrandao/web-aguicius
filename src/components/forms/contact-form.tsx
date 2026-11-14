@@ -4,6 +4,7 @@ import { AlertCircle, CheckCircle2 } from "lucide-react";
 
 import { Field, fieldErrorProps } from "@/components/forms/field";
 import { useLeadForm } from "@/components/forms/use-lead-form";
+import { fieldAttrs } from "@/lib/content/blocks";
 import { Button } from "@/components/site/ui/button";
 import { Input } from "@/components/site/ui/input";
 import { Textarea } from "@/components/site/ui/textarea";
@@ -12,7 +13,8 @@ import { contactFormSchema } from "@/lib/leads/form-schemas";
 
 // General contact form. Posts to /api/contact, which creates a lead tagged as a
 // contact submission in the casadigital dashboard.
-export function ContactForm() {
+// `submitLabel` is the `submit` field of the website block the form sits in.
+export function ContactForm({ submitLabel }: { submitLabel: string }) {
   const copy = designCopy.contact.form;
   const { status, fieldErrors, reset, formProps } = useLeadForm({
     schema: contactFormSchema,
@@ -106,8 +108,9 @@ export function ContactForm() {
         size="lg"
         className="self-start"
         disabled={status === "submitting"}
+        {...fieldAttrs("submit")}
       >
-        {status === "submitting" ? copy.submittingLabel : copy.submitLabel}
+        {status === "submitting" ? copy.submittingLabel : submitLabel}
       </Button>
     </form>
   );

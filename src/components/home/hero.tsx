@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone } from "lucide-react";
 
+import { blockAttrs, fieldAttrs } from "@/lib/content/blocks";
 import type { Cta, SiteSettings } from "@/lib/content/types";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/site/ui/button";
@@ -11,15 +12,16 @@ export function Hero({
   copy,
 }: {
   site: SiteSettings;
-  hero: { eyebrow: string; title: string; description: string };
+  hero: { title: string; description: string };
   copy: {
     heroHighlight: string;
     heroPrimaryCta: Cta;
     heroSecondaryCta: Cta;
   };
 }) {
-  // The headline is authored in the dashboard; the design renders one fragment of
-  // it in the accent colour. An empty or absent fragment must not split the title.
+  // The design renders one fragment of the headline in the accent colour (the
+  // block's `highlight` field, edited in the form: it has no element of its own).
+  // An empty or absent fragment must not split the title.
   const highlight =
     copy.heroHighlight && hero.title.includes(copy.heroHighlight) ? copy.heroHighlight : "";
   const [beforeHighlight, afterHighlight] = highlight
@@ -28,21 +30,30 @@ export function Hero({
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
-    <section className="bg-frontend-muted">
+    <section {...blockAttrs("home.hero")} className="bg-frontend-muted">
       <Container className="py-16 lg:py-24">
-        <h1 className="frontend-display-heading frontend-display-xl max-w-5xl text-frontend-heading">
+        <h1
+          {...fieldAttrs("title")}
+          className="frontend-display-heading frontend-display-xl max-w-5xl text-frontend-heading"
+        >
           {beforeHighlight}
           {highlight ? <span className="text-frontend-brand">{highlight}</span> : null}
           {afterHighlight}
         </h1>
-        <p className="frontend-copy mt-7 max-w-xl text-lg lg:text-xl">{hero.description}</p>
+        <p {...fieldAttrs("description")} className="frontend-copy mt-7 max-w-xl text-lg lg:text-xl">
+          {hero.description}
+        </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-4">
           <Button asChild variant="primary" size="lg">
-            <Link href={copy.heroPrimaryCta.href}>{copy.heroPrimaryCta.label}</Link>
+            <Link {...fieldAttrs("primaryCta")} href={copy.heroPrimaryCta.href}>
+              {copy.heroPrimaryCta.label}
+            </Link>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <Link href={copy.heroSecondaryCta.href}>{copy.heroSecondaryCta.label}</Link>
+            <Link {...fieldAttrs("secondaryCta")} href={copy.heroSecondaryCta.href}>
+              {copy.heroSecondaryCta.label}
+            </Link>
           </Button>
 
           {hasPhone ? (
@@ -53,7 +64,7 @@ export function Hero({
               <span className="inline-flex size-10 items-center justify-center rounded-full bg-frontend-brand-soft text-frontend-brand">
                 <Phone className="size-4" />
               </span>
-              {site.phone}
+              <span {...fieldAttrs("phone")}>{site.phone}</span>
             </a>
           ) : null}
         </div>
