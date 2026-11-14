@@ -16,11 +16,11 @@ Record decisions here, never business data. Names, contacts, addresses, opening 
 | **The business** | _Who they are and what they do, in a sentence — enough to judge a design decision_ |
 | **Goal** | _The one thing a visitor should end up doing: request a quote, make contact, browse past work, find the shop_ |
 | **Audience** | _Who is visiting, and what they already know_ |
-| **Pages** | _The routes this site has, and what each is for_ |
-| **Language** | _e.g. European Portuguese, single locale_ |
+| **Pages** | `/` home (hero, figures, main services, quote band, spotlight service, other services, about band, location). `/servicos` every service: primary and featured ones in full, secondary ones in an accordion. `/sobre-nos` story, locations, values. `/contactos` contact details, map and contact form. `/orcamento` quote request form. `/termos` and `/privacidade` legal text. No per-service detail route: services link to `/servicos` or `/orcamento`. Header and footer on every page. |
+| **Language** | European Portuguese (`pt-PT`), single locale |
 | **Production domain** | _e.g. `https://example.pt`_ |
 | **Design direction** | Light, soft and friendly-professional. White and a faint plum-tinted off-white carry the page; the brand plum (`#850064`) is the only strong colour and appears as contained rounded panels, never as dark grey blocks. Type is Archivo, with headlines in its wide cut, sentence case. Rounded cards with soft plum-tinted shadows, pill buttons. Heroes are type-led, with no illustration. The only decorative element is the road from the logo (plum band, dashed white centre line), used as a thin stripe above the footer. Tokens and component classes live in `src/app/frontend.css`. |
-| **Resources used** | _Which platform resources this site actually renders. A resource nobody renders needs no cache entry, only a tag on the invalidation receiver_ |
+| **Resources used** | `settings`, `services`, `locations`, `values`, `legal`, and `blocks` (the site's own copy, declared in `casadigital.blocks.json`; legal pages and SEO metadata are not blocks). Both forms post to `leads`. `products`, `projects`, `posts`, `testimonials` and `faqs` are not rendered: tags only. |
 | **Out of scope** | _Deliberate exclusions, so they do not get "fixed" later_ |
 
 ## For agents: read the platform's contract before writing integration code
@@ -46,5 +46,7 @@ Nothing else is required: no database, no storage token, no email or SMS provide
 ## Where the integration lives in this repo
 
 `src/lib/content/` — one module reading the API, one wrapping each read in a cache, one Zod mirror of the payloads, one mapping payloads onto the view types the components use. Derive anything mechanical (a `tel:` URI from a phone number, a formatted price from an amount) there, so components never format business data themselves.
+
+`casadigital.blocks.json` declares the website blocks: the site's own copy the business edits in the backoffice's Website editor, one block per page section. `yarn blocks:sync` sends it to the platform; run it by hand after changing the manifest, when the code that reads the new fields is going live, and never from a preview build. `src/lib/content/blocks.ts` reads a block's values with the copy in `src/content/` as the fallback, and `bound.ts` reads the business content a block is bound to. Every section renders its block and carries the `data-cd-*` attributes the live preview needs.
 
 The pages, routing, layout, copy and SEO metadata of this site are this repository's own business. Business data never is — read it from the API so that editing it in the backoffice actually changes the site.

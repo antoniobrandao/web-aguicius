@@ -37,9 +37,18 @@ src/
     api.ts                   # authenticated fetch per resource
     content.ts               # cached reads, one cache tag per resource
     cache.ts                 # cache tag names
+    blocks.ts                # website block values, with this repo's copy as fallback
+    bound.ts                 # business content a block is bound to
     adapters.ts              # content to view types
     types.ts                 # view types
 ```
+
+## Website blocks
+
+`casadigital.blocks.json` declares, section by section, the copy the business can
+edit in the Casa Digital backoffice (Website editor). The strings in
+`src/content/` are the defaults and the fallbacks. After changing the manifest,
+run `yarn blocks:sync` by hand (never from a preview build).
 
 ## Business data vs design copy
 
