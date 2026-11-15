@@ -55,13 +55,8 @@
       "fields": [
         {
           "id": "title",
-          "type": "text",
+          "type": "richText",
           "label": "Título"
-        },
-        {
-          "id": "highlight",
-          "type": "text",
-          "label": "Parte do título a cor"
         },
         {
           "id": "description",
@@ -86,8 +81,7 @@
         }
       ],
       "defaults": {
-        "title": "Multiserviços que movem e transformam.",
-        "highlight": "transporte e serviços",
+        "title": "<p>Multiserviços que movem e transformam.</p>",
         "description": "Da recolha à montagem final, um só parceiro — 100% para si.",
         "primaryCta": {
           "label": "Peça o seu orçamento",

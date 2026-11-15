@@ -9,7 +9,7 @@ import { StatsBar } from "@/components/home/stats-bar";
 import { designCopy } from "@/content/design-copy";
 import { pages } from "@/content/site";
 import { getPrimaryLocation, toService, toSiteSettings } from "@/lib/content/adapters";
-import { linkOf, listOf, textOf } from "@/lib/content/blocks";
+import { htmlOf, inlineHtml, linkOf, listOf, textOf } from "@/lib/content/blocks";
 import {
   boundLocations,
   boundServices,
@@ -63,11 +63,10 @@ export default async function HomePage() {
       <Hero
         site={boundSite(site, blocks, "home.hero")}
         hero={{
-          title: textOf(blocks, "home.hero", "title", pages.home.hero.title),
+          titleHtml: inlineHtml(htmlOf(blocks, "home.hero", "title", pages.home.hero.title)),
           description: textOf(blocks, "home.hero", "description", pages.home.hero.description),
         }}
         copy={{
-          heroHighlight: textOf(blocks, "home.hero", "highlight", copy.heroHighlight),
           heroPrimaryCta: linkOf(blocks, "home.hero", "primaryCta", copy.heroPrimaryCta),
           heroSecondaryCta: linkOf(blocks, "home.hero", "secondaryCta", copy.heroSecondaryCta),
         }}

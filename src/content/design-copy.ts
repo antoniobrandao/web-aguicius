@@ -23,7 +23,6 @@ export const designCopy = {
     // The hero headline comes from the dashboard; this is the fragment of it the
     // design renders in the accent colour. Ignored when it is not part of the
     // headline.
-    heroHighlight: "transporte e serviços",
     heroPrimaryCta: { label: "Peça o seu orçamento", href: "/orcamento" },
     heroSecondaryCta: { label: "Ver serviços", href: "/servicos" },
     heroStats: [
@@ -155,7 +154,6 @@ export const designCopy = {
   },
 } satisfies {
   home: {
-    heroHighlight: string;
     heroPrimaryCta: Cta;
     heroSecondaryCta: Cta;
     heroStats: { value: string; label: string }[];

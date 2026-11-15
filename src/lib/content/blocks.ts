@@ -33,6 +33,18 @@ export function htmlOf(blocks: Blocks, key: string, id: string, fallback: string
   return textOf(blocks, key, id, fallback)
 }
 
+/**
+ * A block's rich text for use inside a heading or a line of text: its paragraphs
+ * joined by line breaks, without the `<p>` wrappers a heading may not contain.
+ */
+export function inlineHtml(html: string): string {
+  return html
+    .trim()
+    .replace(/<\/p>\s*<p>/g, "<br />")
+    .replace(/^<p>/, "")
+    .replace(/<\/p>$/, "")
+}
+
 export function linkOf(
   blocks: Blocks,
   key: string,

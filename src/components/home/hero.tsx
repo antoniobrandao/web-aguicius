@@ -12,21 +12,13 @@ export function Hero({
   copy,
 }: {
   site: SiteSettings;
-  hero: { title: string; description: string };
+  // `titleHtml` is the block's rich text, already inline: it may colour part of the headline.
+  hero: { titleHtml: string; description: string };
   copy: {
-    heroHighlight: string;
     heroPrimaryCta: Cta;
     heroSecondaryCta: Cta;
   };
 }) {
-  // The design renders one fragment of the headline in the accent colour (the
-  // block's `highlight` field, edited in the form: it has no element of its own).
-  // An empty or absent fragment must not split the title.
-  const highlight =
-    copy.heroHighlight && hero.title.includes(copy.heroHighlight) ? copy.heroHighlight : "";
-  const [beforeHighlight, afterHighlight] = highlight
-    ? hero.title.split(highlight)
-    : [hero.title, ""];
   const hasPhone = Boolean(site.phone.trim() && site.phoneHref.trim());
 
   return (
@@ -35,11 +27,8 @@ export function Hero({
         <h1
           {...fieldAttrs("title")}
           className="frontend-display-heading frontend-display-xl max-w-5xl text-frontend-heading"
-        >
-          {beforeHighlight}
-          {highlight ? <span className="text-frontend-brand">{highlight}</span> : null}
-          {afterHighlight}
-        </h1>
+          dangerouslySetInnerHTML={{ __html: hero.titleHtml }}
+        />
         <p {...fieldAttrs("description")} className="frontend-copy mt-7 max-w-xl text-lg lg:text-xl">
           {hero.description}
         </p>
