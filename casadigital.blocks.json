@@ -56,7 +56,8 @@
         {
           "id": "title",
           "type": "richText",
-          "label": "Título"
+          "label": "Título",
+          "background": "#faf6f9"
         },
         {
           "id": "description",
